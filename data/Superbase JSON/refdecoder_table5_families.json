@@ -1,0 +1,82 @@
+{
+  "table": "families",
+  "rows": [
+    {
+      "family_name": "Submariner",
+      "intro_year": 1953,
+      "description": "The Rolex Submariner debuted at the Basel Fair in 1953 as one of the world's first purpose-built diving watches, designed to withstand depths of 100 meters — a figure that has since grown to 300 meters. Its rotating bezel allows divers to track elapsed time underwater, and its clean, legible dial with luminous hour markers has barely changed in seven decades. The Submariner has become the defining template for the dive watch genre, influencing virtually every professional diver's watch that followed. Available in steel, two-tone, and full gold configurations, it is Rolex's most recognizable and widely sold watch.",
+      "known_for": "The definitive professional dive watch and the most recognized luxury watch in the world.",
+      "price_tier": "Mid"
+    },
+    {
+      "family_name": "Daytona",
+      "intro_year": 1963,
+      "description": "The Rolex Cosmograph Daytona was introduced in 1963 as a driver's chronograph, named after the Daytona International Speedway in Florida. Its tachymeter bezel allows drivers to measure average speed over a known distance, and its three subdials track elapsed time to split-second precision. Early Daytonas, particularly those with exotic 'Paul Newman' dials, have become the most valuable modern wristwatches at auction. The 2000 introduction of Rolex's in-house Cal. 4130 movement marked a turning point that elevated the Daytona from a respected chronograph to a mechanical tour de force.",
+      "known_for": "The most coveted chronograph in the world, with a heritage as dramatic as any in horology.",
+      "price_tier": "High"
+    },
+    {
+      "family_name": "GMT-Master II",
+      "intro_year": 1983,
+      "description": "The GMT-Master was created in collaboration with Pan American World Airways in 1955 to allow their transatlantic pilots to read two time zones simultaneously via a 24-hour hand and a bidirectional bezel. The GMT-Master II arrived in 1983 with an independently adjustable hour hand, allowing a third time zone to be tracked. Its two-tone ceramic bezels — Pepsi blue/red, Batman blue/black, Root Beer brown/black — have given each generation distinctive nicknames and made it one of the most personality-rich families in watchmaking. Today it is the benchmark for travel and complication watches at the sport luxury level.",
+      "known_for": "The ultimate travel watch, beloved for its colorful bezels and three-timezone functionality.",
+      "price_tier": "Mid"
+    },
+    {
+      "family_name": "Datejust",
+      "intro_year": 1945,
+      "description": "The Rolex Datejust, introduced in 1945 to celebrate Rolex's 40th anniversary, was the first self-winding wristwatch to display the date in a window at 3 o'clock — a feature so novel at the time it seemed like magic. Its cyclops lens over the date window, the iconic Jubilee bracelet, and the variety of bezels (fluted, smooth, gem-set) have made it Rolex's most versatile and widely produced reference over eight decades. The Datejust spans everything from entry-level Rolex ownership to diamond-set showpieces, making it the brand's most democratic model. It is available in 36mm and 41mm case sizes and nearly endless dial and bracelet combinations.",
+      "known_for": "The original date-display wristwatch and the most versatile Rolex ever made.",
+      "price_tier": "Entry"
+    },
+    {
+      "family_name": "Day-Date",
+      "intro_year": 1956,
+      "description": "The Rolex Day-Date debuted in 1956 as the first watch to display both the date and the day of the week spelled out in full, a complication that required Rolex to produce its movements with day discs in 26 languages. Critically, the Day-Date has always been produced exclusively in precious metals — yellow gold, white gold, Everose gold, or platinum — and paired exclusively with the President bracelet, cementing its status as Rolex's ultimate dress watch. Its association with world leaders, business figures, and cultural icons has made it informally known as 'The President's Watch.' The Day-Date represents Rolex's most exclusive standard production offering.",
+      "known_for": "The most prestigious Rolex ever made, offered exclusively in precious metals.",
+      "price_tier": "Flagship"
+    },
+    {
+      "family_name": "Explorer",
+      "intro_year": 1953,
+      "description": "The Rolex Explorer was officially introduced in 1953 in conjunction with the first successful summit of Mount Everest by Sir Edmund Hillary and Tenzing Norgay, both wearing Rolex watches. Its design philosophy is radical minimalism: a plain black dial with bold luminous 3-6-9 Arabic numerals, a smooth bezel, and a robust Oyster case. The Explorer has maintained this visual language more faithfully than almost any other watch in production, making it one of the most enduring and pure designs in horology. Its compact 36mm case size — restored in 2021 — is beloved by collectors who prefer proportional, understated sport watches.",
+      "known_for": "The purest expression of the Rolex design philosophy: simplicity in service of function.",
+      "price_tier": "Entry"
+    },
+    {
+      "family_name": "Yacht-Master",
+      "intro_year": 1992,
+      "description": "The Rolex Yacht-Master was introduced in 1992 as a luxury sport watch inspired by the world of sailing, featuring a distinctive bidirectional rotating bezel with raised numerals and a matte finish — technically different from the Submariner's dive-focused unidirectional bezel. It has always been positioned above the Submariner in terms of materials and luxury character, often pairing precious metals or two-tone Rolesor construction with the Oysterflex bracelet. The Yacht-Master II, a sister model, includes a regatta countdown mechanism. The standard Yacht-Master is available in 37mm, 40mm, and 42mm case sizes across a wide range of material combinations.",
+      "known_for": "Rolex's luxury sport watch for the sea, bridging professional credentials with precious metal elegance.",
+      "price_tier": "High"
+    },
+    {
+      "family_name": "Sea-Dweller",
+      "intro_year": 1967,
+      "description": "The Sea-Dweller was developed in the late 1960s in collaboration with COMEX, the French commercial diving company, to meet the demands of saturation diving at extreme depths where helium accumulates inside the watch case. Its helium escape valve — a small valve on the case side — allows the trapped gas to vent safely during decompression, preventing the crystal from blowing off. Water resistance has grown from 610 meters at introduction to 300 meters on the standard Sea-Dweller and 3,900 meters on the extreme Deepsea variant. The Sea-Dweller occupies the most technically serious tier of Rolex's dive watch lineup.",
+      "known_for": "The professional saturation diver's tool watch, built for depths no recreational diver will ever reach.",
+      "price_tier": "Mid"
+    },
+    {
+      "family_name": "Sky-Dweller",
+      "intro_year": 2012,
+      "description": "The Sky-Dweller is the most complex standard-production Rolex, introduced in 2012 as a travel watch featuring an annual calendar (which automatically accounts for months of different lengths) and a dual time zone display using an off-center 24-hour disc. Its setting system uses the bezel to select between functions — an intuitive approach to managing a complex watch's functions. The Sky-Dweller was Rolex's first truly new watch complication in decades and remains the brand's most technically sophisticated offering outside the Daytona chronograph. It is offered in steel, two-tone, and full precious metal configurations.",
+      "known_for": "Rolex's most complex watch, with an annual calendar and dual time zone in a wearable package.",
+      "price_tier": "High"
+    },
+    {
+      "family_name": "Air-King",
+      "intro_year": 1945,
+      "description": "The Air-King has a long and somewhat interrupted history at Rolex, originally introduced in the 1940s as part of a series honoring Royal Air Force pilots during World War II. The modern Air-King was relaunched in 2016 with a distinctive bold black dial featuring a mix of Arabic numerals and applied markers — a unique departure from most Rolex dial conventions — and is powered by the anti-magnetic Cal. 3131. It sits at the entry level of the current Rolex sport watch lineup in stainless steel only. The Air-King's design is polarizing but has developed its own following among collectors who appreciate its unconventional legibility-focused aesthetic.",
+      "known_for": "Rolex's entry-level sport watch with a bold, unconventional dial that stands apart in the lineup.",
+      "price_tier": "Entry"
+    },
+    {
+      "family_name": "Milgauss",
+      "intro_year": 1956,
+      "description": "The Milgauss was developed in 1956 for scientists and engineers working in environments with strong magnetic fields — notably at CERN's particle physics laboratory in Geneva — and was engineered to resist magnetic fields up to 1,000 gauss (hence the name, from the French mille for thousand). Its lightning bolt seconds hand and distinctive dial designs make it the most visually idiosyncratic watch in the Rolex catalogue. Production was intermittent for decades before a major revival in 2007 that brought the modern 116400 references. The Milgauss is the most technically specialized standard-production Rolex, appealing to collectors who want a watch with a specific functional story.",
+      "known_for": "Rolex's anti-magnetic watch, built for scientists and beloved by collectors for its quirky character.",
+      "price_tier": "Mid"
+    }
+  ]
+}

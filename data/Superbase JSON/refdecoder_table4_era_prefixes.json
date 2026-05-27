@@ -1,0 +1,55 @@
+{
+  "table": "era_prefixes",
+  "rows": [
+    {
+      "prefix": "10",
+      "decade_range": "Late 1980s–1990s",
+      "notes": "Five-digit references beginning with '10' appear in the late 1980s and 1990s for certain sport and professional models, including early Explorer variants. This era predates the widespread adoption of the six-digit reference format and often used aluminum bezels, tritium lume, and earlier-generation movements without modern hacking or quickset complications on all models."
+    },
+    {
+      "prefix": "11",
+      "decade_range": "1990s–2000s",
+      "notes": "The '11' prefix covers a broad range of sport and professional references active through the 1990s and into the 2000s. This generation introduced calibers such as the Cal. 3135 and Cal. 3186, aluminum bezel inserts (prior to ceramic), and Supercase construction on dive watches. It represents the last generation before Rolex's systematic transition to Cerachrom ceramic bezels."
+    },
+    {
+      "prefix": "114",
+      "decade_range": "Late 1980s–2010s",
+      "notes": "The '114' prefix is associated primarily with Explorer references (114270, 114060) and covers the 36mm format. These references used Cal. 3130 and its variants, predating the Parachrom hairspring generation. Explorer 114270 had a notably long production run from 1989 to 2010, cementing it as the defining modern Explorer for a generation of collectors."
+    },
+    {
+      "prefix": "116",
+      "decade_range": "2000s–2020s",
+      "notes": "The '116' generation is the modern era for Rolex sport and professional watches, spanning roughly 2000 to 2020 and covering the vast majority of ceramic-bezel introductions. This prefix generation introduced Cerachrom bezels across Submariner, GMT-Master II, Daytona, and Sea-Dweller families, the Cal. 3135/3186/4130 movement generation, and the Supercase profile. The '116' references are the most widely collected modern Rolex generation."
+    },
+    {
+      "prefix": "118",
+      "decade_range": "2000s–2015",
+      "notes": "The '118' prefix is specific to the Day-Date 36mm generation active in the 2000s through 2015, when the model was updated to the Day-Date 40. References like 118238 (yellow gold) and 118239 (white gold) used the Cal. 3155 movement with a classic date and day display. This generation is the last 36mm Day-Date before Rolex standardized on the 40mm case for the current lineup."
+    },
+    {
+      "prefix": "12",
+      "decade_range": "2015–present",
+      "notes": "The '12' prefix defines the current generation of Rolex references, with major launches from 2015 onward. This era introduced the Cal. 3235/3255/3285/4130 generation of movements with 70-hour power reserves, the Chronergy escapement, updated Oyster and Jubilee bracelets with improved ergonomics, and case size updates (Submariner to 41mm, Sea-Dweller to 43mm, Explorer back to 36mm). The '12' generation is the current standard across all families."
+    },
+    {
+      "prefix": "124",
+      "decade_range": "2021–present",
+      "notes": "The '124' prefix covers the current Explorer generation, specifically the 124270 (Explorer 36mm) and 124060 (Explorer II). The 124270 marked a celebrated return to the original 36mm Explorer case size after the 39mm 214270 generation. Movement is the Cal. 3230 with a 70-hour power reserve, and the updated Oyster bracelet features finer finishing than its predecessors."
+    },
+    {
+      "prefix": "126",
+      "decade_range": "2017–present",
+      "notes": "The '126' prefix is the broadest current-generation marker, covering updated Submariners (126610), GMT-Master II (126710, 126711), Datejust 41 (126300, 126333, 126334), Day-Date 40 (228238, 228239), and Sea-Dweller (126600, 126603, 126660). This prefix generation is characterized by Cal. 3235/3285/3255 movements, improved bracelet construction, and incremental case refinements. For buyers purchasing new today, most desirable references fall within this prefix."
+    },
+    {
+      "prefix": "214",
+      "decade_range": "2010–2021",
+      "notes": "The '214' prefix is specific to the Explorer 39mm generation (214270), which grew the Explorer from its original 36mm size. This single-reference prefix era is notable for the 'long hand' vs 'short hand' production variation — early 214270s had longer hour and minute hands revised in a 2016 update — creating a within-reference collecting distinction. The 214270 was discontinued in 2021 when the 124270 restored the 36mm dimension."
+    },
+    {
+      "prefix": "228",
+      "decade_range": "2015–present",
+      "notes": "The '228' prefix is associated with the Day-Date 40, introduced when Rolex expanded the President's Watch from 36mm to 40mm in 2015. References 228238 (yellow gold), 228239 (white gold), and 228206 (platinum) use the Cal. 3255 with the Chronergy escapement. The platinum 228206 with its exclusive ice blue dial sits at the absolute pinnacle of the Rolex catalogue within this prefix."
+    }
+  ]
+}

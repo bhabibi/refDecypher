@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RefDecoder — Decode Rolex Reference Numbers</title>
+  <meta name="description" content="An independent educational tool for watch enthusiasts to understand how Rolex reference numbers work. Enter any reference number and decode it segment by segment." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ── Header ──────────────────────────────────────────────────────── -->
+  <header>
+    <div class="container">
+      <div class="header-inner">
+        <span class="site-name">RefDecoder</span>
+        <span class="site-tagline">Every number tells a story. Learn to read it.</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ── Hero ──────────────────────────────────────────────────────── -->
+    <section class="hero">
+      <div class="container">
+        <p class="hero-eyebrow">Independent Enthusiast Reference</p>
+        <h1 class="hero-title">
+          Decode Any <em>Reference Number</em><br>Segment by Segment
+        </h1>
+        <p class="hero-sub">
+          Watch reference numbers are not random — each digit encodes a generation, a model, a bezel style, and a bracelet type. RefDecoder makes every part legible.
+        </p>
+      </div>
+    </section>
+
+    <!-- ── How It Works ───────────────────────────────────────────────── -->
+    <section class="how-it-works">
+      <div class="container">
+        <h2>How It Works</h2>
+        <div class="steps-strip">
+
+          <div class="step">
+            <span class="step-num">Step 01</span>
+            <span class="step-icon">&#9998;</span>
+            <p class="step-title">Enter a Reference Number</p>
+            <p class="step-desc">Type any reference number into the decoder — as you type, the tool works in real time. Try <code style="color:var(--gold);font-family:'DM Mono',monospace;">116613</code> or <code style="color:var(--gold);font-family:'DM Mono',monospace;">126610LN</code>.</p>
+          </div>
+
+          <div class="step">
+            <span class="step-num">Step 02</span>
+            <span class="step-icon">&#9776;</span>
+            <p class="step-title">We Break It Down Segment by Segment</p>
+            <p class="step-desc">Each portion of the number is separated into colour-coded boxes: Era, Model Code, Bezel Type, and Bracelet Type.</p>
+          </div>
+
+          <div class="step">
+            <span class="step-num">Step 03</span>
+            <span class="step-icon">&#128270;</span>
+            <p class="step-title">Understand What Each Part Means and Why It Matters</p>
+            <p class="step-desc">A full result card reveals the model name, materials, production era, and a note on market significance.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <!-- ── Decoder Tool ───────────────────────────────────────────────── -->
+    <section class="decoder-section" id="decoder">
+      <div class="container">
+        <h2 class="section-title">The Decoder</h2>
+        <p class="section-sub">Type a reference number below — results appear instantly as you type.</p>
+
+        <!-- Input -->
+        <div class="decoder-input-wrap">
+          <input
+            type="text"
+            id="ref-input"
+            class="mono"
+            placeholder="Try 116613 or 126610LN&hellip;"
+            maxlength="20"
+            autocomplete="off"
+            autocorrect="off"
+            spellcheck="false"
+            aria-label="Reference number input"
+          />
+        </div>
+
+        <!-- Placeholder -->
+        <div id="decoder-placeholder" class="decoder-placeholder">
+          Enter a reference number above to begin decoding&hellip;
+        </div>
+
+        <!-- Segment Boxes -->
+        <div class="segments-strip">
+
+          <div class="seg-box hidden" id="seg-era" aria-label="Era segment">
+            <span class="seg-label dot-blue">Era / Generation</span>
+            <span class="seg-value mono" id="seg-era-value">—</span>
+            <span class="seg-decoded" id="seg-era-decoded"></span>
+          </div>
+
+          <div class="seg-box hidden" id="seg-model" aria-label="Model code segment">
+            <span class="seg-label dot-gold">Model Code</span>
+            <span class="seg-value mono" id="seg-model-value">—</span>
+            <span class="seg-decoded" id="seg-model-decoded"></span>
+          </div>
+
+          <div class="seg-box hidden" id="seg-bezel" aria-label="Bezel type segment">
+            <span class="seg-label dot-green">Bezel Type</span>
+            <span class="seg-value mono" id="seg-bezel-value">—</span>
+            <span class="seg-decoded" id="seg-bezel-decoded"></span>
+          </div>
+
+          <div class="seg-box hidden" id="seg-bracelet" aria-label="Bracelet type segment">
+            <span class="seg-label dot-rose">Bracelet</span>
+            <span class="seg-value mono" id="seg-bracelet-value">—</span>
+            <span class="seg-decoded" id="seg-bracelet-decoded"></span>
+          </div>
+
+          <div class="seg-box hidden" id="seg-suffix" aria-label="Suffix segment">
+            <span class="seg-label">Suffix</span>
+            <span class="seg-value mono" id="seg-suffix-value">—</span>
+            <span class="seg-decoded" id="seg-suffix-decoded"></span>
+          </div>
+
+        </div>
+
+        <!-- Result Card -->
+        <div id="result-card" class="hidden" aria-live="polite"></div>
+
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <!-- ── Reference Data Guide ───────────────────────────────────────── -->
+    <section class="ref-guide" id="guide">
+      <div class="container">
+        <h2 class="section-title">Reference Data Guide</h2>
+        <p class="section-sub">A complete index of every code used in the decoder.</p>
+
+        <div class="ref-guide-grid">
+
+          <!-- Era Prefixes -->
+          <div class="ref-card">
+            <div class="ref-card-header">
+              <span class="ref-card-icon dot-blue">&#9632;</span>
+              <h3>Era Prefix <span style="color:var(--text-faint);font-weight:400">(Digits 1–2)</span></h3>
+            </div>
+            <table class="ref-table">
+              <thead>
+                <tr><th>Code</th><th>Era</th><th>Approx. Years</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>14</td><td>Vintage — Classic era</td><td>1980s–1990s</td></tr>
+                <tr><td>16</td><td>Transitional generation</td><td>1990s–2000s</td></tr>
+                <tr><td>11</td><td>Modern generation</td><td>2000s–2010s</td></tr>
+                <tr><td>12</td><td>Current generation</td><td>2020–present</td></tr>
+                <tr><td>22</td><td>Premium / Precious metal</td><td>2015–present</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Bezel Codes -->
+          <div class="ref-card">
+            <div class="ref-card-header">
+              <span class="ref-card-icon dot-green">&#9632;</span>
+              <h3>Bezel Code <span style="color:var(--text-faint);font-weight:400">(Digit 6)</span></h3>
+            </div>
+            <table class="ref-table">
+              <thead>
+                <tr><th>Digit</th><th>Bezel Type</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>0</td><td>Smooth — plain, polished</td></tr>
+                <tr><td>1</td><td>Unidirectional rotating (dive)</td></tr>
+                <tr><td>2</td><td>Engraved</td></tr>
+                <tr><td>3</td><td>Fluted — engine-turned</td></tr>
+                <tr><td>4</td><td>Gem-set / diamond</td></tr>
+                <tr><td>5</td><td>Bidirectional rotating (GMT)</td></tr>
+                <tr><td>6</td><td>Tachymeter (Daytona)</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Bracelet Codes -->
+          <div class="ref-card">
+            <div class="ref-card-header">
+              <span class="ref-card-icon dot-rose">&#9632;</span>
+              <h3>Bracelet Code <span style="color:var(--text-faint);font-weight:400">(Digit 7)</span></h3>
+            </div>
+            <table class="ref-table">
+              <thead>
+                <tr><th>Digit</th><th>Bracelet</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>0</td><td>Oyster — stainless steel</td></tr>
+                <tr><td>1</td><td>Jubilee — stainless steel</td></tr>
+                <tr><td>3</td><td>Oyster — two-tone SS + gold</td></tr>
+                <tr><td>4</td><td>Jubilee — two-tone</td></tr>
+                <tr><td>8</td><td>Oyster — full yellow gold</td></tr>
+                <tr><td>9</td><td>Oyster — white gold</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Suffix Codes -->
+          <div class="ref-card">
+            <div class="ref-card-header">
+              <span class="ref-card-icon" style="color:var(--text-dim)">&#9632;</span>
+              <h3>Suffix Codes <span style="color:var(--text-faint);font-weight:400">(After digits)</span></h3>
+            </div>
+            <table class="ref-table">
+              <thead>
+                <tr><th>Code</th><th>Meaning</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>LN</td><td>Black ceramic (Cerachrom) bezel</td></tr>
+                <tr><td>LV</td><td>Green ceramic bezel — Hulk / Kermit</td></tr>
+                <tr><td>LB</td><td>Blue ceramic bezel</td></tr>
+                <tr><td>BLNR</td><td>Black + blue ceramic — Batman</td></tr>
+                <tr><td>BLRO</td><td>Black + red ceramic — Pepsi</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Model Codes — full width -->
+          <div class="ref-card full-width">
+            <div class="ref-card-header">
+              <span class="ref-card-icon dot-gold">&#9632;</span>
+              <h3>Known Model References <span style="color:var(--text-faint);font-weight:400">(Full 6-digit code)</span></h3>
+            </div>
+            <table class="ref-table">
+              <thead>
+                <tr><th>Reference</th><th>Model</th><th>Material</th><th>Era</th><th>Category</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>116610</td><td>Submariner Date</td><td>Stainless Steel</td><td>pre-2020</td><td>Dive Watch</td></tr>
+                <tr><td>116613</td><td>Submariner Date</td><td>Steel + Yellow Gold</td><td>pre-2020</td><td>Dive Watch</td></tr>
+                <tr><td>116618</td><td>Submariner Date</td><td>Full Yellow Gold</td><td>pre-2020</td><td>Dive Watch</td></tr>
+                <tr><td>126610</td><td>Submariner Date</td><td>Stainless Steel</td><td>2020–present</td><td>Dive Watch</td></tr>
+                <tr><td>126613</td><td>Submariner Date</td><td>Steel + Yellow Gold</td><td>2020–present</td><td>Dive Watch</td></tr>
+                <tr><td>116500</td><td>Daytona</td><td>Stainless Steel</td><td>pre-2023</td><td>Chronograph</td></tr>
+                <tr><td>126500</td><td>Daytona</td><td>Stainless Steel</td><td>2023–present</td><td>Chronograph</td></tr>
+                <tr><td>116520</td><td>Daytona</td><td>Stainless Steel</td><td>pre-2016</td><td>Chronograph</td></tr>
+                <tr><td>116710</td><td>GMT-Master II</td><td>Stainless Steel</td><td>pre-2019</td><td>GMT / Traveler</td></tr>
+                <tr><td>126710</td><td>GMT-Master II</td><td>Stainless Steel</td><td>2019–present</td><td>GMT / Traveler</td></tr>
+                <tr><td>228238</td><td>Day-Date 40</td><td>18k Yellow Gold</td><td>2015–present</td><td>Dress Watch</td></tr>
+                <tr><td>116233</td><td>Datejust 36</td><td>Steel + Yellow Gold</td><td>pre-2016</td><td>Dress Watch</td></tr>
+                <tr><td>126334</td><td>Datejust 41</td><td>Stainless Steel</td><td>2016–present</td><td>Dress Watch</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── Footer ──────────────────────────────────────────────────────────── -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <div class="footer-brand">RefDecoder</div>
+          <div class="footer-tagline">Built for watch enthusiasts, by watch enthusiasts.</div>
+        </div>
+        <p class="footer-disclaimer">
+          RefDecoder is an independent enthusiast resource and is not affiliated with, endorsed by, or connected to Rolex SA or any of its subsidiaries. All reference information is sourced from public enthusiast communities. Reference numbers, model names, and associated descriptions are used here purely for educational and informational purposes.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="data/references.js"></script>
+  <script src="decoder.js"></script>
+</body>
+</html>

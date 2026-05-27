@@ -1,0 +1,65 @@
+{
+  "table": "bezel_codes",
+  "rows": [
+    {
+      "code": "LN",
+      "type": "suffix",
+      "description": "Black ceramic (Cerachrom) bezel. 'LN' stands for lunette noire — French for 'black bezel.' Used on Submariners, GMT-Master IIs, and Sea-Dwellers to denote a full black ceramic bezel insert.",
+      "applicable_families": ["Submariner", "GMT-Master II", "Sea-Dweller"]
+    },
+    {
+      "code": "LV",
+      "type": "suffix",
+      "description": "Green ceramic (Cerachrom) bezel. 'LV' stands for lunette verte — French for 'green bezel.' First appeared on the 16610LV 'Kermit' with an aluminum green bezel in 2003, and later on the ceramic 116610LV 'Hulk' and 126610LV 'Cermit.'",
+      "applicable_families": ["Submariner"]
+    },
+    {
+      "code": "LB",
+      "type": "suffix",
+      "description": "Blue ceramic (Cerachrom) bezel. 'LB' stands for lunette bleue — French for 'blue bezel.' Appears on blue-bezel Submariners in steel and gold variants, as well as on some Yacht-Master references.",
+      "applicable_families": ["Submariner", "Yacht-Master"]
+    },
+    {
+      "code": "BLNR",
+      "type": "suffix",
+      "description": "Blue and black two-tone ceramic bezel. Stands for bleu-noir (French for 'blue-black'). Rolex uses a proprietary single-piece ceramic process to achieve two distinct colors in one bezel insert. Associated with the 'Batman' and 'Batgirl' GMT-Master II references.",
+      "applicable_families": ["GMT-Master II"]
+    },
+    {
+      "code": "BLRO",
+      "type": "suffix",
+      "description": "Blue and red two-tone ceramic bezel. Stands for bleu-rouge (French for 'blue-red'). This is the classic 'Pepsi' bezel color scheme, first used on aluminum bezels in the 1950s and revived in ceramic form on the 116710BLRO. Traditionally, blue represents night and red represents day on the 24-hour scale.",
+      "applicable_families": ["GMT-Master II"]
+    },
+    {
+      "code": "CHNR",
+      "type": "suffix",
+      "description": "Brown (chocolate) and black two-tone ceramic bezel. Stands for chocolat-noir (French for 'chocolate-black'). Used on the 'Root Beer' GMT-Master II references, typically paired with Everose gold Rolesor construction.",
+      "applicable_families": ["GMT-Master II"]
+    },
+    {
+      "code": "1",
+      "type": "digit",
+      "description": "In the older 5- and 6-digit reference system, a leading digit of '1' in certain positions indicates a specific bezel variant — most notably used in the Submariner and Sea-Dweller families to denote a rotating dive bezel with minute markings, as opposed to a fixed bezel.",
+      "applicable_families": ["Submariner", "Sea-Dweller"]
+    },
+    {
+      "code": "6",
+      "type": "digit",
+      "description": "In vintage and transitional reference codes, the digit '6' in the bezel position typically denotes a fluted bezel. This is most commonly seen in Datejust and Day-Date references, where a fluted bezel in gold is a defining characteristic.",
+      "applicable_families": ["Datejust", "Day-Date"]
+    },
+    {
+      "code": "8",
+      "type": "digit",
+      "description": "In certain Datejust and Day-Date references, the digit '8' in the bezel position indicates a gem-set (diamond or other precious stone) bezel. Gem-set bezels are typically set with brilliant-cut diamonds and are available on precious metal models.",
+      "applicable_families": ["Datejust", "Day-Date", "Yacht-Master"]
+    },
+    {
+      "code": "NG",
+      "type": "suffix",
+      "description": "Nouveauté Gemmes — indicates a gem-set bezel with precious stones, usually diamonds. Appears in some Rolex suffix notations for special-order or high-jewelry variants of standard references.",
+      "applicable_families": ["Datejust", "Day-Date"]
+    }
+  ]
+}

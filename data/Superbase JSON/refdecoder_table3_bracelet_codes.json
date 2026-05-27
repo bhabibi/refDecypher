@@ -1,0 +1,41 @@
+{
+  "table": "bracelet_codes",
+  "rows": [
+    {
+      "code": "Oyster",
+      "description": "The Oyster bracelet is Rolex's flagship three-link sport bracelet, first introduced in 1947. It features broad, flat center links flanked by smaller outer links, creating a robust and masculine look. The Oyster is the default bracelet on most Rolex sport and professional models and is available in stainless steel, two-tone Rolesor, and full gold configurations.",
+      "material": "Stainless Steel, Two-tone Rolesor, or Full Gold",
+      "applicable_families": ["Submariner", "GMT-Master II", "Sea-Dweller", "Daytona", "Explorer", "Air-King", "Milgauss", "Datejust", "Yacht-Master"]
+    },
+    {
+      "code": "Jubilee",
+      "description": "The five-link Jubilee bracelet was designed specifically for the Datejust in 1945, its jubilee year. It features a more intricate five-piece link construction that gives it greater flexibility and a dressier appearance. The Jubilee has expanded to GMT-Master II, Datejust 41, and Day-Date 36 references in recent years and is widely praised for its wrist comfort.",
+      "material": "Stainless Steel, Two-tone Rolesor, or Full Gold",
+      "applicable_families": ["Datejust", "GMT-Master II", "Day-Date"]
+    },
+    {
+      "code": "President",
+      "description": "The President bracelet is the most exclusive Rolex bracelet, available only on the Day-Date and only in precious metals (yellow gold, white gold, Everose gold, or platinum). It features three semi-circular links and a concealed Crownclasp. The name derives from its association with US President Dwight D. Eisenhower, who received a Day-Date in 1956.",
+      "material": "18k Yellow Gold, 18k White Gold, Everose Gold, or Platinum",
+      "applicable_families": ["Day-Date"]
+    },
+    {
+      "code": "Pearlmaster",
+      "description": "The Pearlmaster bracelet is used exclusively on the Pearlmaster and certain high-jewelry Lady-Datejust references. It features five rounded links with a fully integrated and concealed clasp, and is produced only in precious metals, often set with diamonds or other precious stones on the links.",
+      "material": "18k Yellow Gold, 18k White Gold, or Everose Gold",
+      "applicable_families": ["Pearlmaster"]
+    },
+    {
+      "code": "Oysterflex",
+      "description": "Introduced by Rolex in 2015, the Oysterflex is a high-performance elastomer bracelet built on a metal (titanium and nickel alloy) blade frame. It combines the comfort and flexibility of a rubber strap with the security and wrist-lock of a traditional metal bracelet. It includes a micro-adjustable Glidelock clasp and is available on Daytona, Yacht-Master, and Sky-Dweller references.",
+      "material": "Elastomer over Titanium-Nickel alloy blade",
+      "applicable_families": ["Daytona", "Yacht-Master", "Sky-Dweller"]
+    },
+    {
+      "code": " Oyster (Glidelock)",
+      "description": "A variant of the standard Oyster bracelet fitted with Rolex's patented Glidelock extension system, which allows fine-tuning of bracelet length in 2mm increments without tools. Standard on all current Submariner and Sea-Dweller references, it allows the bracelet to be worn comfortably over a wetsuit.",
+      "material": "Stainless Steel or Two-tone Rolesor",
+      "applicable_families": ["Submariner", "Sea-Dweller"]
+    }
+  ]
+}

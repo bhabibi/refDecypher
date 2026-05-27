@@ -1,0 +1,608 @@
+/* ── Reset & Base ──────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #0D0D0D;
+  --surface:   #1A1A1A;
+  --surface2:  #222222;
+  --gold:      #C9A84C;
+  --gold-dim:  #8a6f2e;
+  --gold-glow: rgba(201,168,76,0.18);
+  --text:      #F0EDE6;
+  --text-dim:  #9a9590;
+  --text-faint:#5a5650;
+  --blue:      #4a7fc1;
+  --green:     #4a9c6a;
+  --rose:      #b85c78;
+  --border:    rgba(201,168,76,0.18);
+  --radius:    10px;
+}
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "DM Sans", sans-serif;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ── Typography ────────────────────────────────────────────────────────── */
+h1, h2, h3 { font-family: "Playfair Display", serif; }
+
+.mono { font-family: "DM Mono", monospace; }
+
+/* ── Utility ────────────────────────────────────────────────────────────── */
+.hidden { display: none !important; }
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ── Header / Hero ──────────────────────────────────────────────────────── */
+header {
+  border-bottom: 1px solid var(--border);
+  padding: 20px 0 16px;
+  animation: fadeIn 800ms ease both;
+}
+
+.header-inner {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+
+.site-name {
+  font-family: "Playfair Display", serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.02em;
+}
+
+.site-tagline {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+/* ── Hero Strip ─────────────────────────────────────────────────────────── */
+.hero {
+  padding: 64px 0 48px;
+  text-align: center;
+  animation: fadeIn 800ms ease 100ms both;
+}
+
+.hero-eyebrow {
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+
+.hero-title {
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 16px;
+  color: var(--text);
+}
+
+.hero-title em {
+  font-style: normal;
+  color: var(--gold);
+}
+
+.hero-sub {
+  font-size: 1.05rem;
+  color: var(--text-dim);
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+/* ── How It Works ───────────────────────────────────────────────────────── */
+.how-it-works {
+  padding: 0 0 64px;
+  animation: fadeIn 800ms ease 200ms both;
+}
+
+.how-it-works h2 {
+  text-align: center;
+  font-size: 1.4rem;
+  color: var(--text-dim);
+  margin-bottom: 36px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+}
+
+.steps-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.step {
+  background: var(--surface);
+  padding: 32px 28px;
+  position: relative;
+}
+
+.step-num {
+  font-family: "DM Mono", monospace;
+  font-size: 0.75rem;
+  color: var(--gold);
+  letter-spacing: 0.12em;
+  margin-bottom: 14px;
+  display: block;
+}
+
+.step-icon {
+  font-size: 1.6rem;
+  margin-bottom: 12px;
+  display: block;
+  line-height: 1;
+}
+
+.step-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.step-desc {
+  font-size: 0.88rem;
+  color: var(--text-dim);
+  line-height: 1.55;
+}
+
+/* ── Decoder Tool ───────────────────────────────────────────────────────── */
+.decoder-section {
+  padding: 64px 0;
+  animation: fadeIn 800ms ease 300ms both;
+}
+
+.section-title {
+  font-size: 1.7rem;
+  color: var(--gold);
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.section-sub {
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 0.92rem;
+  margin-bottom: 40px;
+}
+
+/* Input */
+.decoder-input-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+#ref-input {
+  width: 100%;
+  max-width: 520px;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  font-family: "DM Mono", monospace;
+  font-size: 1.35rem;
+  padding: 16px 22px;
+  outline: none;
+  letter-spacing: 0.08em;
+  transition: border-color 250ms, box-shadow 250ms;
+}
+
+#ref-input::placeholder {
+  color: var(--text-faint);
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+}
+
+#ref-input:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px var(--gold-glow);
+}
+
+/* Placeholder state */
+.decoder-placeholder {
+  text-align: center;
+  padding: 28px;
+  color: var(--text-faint);
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+/* Segment strip */
+.segments-strip {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+  min-height: 110px;
+  align-items: center;
+}
+
+.seg-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 18px;
+  min-width: 120px;
+  max-width: 200px;
+  transition: border-color 250ms, box-shadow 250ms;
+  cursor: default;
+}
+
+.seg-box:hover {
+  border-color: var(--gold);
+  box-shadow: 0 0 14px var(--gold-glow);
+}
+
+.seg-box.seg-unknown {
+  border-color: rgba(255,255,255,0.1);
+  opacity: 0.7;
+}
+
+.seg-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 8px;
+}
+
+.seg-value {
+  font-family: "DM Mono", monospace;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  letter-spacing: 0.06em;
+}
+
+.seg-decoded {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* Segment color accents */
+#seg-era    .seg-value { color: var(--blue); }
+#seg-model  .seg-value { color: var(--gold); }
+#seg-bezel  .seg-value { color: var(--green); }
+#seg-bracelet .seg-value { color: var(--rose); }
+#seg-suffix .seg-value { color: var(--text); font-size: 1.1rem; }
+
+#seg-era    { border-top: 2px solid var(--blue); }
+#seg-model  { border-top: 2px solid var(--gold); }
+#seg-bezel  { border-top: 2px solid var(--green); }
+#seg-bracelet { border-top: 2px solid var(--rose); }
+#seg-suffix { border-top: 2px solid var(--text-dim); }
+
+/* Result Card */
+#result-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0;
+  overflow: hidden;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.card-partial-notice {
+  background: rgba(201,168,76,0.08);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 28px;
+  font-size: 0.85rem;
+  color: var(--gold);
+}
+
+.card-header {
+  padding: 28px 28px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.card-ref {
+  font-family: "DM Mono", monospace;
+  font-size: 0.8rem;
+  color: var(--text-faint);
+  letter-spacing: 0.12em;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.card-model-name {
+  font-size: 1.6rem;
+  color: var(--text);
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.card-category {
+  display: inline-block;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: rgba(201,168,76,0.1);
+  border: 1px solid rgba(201,168,76,0.25);
+  border-radius: 4px;
+  padding: 2px 9px;
+}
+
+.card-grid {
+  padding: 8px 28px;
+}
+
+.card-row {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  align-items: start;
+}
+
+.card-row:last-child { border-bottom: none; }
+
+.card-row-label {
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  padding-top: 2px;
+}
+
+.card-row-value {
+  font-size: 0.93rem;
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.card-sub {
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  display: block;
+  margin-top: 3px;
+}
+
+.unknown-inline {
+  color: var(--text-faint);
+  font-style: italic;
+  font-size: 0.85rem;
+}
+
+.ceramic-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 8px;
+  vertical-align: middle;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+.card-significance {
+  margin: 0 28px 28px;
+  background: rgba(201,168,76,0.06);
+  border: 1px solid rgba(201,168,76,0.15);
+  border-radius: 7px;
+  padding: 18px 20px;
+}
+
+.sig-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.card-significance p {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+
+/* ── Reference Data Guide ───────────────────────────────────────────────── */
+.ref-guide {
+  padding: 64px 0;
+  animation: fadeIn 800ms ease 400ms both;
+}
+
+.ref-guide-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.ref-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.ref-card-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ref-card-header h3 {
+  font-size: 0.9rem;
+  font-family: "DM Sans", sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--text);
+}
+
+.ref-card-icon {
+  font-size: 1rem;
+}
+
+.ref-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.ref-table th {
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  padding: 10px 16px 8px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  background: rgba(255,255,255,0.01);
+}
+
+.ref-table td {
+  padding: 11px 16px;
+  font-size: 0.84rem;
+  color: var(--text-dim);
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  vertical-align: top;
+  line-height: 1.5;
+}
+
+.ref-table tr:last-child td { border-bottom: none; }
+
+.ref-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+.ref-table td:first-child {
+  font-family: "DM Mono", monospace;
+  font-size: 0.82rem;
+  color: var(--gold);
+  white-space: nowrap;
+}
+
+/* Wide model table spans full width */
+.ref-card.full-width {
+  grid-column: 1 / -1;
+}
+
+/* Color accent dots next to code type */
+.dot-blue  { color: var(--blue); }
+.dot-gold  { color: var(--gold); }
+.dot-green { color: var(--green); }
+.dot-rose  { color: var(--rose); }
+
+/* ── Divider ─────────────────────────────────────────────────────────────── */
+.section-divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 0;
+}
+
+/* ── Footer ──────────────────────────────────────────────────────────────── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 48px 0 36px;
+  margin-top: 32px;
+}
+
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.footer-brand {
+  font-family: "Playfair Display", serif;
+  font-size: 1.3rem;
+  color: var(--gold);
+}
+
+.footer-tagline {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+.footer-disclaimer {
+  font-size: 0.78rem;
+  color: var(--text-faint);
+  line-height: 1.7;
+  max-width: 760px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  padding-top: 20px;
+}
+
+/* ── Animations ──────────────────────────────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .steps-strip {
+    grid-template-columns: 1fr;
+    gap: 1px;
+  }
+
+  .ref-guide-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .segments-strip {
+    gap: 8px;
+  }
+
+  .seg-box {
+    min-width: 90px;
+    padding: 10px 12px;
+  }
+
+  .seg-value {
+    font-size: 1.2rem;
+  }
+
+  .card-row {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .card-row-label {
+    font-size: 0.72rem;
+  }
+
+  .header-inner {
+    flex-direction: column;
+    gap: 4px;
+  }
+}
+
+@media (max-width: 480px) {
+  #ref-input {
+    font-size: 1.1rem;
+  }
+
+  .site-name {
+    font-size: 1.6rem;
+  }
+}
