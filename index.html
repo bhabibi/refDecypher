@@ -597,6 +597,42 @@ input:-webkit-autofill{-webkit-text-fill-color:var(--text);-webkit-box-shadow:0 
   background:radial-gradient(120% 80% at 100% 0%, rgba(201,168,76,0.06), transparent 50%);
   pointer-events:none;
 }
+/* Vintage card (5513) — warm amber sepia tones */
+.result-card.rc-vintage{
+  background:color-mix(in oklab, #B8943C 6%, var(--surface));
+  border-color:rgba(184,148,60,0.3);
+}
+.result-card.rc-vintage::after{background:rgba(184,148,60,0.5);}
+.result-card.rc-vintage .rc-title{font-family:var(--serif);font-style:italic;}
+.rc-vintage-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:var(--mono);font-size:10px;font-weight:500;
+  letter-spacing:0.1em;text-transform:uppercase;
+  color:#B8943C;border:1px solid rgba(184,148,60,0.35);
+  border-radius:99px;padding:3px 10px;margin-bottom:12px;
+}
+/* CROWN easter egg */
+.rc-crown-egg{display:flex;flex-direction:column;align-items:center;text-align:center;padding:12px 8px 4px;}
+.rc-crown-icon{
+  font-size:52px;line-height:1;margin-bottom:16px;
+  animation:crownRise 600ms cubic-bezier(0.2,0.8,0.2,1) both;
+}
+@keyframes crownRise{
+  from{transform:scale(0.5) translateY(20px);opacity:0;}
+  to{transform:scale(1) translateY(0);opacity:1;}
+}
+/* Era accordion row highlight */
+.acc-content .codes .k.era-highlight{
+  color:var(--era);
+  background:color-mix(in oklab, var(--era) 12%, var(--shade-card));
+  font-weight:600;
+  border-right-color:color-mix(in oklab, var(--era) 30%, var(--hairline));
+  transition:background 250ms ease, color 250ms ease;
+}
+.acc-content .codes .v.era-highlight-v{
+  color:var(--era);
+  transition:color 250ms ease;
+}
 .result-grip{
   display:none;
   width:36px;height:4px;
@@ -2168,9 +2204,86 @@ function updateAnatomyHighlight(p){
   p.suffix ? activate(segS,"--suffix") : deactivate(segS);
 }
 
+function showCrownEgg(){
+  const card = document.getElementById("resultCard");
+  const empty = document.getElementById("resultEmpty");
+  card.innerHTML = `<div class="rc-crown-egg">
+    <div class="rc-crown-icon">♛</div>
+    <h2 class="rc-title" style="margin:0 0 8px;">The Crown</h2>
+    <div class="rc-community" style="margin-bottom:16px;">Known to insiders. Found by you.</div>
+    <div class="rc-why" style="text-align:left;width:100%;max-width:400px;margin:0 auto;">
+      <span class="lbl">Easter egg unlocked</span>
+      <p>In watchmaking, the crown is the knob at 3 o'clock that winds the movement and sets the time. On the Oyster, it locks down and makes the watch water-resistant. It's also the mark of a manufacturer we reference without naming. You found the secret — now decode a real reference.</p>
+    </div>
+  </div>`;
+  card.hidden = false;
+  card.offsetHeight;
+  card.classList.add("show");
+  card.classList.remove("rc-vintage");
+  empty.style.display = "none";
+}
+
+function show5513Card(){
+  const card = document.getElementById("resultCard");
+  const empty = document.getElementById("resultEmpty");
+  let html = `<div class="rc-head">
+    <div><div class="rc-ref">5513</div></div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div class="rc-era-pill" title="1962–1989">Vintage Era</div>
+      <button class="btn rc-copy-btn" id="copyBtn" type="button" aria-label="Copy summary">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Copy
+      </button>
+    </div>
+  </div>`;
+  html += `<div class="rc-vintage-badge">⬡ Vintage Reference</div>`;
+  html += `<h2 class="rc-title">Submariner (No-Date)</h2>`;
+  html += `<div class="rc-community">Known as <em>&ldquo;The Purist&rdquo;</em></div>`;
+  html += `<div class="rc-category">Dive Watch · Submariner</div>`;
+  html += `<div class="rc-rows">`;
+  html += rowHTML(ICONS.case,     "Material",       "Stainless Steel", "");
+  html += rowHTML(ICONS.bezel,    "Bezel",          "Rotating dive bezel", "Aluminum insert · graduated minutes scale");
+  html += rowHTML(ICONS.bracelet, "Bracelet",       "Oyster", "936 endpiece on early refs · 557 on later refs");
+  html += rowHTML(ICONS.era,      "Production run", "Vintage Era", "1962–1989 · 27 years");
+  html += `</div>`;
+  html += `<div class="rc-why"><span class="lbl">Why this matters</span>
+    <p>The no-date Submariner ran for 27 years without a date window or cyclops lens. Cal. 1520 through Cal. 1570 — matte dials, gilt printing, tropical patina. Ref. 5513 is the purist's Submariner: nothing added, nothing removed. Pre-dates the modern numbering system entirely.</p>
+  </div>`;
+  card.innerHTML = html;
+  card.hidden = false;
+  card.offsetHeight;
+  card.classList.add("show");
+  card.classList.add("rc-vintage");
+  empty.style.display = "none";
+  const rows = card.querySelectorAll(".rc-row");
+  rows.forEach((row,i)=>{
+    row.style.opacity="0"; row.style.transform="translateY(8px)";
+    row.style.transition=`opacity 300ms ease ${80+i*80}ms,transform 300ms ease ${80+i*80}ms`;
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{row.style.opacity="1";row.style.transform="translateY(0)";}));
+  });
+  const cb = document.getElementById("copyBtn");
+  if(cb) cb.addEventListener("click",()=>{
+    const lines=["Reference: 5513","Model: Submariner (No-Date)",'Known as: "The Purist"',"Material: Stainless Steel","Production run: 1962–1989","Bezel: Rotating dive bezel (aluminum insert)","Bracelet: Oyster","","─────────────────────────","Decoded with RolliDex","rollidex.com"];
+    navigator.clipboard?.writeText(lines.join("\n")).then(()=>{cb.innerHTML="✓ Copied";setTimeout(()=>{cb.innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy';},2000);}).catch(()=>{});
+  });
+}
+
 function updateAll(raw){
   const p = parse(raw);
   const d = resolve(p);
+
+  // CROWN easter egg — intercept before normal pill processing
+  if(p.full === "CROWN"){
+    setPill("era",      {value:"– –",  decoded:"", active:false, unknown:false});
+    setPill("model",    {value:"– – –",decoded:"", active:false, unknown:false});
+    setPill("bezel",    {value:"–",    decoded:"", active:false, unknown:false});
+    setPill("bracelet", {value:"–",    decoded:"", active:false, unknown:false});
+    setPill("suffix",   {value:"– –",  decoded:"", active:false, unknown:false});
+    showCrownEgg();
+    const learn = document.getElementById("learn");
+    if(learn) learn.classList.add("visible");
+    return;
+  }
 
   setPill("era",{
     value: p.era ? p.era : "– –",
@@ -2204,7 +2317,10 @@ function updateAll(raw){
   });
 
   // Result card
-  if(p.digits.length>=6){
+  const is5513 = p.full === "5513";
+  if(is5513){
+    show5513Card();
+  } else if(p.digits.length>=6){
     renderCard(p,d);
   }else{
     hideCard();
@@ -2212,11 +2328,11 @@ function updateAll(raw){
 
   // Scroll cue
   const cue = document.getElementById("scrollCue");
-  if(cue) cue.classList.toggle("show", p.digits.length>=6);
+  if(cue) cue.classList.toggle("show", p.digits.length>=6 || is5513);
 
   // Learn section reveal
   const learn = document.getElementById("learn");
-  if(learn && p.digits.length>=6) learn.classList.add("visible");
+  if(learn && (p.digits.length>=6 || is5513)) learn.classList.add("visible");
 
   // Anatomy diagram live highlight
   updateAnatomyHighlight(p);
@@ -2250,6 +2366,14 @@ function updateAll(raw){
       fb.classList.toggle("show", fbText.length>0);
     }
   }
+
+  // Era accordion row highlight — lights up the matching era code row
+  document.querySelectorAll("#acc-era .codes .k").forEach(k=>{
+    const isMatch = p.era.length>=2 && k.textContent.trim()===p.era;
+    k.classList.toggle("era-highlight", isMatch);
+    const v = k.nextElementSibling;
+    if(v) v.classList.toggle("era-highlight-v", isMatch);
+  });
 }
 
 /* ─────────────────────────────────────────────────────────────────────
@@ -2341,6 +2465,7 @@ function renderCard(p,d){
   card.hidden = false;
   card.offsetHeight;
   card.classList.add("show");
+  card.classList.remove("rc-vintage");
   empty.style.display = "none";
 
   // Row stagger reveal
