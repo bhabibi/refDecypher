@@ -1,285 +1,2311 @@
-<!DOCTYPE html>
+<!doctype html>
+<!-- RolliDex v2.1 — rollidex.com -->
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RefDecoder — Decode Rolex Reference Numbers</title>
-  <meta name="description" content="An independent educational tool for watch enthusiasts to understand how Rolex reference numbers work. Enter any reference number and decode it segment by segment." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>RolliDex — Decode Any Watch Reference Number</title>
+<meta name="description" content="An independent educational tool for decoding watch reference numbers. Enter any reference and decode every digit — model, era, bezel, bracelet — in plain English." />
+<meta name="robots" content="index, follow" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+/* ─────────────────────────────────────────────────────────────────────
+   TOKENS  —  dark by default, [data-theme="light"] overrides below
+   ───────────────────────────────────────────────────────────────────── */
+:root{
+  color-scheme: dark;
+  --bg:#0D0D0D;
+  --surface:#141414;
+  --elevated:#1A1A1A;
+  --hairline:rgba(255,255,255,0.06);
+  --hairline-strong:rgba(255,255,255,0.12);
+  --shade-soft:rgba(255,255,255,0.015);
+  --shade-mute:rgba(255,255,255,0.04);
+  --shade-card:rgba(255,255,255,0.02);
+  --text:#F0EDE6;
+  --text-dim:#A8A39A;
+  --text-muted:#6C6862;
+  --text-faint:#3A3833;
+  --gold:#C9A84C;
+  --gold-on-bg:#C9A84C;
+  --gold-soft:rgba(201,168,76,0.6);
+  --gold-veil:rgba(201,168,76,0.05);
+  --veil-cool:rgba(74,144,217,0.04);
+  --selection-bg:rgba(201,168,76,0.30);
+  --scrim:rgba(0,0,0,0.6);
+  --autofill-bg:#0D0D0D;
+  --partial-bg:rgba(201,168,76,0.06);
+  --shadow-card:0 1px 0 rgba(255,255,255,0.04) inset, 0 20px 60px -20px rgba(0,0,0,0.6);
+
+  --era:#4A90D9;
+  --model:#C9A84C;
+  --bezel:#4CAF82;
+  --bracelet:#D4537E;
+  --suffix:#9B8DD4;
+
+  --r-sm:8px;
+  --r-md:14px;
+  --r-lg:22px;
+  --r-xl:28px;
+
+  --serif:'Playfair Display', Georgia, serif;
+  --sans:'DM Sans', system-ui, -apple-system, sans-serif;
+  --mono:'DM Mono', 'SF Mono', Menlo, monospace;
+
+  --maxw:1240px;
+}
+
+/* Light theme — warm paper, museum-style. Same gold; just darker on light. */
+[data-theme="light"]{
+  color-scheme: light;
+  --bg:#F4F1EA;
+  --surface:#FBF8F2;
+  --elevated:#FFFFFF;
+  --hairline:rgba(40,32,20,0.10);
+  --hairline-strong:rgba(40,32,20,0.22);
+  --shade-soft:rgba(40,32,20,0.02);
+  --shade-mute:rgba(40,32,20,0.05);
+  --shade-card:rgba(40,32,20,0.03);
+  --text:#1B1814;
+  --text-dim:#55504A;
+  --text-muted:#8A857C;
+  --text-faint:#C8C2B5;
+  --gold:#9A7C2E;
+  --gold-on-bg:#9A7C2E;
+  --gold-soft:rgba(154,124,46,0.35);
+  --gold-veil:rgba(154,124,46,0.05);
+  --veil-cool:rgba(40,80,160,0.03);
+  --selection-bg:rgba(154,124,46,0.25);
+  --scrim:rgba(20,15,8,0.35);
+  --autofill-bg:#F4F1EA;
+  --partial-bg:rgba(154,124,46,0.08);
+  --shadow-card:0 1px 0 rgba(255,255,255,0.7) inset, 0 24px 64px -28px rgba(40,32,20,0.20);
+
+  /* Tonally adjusted segment colors for AA contrast on warm paper */
+  --era:#2F6FB4;
+  --model:#9A7C2E;
+  --bezel:#2F8358;
+  --bracelet:#B83C68;
+  --suffix:#6C5BB4;
+}
+
+/* Smooth crossfade between themes — but only on theme-driven properties */
+html{
+  transition: background-color 260ms ease;
+}
+body, .topbar, .stage, footer,
+.input-row, .pill, .pill .pill-value, .pill .pill-tag,
+.result-card, .rc-row, .rc-why, .rc-actions .btn, .rc-era-pill,
+.acc-item, .acc-head, .acc-content .codes, .acc-content .codes > div,
+.sheet, .sheet-scrim, .result-empty, .input-row .clear-btn,
+.hint .ref-chip, .anatomy, .anatomy .seg{
+  transition: background-color 260ms ease, color 260ms ease, border-color 260ms ease;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   RESET
+   ───────────────────────────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+html{background:var(--bg);}
+body{
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.55;
+  color:var(--text);
+  background:var(--bg);
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  min-height:100vh;
+  min-height:100dvh;
+  overflow-x:hidden;
+}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0;}
+input{font:inherit;color:inherit;background:none;border:0;outline:0;}
+input:-webkit-autofill{-webkit-text-fill-color:var(--text);-webkit-box-shadow:0 0 0 1000px var(--autofill-bg) inset;}
+::selection{background:var(--selection-bg);color:var(--text);}
+
+/* ─────────────────────────────────────────────────────────────────────
+   PAGE CHROME
+   ───────────────────────────────────────────────────────────────────── */
+.shell{
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding:0 22px;
+}
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:22px 22px 0;
+  max-width:var(--maxw);
+  margin:0 auto;
+}
+.brand{
+  display:flex;align-items:center;gap:10px;
+  font-family:var(--serif);
+  font-size:18px;
+  letter-spacing:0.01em;
+  color:var(--text);
+}
+.brand .dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--gold);
+  box-shadow:0 0 12px var(--gold-soft);
+}
+.brand em{font-style:italic;color:var(--text-dim);font-weight:400;}
+.topbar .meta{
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:0.14em;
+  color:var(--text-muted);
+  text-transform:uppercase;
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+/* Theme toggle */
+.theme-toggle{
+  width:38px;height:38px;
+  border-radius:99px;
+  border:1px solid var(--hairline);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--text-dim);
+  background:var(--shade-soft);
+  transition: color 200ms, border-color 200ms, background 200ms, transform 300ms;
+  position:relative;
+  overflow:hidden;
+}
+.theme-toggle:hover{color:var(--text);border-color:var(--hairline-strong);}
+.theme-toggle:focus-visible{outline:1px solid var(--gold);outline-offset:2px;}
+.theme-toggle svg{
+  position:absolute;
+  width:16px;height:16px;
+  transition: opacity 240ms ease, transform 320ms cubic-bezier(.2,.7,.2,1);
+}
+.theme-toggle .sun{opacity:0;transform:rotate(-30deg) scale(0.6);}
+.theme-toggle .moon{opacity:1;transform:rotate(0deg) scale(1);}
+[data-theme="light"] .theme-toggle .sun{opacity:1;transform:rotate(0deg) scale(1);}
+[data-theme="light"] .theme-toggle .moon{opacity:0;transform:rotate(30deg) scale(0.6);}
+
+/* ─────────────────────────────────────────────────────────────────────
+   HERO INPUT  — the only thing on screen at first
+   ───────────────────────────────────────────────────────────────────── */
+.hero{
+  min-height:calc(100vh - 22px);
+  min-height:calc(100dvh - 22px);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:60px 22px 40px;
+  max-width:var(--maxw);
+  margin:0 auto;
+  position:relative;
+}
+
+.eyebrow{
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+  color:var(--text-muted);
+  margin:0 0 18px;
+  display:flex;align-items:center;gap:10px;
+}
+.eyebrow::before{
+  content:"";
+  width:24px;height:1px;
+  background:var(--gold);
+  opacity:0.7;
+}
+
+.prompt{
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:clamp(28px,7vw,44px);
+  line-height:1.15;
+  letter-spacing:-0.01em;
+  margin:0 0 36px;
+  color:var(--text);
+  max-width:18ch;
+}
+.prompt em{
+  font-style:italic;
+  color:var(--gold);
+}
+
+/* The input itself */
+.input-stage{
+  position:relative;
+}
+.input-row{
+  display:flex;
+  align-items:baseline;
+  gap:14px;
+  padding:18px 0 18px;
+  border-bottom:1px solid var(--hairline-strong);
+  transition:border-color 250ms ease;
+  position:relative;
+}
+.input-row.is-focused{border-bottom-color:var(--gold);}
+.input-row .ref-input{
+  font-family:var(--mono);
+  font-size:clamp(40px,11vw,68px);
+  font-weight:400;
+  letter-spacing:0.04em;
+  width:100%;
+  background:transparent;
+  color:var(--text);
+  caret-color:var(--gold);
+  padding:0;
+  text-transform:uppercase;
+}
+.input-row .ref-input::placeholder{
+  color:var(--text-faint);
+  letter-spacing:0.06em;
+  opacity:1;
+}
+.input-row .clear-btn{
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:0.14em;
+  color:var(--text-muted);
+  text-transform:uppercase;
+  padding:8px 12px;
+  border:1px solid var(--hairline);
+  border-radius:999px;
+  background:var(--shade-soft);
+  transition:opacity 200ms ease, color 200ms ease, border-color 200ms ease, background 200ms ease;
+  opacity:0;pointer-events:none;
+  min-height:32px;
+  white-space:nowrap;
+}
+.input-row .clear-btn.show{opacity:1;pointer-events:auto;}
+.input-row .clear-btn:hover{color:var(--text);border-color:var(--hairline-strong);}
+
+.hint{
+  margin:14px 0 0;
+  font-size:13px;
+  color:var(--text-muted);
+}
+.hint .ref-chip{
+  font-family:var(--mono);
+  font-size:12px;
+  color:var(--text-dim);
+  background:var(--shade-mute);
+  padding:3px 8px;
+  border-radius:4px;
+  cursor:pointer;
+  transition:background 200ms, color 200ms;
+  margin:0 2px;
+}
+.hint .ref-chip:hover{color:var(--gold);background:var(--partial-bg);}
+
+/* ─────────────────────────────────────────────────────────────────────
+   SEGMENT PILLS — light up as digits are typed
+   ───────────────────────────────────────────────────────────────────── */
+.pills{
+  margin-top:40px;
+  display:grid;
+  grid-template-columns:repeat(5, minmax(0,1fr));
+  gap:8px;
+}
+.pill{
+  --c:var(--text-muted);
+  position:relative;
+  text-align:left;
+  padding:14px 12px 12px;
+  border:1px solid var(--hairline);
+  border-radius:var(--r-md);
+  background:var(--shade-soft);
+  min-height:74px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  transition:border-color 300ms ease, background 300ms ease, transform 300ms ease;
+  overflow:hidden;
+}
+.pill:focus-visible{outline:1px solid var(--gold);outline-offset:2px;}
+.pill .pill-tag{
+  font-family:var(--mono);
+  font-size:9.5px;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--text-muted);
+  display:flex;align-items:center;gap:6px;
+  transition:color 300ms;
+}
+.pill .pill-tag::before{
+  content:"";
+  width:5px;height:5px;border-radius:50%;
+  background:var(--text-faint);
+  transition:background 300ms, box-shadow 300ms;
+}
+.pill .pill-value{
+  margin-top:10px;
+  font-family:var(--mono);
+  font-size:18px;
+  font-weight:500;
+  color:var(--text-faint);
+  letter-spacing:0.06em;
+  transition:color 300ms;
+  line-height:1.1;
+}
+.pill .pill-decoded{
+  margin-top:4px;
+  font-size:11px;
+  color:transparent;
+  line-height:1.3;
+  height:0;
+  overflow:hidden;
+  transition:opacity 250ms 80ms ease, height 250ms ease, color 250ms 80ms ease;
+  opacity:0;
+}
+.pill.is-active{
+  border-color:color-mix(in oklab, var(--c) 40%, transparent);
+  background:color-mix(in oklab, var(--c) 7%, transparent);
+}
+.pill.is-active .pill-tag{color:var(--c);}
+.pill.is-active .pill-tag::before{
+  background:var(--c);
+  box-shadow:0 0 10px color-mix(in oklab, var(--c) 70%, transparent);
+}
+.pill.is-active .pill-value{color:var(--text);}
+.pill.is-active .pill-decoded{
+  opacity:1;
+  color:var(--text-dim);
+  height:28px;
+}
+.pill.is-unknown .pill-value{color:#c66;}
+.pill.is-unknown .pill-decoded{color:#c66;}
+
+/* Active-glow accent stripe */
+.pill::after{
+  content:"";
+  position:absolute;
+  left:0;right:0;bottom:0;
+  height:1px;
+  background:var(--c);
+  transform:scaleX(0);
+  transform-origin:left center;
+  transition:transform 350ms cubic-bezier(.2,.7,.2,1);
+}
+.pill.is-active::after{transform:scaleX(1);}
+
+#pill-era{--c:var(--era);}
+#pill-model{--c:var(--model);}
+#pill-bezel{--c:var(--bezel);}
+#pill-bracelet{--c:var(--bracelet);}
+#pill-suffix{--c:var(--suffix);}
+
+/* Tablet+ */
+@media (min-width:560px){
+  .pill{min-height:88px;padding:16px 14px 14px;}
+  .pill .pill-tag{font-size:10px;}
+  .pill .pill-value{font-size:22px;}
+  .pill .pill-decoded{font-size:12px;}
+}
+
+/* Mobile: tighter columns OK */
+@media (max-width:360px){
+  .pills{gap:6px;}
+  .pill{padding:12px 9px 10px;min-height:68px;}
+  .pill .pill-value{font-size:16px;}
+}
+
+/* Scroll cue under pills */
+.scroll-cue{
+  margin-top:40px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--text-muted);
+  opacity:0;
+  transition:opacity 400ms ease;
+  pointer-events:none;
+}
+.scroll-cue.show{opacity:1;pointer-events:auto;}
+.scroll-cue .arrow{
+  width:1px;height:18px;
+  background:var(--text-muted);
+  position:relative;
+}
+.scroll-cue .arrow::after{
+  content:"";
+  position:absolute;
+  bottom:-1px;left:-3px;
+  width:7px;height:7px;
+  border-right:1px solid var(--text-muted);
+  border-bottom:1px solid var(--text-muted);
+  transform:rotate(45deg);
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   RESULT CARD — the second screen
+   ───────────────────────────────────────────────────────────────────── */
+.result-wrap{
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding:24px 22px 24px;
+  position:relative;
+}
+.result-card{
+  background:var(--surface);
+  border:1px solid var(--hairline);
+  border-radius:var(--r-xl);
+  padding:28px 24px 26px;
+  position:relative;
+  box-shadow:var(--shadow-card);
+  opacity:0;
+  transform:translateY(28px);
+  transition:opacity 480ms ease, transform 480ms cubic-bezier(.2,.7,.2,1);
+  pointer-events:none;
+  overflow:hidden;
+}
+.result-card.show{
+  opacity:1;
+  transform:translateY(0);
+  pointer-events:auto;
+}
+.result-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(120% 80% at 100% 0%, rgba(201,168,76,0.06), transparent 50%);
+  pointer-events:none;
+}
+.result-grip{
+  display:none;
+  width:36px;height:4px;
+  border-radius:99px;
+  background:rgba(255,255,255,0.12);
+  margin:0 auto 16px;
+}
+
+.rc-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:14px;
+  margin-bottom:18px;
+  position:relative;
+}
+.rc-ref{
+  font-family:var(--mono);
+  font-size:12px;
+  letter-spacing:0.16em;
+  color:var(--text-muted);
+  text-transform:uppercase;
+}
+.rc-era-pill{
+  font-family:var(--mono);
+  font-size:10px;
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  color:var(--era);
+  padding:5px 10px;
+  border:1px solid color-mix(in oklab, var(--era) 35%, transparent);
+  border-radius:99px;
+  background:color-mix(in oklab, var(--era) 8%, transparent);
+  white-space:nowrap;
+}
+.rc-title{
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:clamp(30px, 7vw, 44px);
+  line-height:1.05;
+  letter-spacing:-0.01em;
+  margin:0 0 4px;
+}
+.rc-category{
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin:0 0 22px;
+}
+
+.rc-rows{
+  display:flex;
+  flex-direction:column;
+  border-top:1px solid var(--hairline);
+}
+.rc-row{
+  display:grid;
+  grid-template-columns:24px 1fr auto;
+  align-items:center;
+  gap:14px;
+  padding:14px 0;
+  border-bottom:1px solid var(--hairline);
+}
+.rc-row .ic{
+  width:22px;height:22px;
+  color:var(--text-dim);
+  display:flex;align-items:center;justify-content:center;
+}
+.rc-row .lbl{
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  color:var(--text-muted);
+}
+.rc-row .val{
+  font-size:15px;
+  color:var(--text);
+  text-align:right;
+  font-weight:500;
+}
+.rc-row .val small{
+  display:block;
+  font-weight:400;
+  color:var(--text-muted);
+  font-size:12px;
+  margin-top:2px;
+}
+.ceramic-swatch{
+  display:inline-block;
+  width:10px;height:10px;
+  border-radius:50%;
+  vertical-align:middle;
+  margin-right:6px;
+  border:1px solid rgba(255,255,255,0.15);
+}
+
+.rc-why{
+  margin-top:20px;
+  padding:16px 18px;
+  background:var(--elevated);
+  border:1px solid var(--hairline);
+  border-radius:var(--r-md);
+  position:relative;
+}
+.rc-why .lbl{
+  font-family:var(--mono);
+  font-size:10px;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:var(--gold);
+  display:block;
+  margin-bottom:6px;
+}
+.rc-why p{margin:0;font-size:14px;line-height:1.55;color:var(--text-dim);}
+
+.rc-actions{
+  margin-top:18px;
+  display:flex;
+  gap:8px;
+  justify-content:flex-end;
+}
+.rc-actions .btn{
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  padding:10px 14px;
+  border:1px solid var(--hairline);
+  border-radius:99px;
+  color:var(--text-dim);
+  min-height:36px;
+  transition:color 200ms, border-color 200ms, background 200ms;
+}
+.rc-actions .btn:hover{color:var(--text);border-color:var(--hairline-strong);background:var(--shade-card);}
+.rc-actions .btn.primary{color:var(--gold);border-color:color-mix(in oklab, var(--gold) 40%, transparent);}
+.rc-actions .btn.primary:hover{background:color-mix(in oklab, var(--gold) 10%, transparent);}
+
+/* Partial-match notice */
+.rc-partial{
+  margin:0 0 14px;
+  padding:10px 12px;
+  background:var(--partial-bg);
+  border:1px solid color-mix(in oklab, var(--gold) 30%, transparent);
+  border-radius:var(--r-sm);
+  font-size:13px;
+  color:var(--gold);
+}
+.rc-partial::before{content:"⚡ ";opacity:0.8;}
+
+/* Empty result placeholder */
+.result-empty{
+  text-align:center;
+  padding:40px 20px;
+  color:var(--text-muted);
+  font-size:13px;
+  border:1px dashed var(--hairline);
+  border-radius:var(--r-xl);
+  font-family:var(--mono);
+  letter-spacing:0.06em;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   LEARN — the quiet third section
+   ───────────────────────────────────────────────────────────────────── */
+.learn{
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding:32px 22px 80px;
+  opacity:0;
+  transition:opacity 600ms ease;
+}
+.learn.visible{opacity:1;}
+.learn-intro{
+  text-align:center;
+  padding:24px 0 28px;
+  border-top:1px solid var(--hairline);
+}
+.learn-intro .eyebrow{
+  justify-content:center;
+  margin-bottom:14px;
+}
+.learn-intro .eyebrow::before{display:none;}
+.learn-intro h3{
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:clamp(22px,4.5vw,30px);
+  line-height:1.25;
+  margin:0 auto;
+  max-width:24ch;
+  color:var(--text);
+  letter-spacing:-0.01em;
+}
+.learn-intro h3 em{color:var(--gold);font-style:italic;}
+
+.acc{
+  margin-top:18px;
+  border-top:1px solid var(--hairline);
+}
+.acc-item{
+  border-bottom:1px solid var(--hairline);
+}
+.acc-head{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  padding:20px 4px;
+  text-align:left;
+  min-height:64px;
+}
+.acc-head .lhs{
+  display:flex;align-items:baseline;gap:14px;flex:1;min-width:0;
+}
+.acc-head .pos{
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:0.18em;
+  color:var(--text-muted);
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+.acc-head .pos .swatch{
+  display:inline-block;
+  width:8px;height:8px;border-radius:50%;
+  background:var(--c);
+  margin-right:8px;
+  vertical-align:middle;
+}
+.acc-head .name{
+  font-family:var(--serif);
+  font-size:20px;
+  color:var(--text);
+  letter-spacing:-0.005em;
+}
+.acc-head .chev{
+  width:18px;height:18px;
+  color:var(--text-muted);
+  transition:transform 280ms ease;
+  flex-shrink:0;
+}
+.acc-item[data-open="true"] .chev{transform:rotate(180deg);color:var(--gold);}
+
+.acc-body{
+  display:grid;
+  grid-template-rows:0fr;
+  transition:grid-template-rows 320ms ease;
+}
+.acc-item[data-open="true"] .acc-body{grid-template-rows:1fr;}
+.acc-body > div{
+  overflow:hidden;
+  min-height:0;
+}
+.acc-content{
+  padding:0 4px 22px;
+  color:var(--text-dim);
+  font-size:14.5px;
+  line-height:1.55;
+}
+.acc-content p{margin:0 0 14px;}
+.acc-content .codes{
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:0;
+  margin-top:8px;
+  border:1px solid var(--hairline);
+  border-radius:var(--r-sm);
+  overflow:hidden;
+}
+.acc-content .codes > div{
+  padding:10px 14px;
+  border-top:1px solid var(--hairline);
+  display:flex;align-items:center;
+}
+.acc-content .codes > div:nth-child(-n+2){border-top:0;}
+.acc-content .codes .k{
+  font-family:var(--mono);
+  font-size:13px;
+  color:var(--text);
+  background:var(--shade-card);
+  border-right:1px solid var(--hairline);
+  min-width:88px;
+  letter-spacing:0.04em;
+}
+.acc-content .codes .v{font-size:13.5px;color:var(--text-dim);}
+
+#acc-era{--c:var(--era);}
+#acc-model{--c:var(--model);}
+#acc-bezel{--c:var(--bezel);}
+#acc-bracelet{--c:var(--bracelet);}
+#acc-suffix{--c:var(--suffix);}
+
+/* ─────────────────────────────────────────────────────────────────────
+   PILL SHEET (bottom-sheet popover when a pill is tapped)
+   ───────────────────────────────────────────────────────────────────── */
+.sheet-scrim{
+  position:fixed;inset:0;
+  background:var(--scrim);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 250ms ease;
+  z-index:80;
+  backdrop-filter:blur(2px);
+  -webkit-backdrop-filter:blur(2px);
+}
+.sheet-scrim.open{opacity:1;pointer-events:auto;}
+
+.sheet{
+  position:fixed;
+  left:0;right:0;bottom:0;
+  background:var(--elevated);
+  border-top-left-radius:var(--r-xl);
+  border-top-right-radius:var(--r-xl);
+  border-top:1px solid var(--hairline-strong);
+  padding:14px 22px calc(28px + env(safe-area-inset-bottom));
+  z-index:90;
+  transform:translateY(105%);
+  transition:transform 340ms cubic-bezier(.2,.7,.2,1);
+  max-height:80vh;
+  max-height:80dvh;
+  overflow-y:auto;
+}
+.sheet.open{transform:translateY(0);}
+.sheet .grip{
+  width:38px;height:4px;border-radius:99px;
+  background:var(--hairline-strong);
+  margin:6px auto 16px;
+}
+.sheet-head{
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:6px;
+}
+.sheet-head .swatch{
+  width:8px;height:8px;border-radius:50%;
+}
+.sheet-head .tag{
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--text-muted);
+}
+.sheet-title{
+  font-family:var(--serif);
+  font-size:28px;
+  margin:0 0 4px;
+  color:var(--text);
+  letter-spacing:-0.01em;
+}
+.sheet-value{
+  font-family:var(--mono);
+  font-size:13px;
+  color:var(--gold);
+  letter-spacing:0.08em;
+  margin:0 0 16px;
+}
+.sheet-body{
+  font-size:14.5px;
+  line-height:1.6;
+  color:var(--text-dim);
+  margin:0 0 14px;
+}
+.sheet-close{
+  position:absolute;
+  top:14px;right:18px;
+  width:32px;height:32px;
+  border-radius:50%;
+  color:var(--text-muted);
+  display:flex;align-items:center;justify-content:center;
+  border:1px solid var(--hairline);
+}
+
+/* On desktop, the sheet becomes a centered modal */
+@media (min-width:900px){
+  .sheet{
+    left:50%;right:auto;
+    bottom:50%;
+    transform:translate(-50%, calc(50% + 30px));
+    width:min(440px, 92vw);
+    border-radius:var(--r-xl);
+    border:1px solid var(--hairline-strong);
+    padding:28px 28px;
+  }
+  .sheet.open{transform:translate(-50%, 50%);}
+  .sheet .grip{display:none;}
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   FOOTER
+   ───────────────────────────────────────────────────────────────────── */
+footer{
+  border-top:1px solid var(--hairline);
+  padding:34px 22px 44px;
+}
+footer .inner{
+  max-width:var(--maxw);
+  margin:0 auto;
+  display:grid;
+  gap:18px;
+  grid-template-columns:1fr;
+}
+.foot-brand{
+  font-family:var(--serif);
+  font-size:17px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.foot-brand .dot{
+  width:6px;height:6px;border-radius:50%;background:var(--gold);
+  box-shadow:0 0 12px var(--gold-soft);
+}
+.foot-tag{
+  font-size:13px;color:var(--text-muted);margin-top:2px;
+  max-width:32ch;line-height:1.5;
+}
+.disclaimer{
+  font-size:11.5px;
+  line-height:1.6;
+  color:var(--text-muted);
+  max-width:60ch;
+  font-family:var(--sans);
+}
+@media (min-width:760px){
+  footer .inner{
+    grid-template-columns:auto 1fr;
+    gap:60px;
+    align-items:start;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   DESKTOP LAYOUT — two columns
+   ───────────────────────────────────────────────────────────────────── */
+@media (min-width:900px){
+  .topbar{padding:28px 32px 0;}
+  .shell, .hero, .result-wrap, .learn, footer .inner{padding-left:48px;padding-right:48px;}
+
+  .stage{
+    display:grid;
+    grid-template-columns:minmax(0,1.05fr) minmax(0,0.95fr);
+    gap:72px;
+    align-items:start;
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:24px 48px 80px;
+  }
+  .stage .left{
+    position:sticky;
+    top:24px;
+    padding-top:40px;
+  }
+  /* Override hero centering for desktop */
+  .stage .hero{
+    min-height:auto;
+    padding:0;
+    max-width:none;
+    margin:0;
+  }
+  .stage .result-wrap{
+    padding:0;
+    max-width:none;
+    margin:0;
+  }
+  .input-row .ref-input{font-size:64px;}
+  .prompt{font-size:48px;max-width:14ch;}
+  .pills{margin-top:48px;}
+  .result-empty{padding:80px 24px;}
+
+  /* The big anatomy strip — desktop only */
+  .anatomy{
+    margin-top:0;
+    margin-bottom:24px;
+    border:1px solid var(--hairline);
+    border-radius:var(--r-md);
+    padding:18px 22px;
+    background:var(--shade-soft);
+  }
+  .anatomy h4{
+    font-family:var(--mono);
+    font-size:10px;
+    font-weight:500;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--text-muted);
+    margin:0 0 14px;
+  }
+  .anatomy .row{
+    display:flex;
+    align-items:flex-end;
+    gap:6px;
+    font-family:var(--mono);
+  }
+  .anatomy .seg{
+    flex:1;
+    text-align:center;
+    padding:6px 4px;
+    border-radius:var(--r-sm);
+    background:var(--shade-card);
+  }
+  .anatomy .seg .ch{font-size:22px;color:var(--text);letter-spacing:0.06em;}
+  .anatomy .seg .nm{
+    font-size:9.5px;
+    letter-spacing:0.18em;
+    color:var(--c);
+    text-transform:uppercase;
+    margin-top:4px;
+  }
+  .anatomy .seg.e{--c:var(--era);}
+  .anatomy .seg.m{--c:var(--model);}
+  .anatomy .seg.b{--c:var(--bezel);}
+  .anatomy .seg.r{--c:var(--bracelet);}
+  .anatomy .seg.s{--c:var(--suffix);}
+
+  .scroll-cue{display:none;}
+}
+@media (max-width:899px){
+  .anatomy{display:none;}
+}
+
+/* Tablet — sub-desktop tweaks */
+@media (min-width:560px) and (max-width:899px){
+  .prompt{font-size:48px;max-width:16ch;}
+  .input-row .ref-input{font-size:72px;}
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   SUBTLE BACKGROUND VEIN (very faint vertical light)
+   ───────────────────────────────────────────────────────────────────── */
+.veil{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+  background:
+    radial-gradient(60% 40% at 100% 0%, var(--gold-veil), transparent 50%),
+    radial-gradient(60% 50% at 0% 100%, var(--veil-cool), transparent 50%);
+}
+.shell, .stage, .topbar, footer{position:relative;z-index:1;}
+
+/* Cursor blink — only when input is empty */
+.input-row.is-empty .ref-input::placeholder{
+  position:relative;
+}
+.cursor{
+  display:inline-block;
+  width:2px;
+  height:1em;
+  background:var(--gold);
+  vertical-align:-0.12em;
+  margin-left:2px;
+  animation:blink 1s steps(2) infinite;
+}
+@keyframes blink{50%{opacity:0;}}
+
+/* Community / enthusiast name */
+.rc-community{
+  font-family:var(--sans);
+  font-size:15px;
+  color:var(--gold);
+  margin:0 0 6px;
+  letter-spacing:0.01em;
+}
+.rc-community em{
+  font-style:italic;
+  font-family:var(--serif);
+  font-size:17px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition-duration:0.01ms !important;animation-duration:0.01ms !important;}
+}
+
+</style>
 </head>
 <body>
 
-  <!-- ── Header ──────────────────────────────────────────────────────── -->
-  <header>
-    <div class="container">
-      <div class="header-inner">
-        <span class="site-name">RefDecoder</span>
-        <span class="site-tagline">Every number tells a story. Learn to read it.</span>
-      </div>
-    </div>
-  </header>
+<div class="veil" aria-hidden="true"></div>
 
-  <main>
+<div class="topbar">
+  <div class="brand"><span class="dot"></span><span>RolliDex</span><em>&nbsp;— the reference decoder</em></div>
+  <div class="meta">
+    <span class="meta-version">v2.1 · rollidex.com</span>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle light and dark mode" aria-pressed="false" title="Toggle theme">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 1 1 9.5 3.5a7 7 0 0 0 11 11Z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4 7 17M17 7l1.4-1.4"/></svg>
+    </button>
+  </div>
+</div>
 
-    <!-- ── Hero ──────────────────────────────────────────────────────── -->
-    <section class="hero">
-      <div class="container">
-        <p class="hero-eyebrow">Independent Enthusiast Reference</p>
-        <h1 class="hero-title">
-          Decode Any <em>Reference Number</em><br>Segment by Segment
-        </h1>
-        <p class="hero-sub">
-          Watch reference numbers are not random — each digit encodes a generation, a model, a bezel style, and a bracelet type. RefDecoder makes every part legible.
-        </p>
-      </div>
-    </section>
+<div class="stage">
 
-    <!-- ── How It Works ───────────────────────────────────────────────── -->
-    <section class="how-it-works">
-      <div class="container">
-        <h2>How It Works</h2>
-        <div class="steps-strip">
+  <!-- LEFT COLUMN (desktop) / TOP SECTION (mobile) -->
+  <div class="left">
+    <section class="hero" aria-labelledby="prompt">
 
-          <div class="step">
-            <span class="step-num">Step 01</span>
-            <span class="step-icon">&#9998;</span>
-            <p class="step-title">Enter a Reference Number</p>
-            <p class="step-desc">Type any reference number into the decoder — as you type, the tool works in real time. Try <code style="color:var(--gold);font-family:'DM Mono',monospace;">116613</code> or <code style="color:var(--gold);font-family:'DM Mono',monospace;">126610LN</code>.</p>
-          </div>
-
-          <div class="step">
-            <span class="step-num">Step 02</span>
-            <span class="step-icon">&#9776;</span>
-            <p class="step-title">We Break It Down Segment by Segment</p>
-            <p class="step-desc">Each portion of the number is separated into colour-coded boxes: Era, Model Code, Bezel Type, and Bracelet Type.</p>
-          </div>
-
-          <div class="step">
-            <span class="step-num">Step 03</span>
-            <span class="step-icon">&#128270;</span>
-            <p class="step-title">Understand What Each Part Means and Why It Matters</p>
-            <p class="step-desc">A full result card reveals the model name, materials, production era, and a note on market significance.</p>
-          </div>
-
+      <!-- Desktop anatomy diagram (hidden on mobile) -->
+      <div class="anatomy" aria-hidden="true">
+        <h4>Reference number anatomy</h4>
+        <div class="row">
+          <div class="seg e"><div class="ch">11</div><div class="nm">Era</div></div>
+          <div class="seg m"><div class="ch">661</div><div class="nm">Model</div></div>
+          <div class="seg b"><div class="ch">1</div><div class="nm">Bezel</div></div>
+          <div class="seg r"><div class="ch">3</div><div class="nm">Bracelet</div></div>
+          <div class="seg s"><div class="ch">LB</div><div class="nm">Suffix</div></div>
         </div>
       </div>
-    </section>
 
-    <hr class="section-divider" />
+      <p class="eyebrow">Enter any watch reference number</p>
+      <h1 class="prompt" id="prompt">Every digit tells you <em>something.</em></h1>
 
-    <!-- ── Decoder Tool ───────────────────────────────────────────────── -->
-    <section class="decoder-section" id="decoder">
-      <div class="container">
-        <h2 class="section-title">The Decoder</h2>
-        <p class="section-sub">Type a reference number below — results appear instantly as you type.</p>
-
-        <!-- Input -->
-        <div class="decoder-input-wrap">
+      <div class="input-stage">
+        <div class="input-row is-empty" id="inputRow">
           <input
+            id="refInput"
+            class="ref-input"
             type="text"
-            id="ref-input"
-            class="mono"
-            placeholder="Try 116613 or 126610LN&hellip;"
-            maxlength="20"
+            inputmode="text"
             autocomplete="off"
             autocorrect="off"
+            autocapitalize="characters"
             spellcheck="false"
-            aria-label="Reference number input"
+            maxlength="20"
+            placeholder="116613LB"
+            aria-label="Reference number"
           />
+          <button class="clear-btn" id="clearBtn" type="button" aria-label="Clear input">Clear</button>
         </div>
-
-        <!-- Placeholder -->
-        <div id="decoder-placeholder" class="decoder-placeholder">
-          Enter a reference number above to begin decoding&hellip;
-        </div>
-
-        <!-- Segment Boxes -->
-        <div class="segments-strip">
-
-          <div class="seg-box hidden" id="seg-era" aria-label="Era segment">
-            <span class="seg-label dot-blue">Era / Generation</span>
-            <span class="seg-value mono" id="seg-era-value">—</span>
-            <span class="seg-decoded" id="seg-era-decoded"></span>
-          </div>
-
-          <div class="seg-box hidden" id="seg-model" aria-label="Model code segment">
-            <span class="seg-label dot-gold">Model Code</span>
-            <span class="seg-value mono" id="seg-model-value">—</span>
-            <span class="seg-decoded" id="seg-model-decoded"></span>
-          </div>
-
-          <div class="seg-box hidden" id="seg-bezel" aria-label="Bezel type segment">
-            <span class="seg-label dot-green">Bezel Type</span>
-            <span class="seg-value mono" id="seg-bezel-value">—</span>
-            <span class="seg-decoded" id="seg-bezel-decoded"></span>
-          </div>
-
-          <div class="seg-box hidden" id="seg-bracelet" aria-label="Bracelet type segment">
-            <span class="seg-label dot-rose">Bracelet</span>
-            <span class="seg-value mono" id="seg-bracelet-value">—</span>
-            <span class="seg-decoded" id="seg-bracelet-decoded"></span>
-          </div>
-
-          <div class="seg-box hidden" id="seg-suffix" aria-label="Suffix segment">
-            <span class="seg-label">Suffix</span>
-            <span class="seg-value mono" id="seg-suffix-value">—</span>
-            <span class="seg-decoded" id="seg-suffix-decoded"></span>
-          </div>
-
-        </div>
-
-        <!-- Result Card -->
-        <div id="result-card" class="hidden" aria-live="polite"></div>
-
-      </div>
-    </section>
-
-    <hr class="section-divider" />
-
-    <!-- ── Reference Data Guide ───────────────────────────────────────── -->
-    <section class="ref-guide" id="guide">
-      <div class="container">
-        <h2 class="section-title">Reference Data Guide</h2>
-        <p class="section-sub">A complete index of every code used in the decoder.</p>
-
-        <div class="ref-guide-grid">
-
-          <!-- Era Prefixes -->
-          <div class="ref-card">
-            <div class="ref-card-header">
-              <span class="ref-card-icon dot-blue">&#9632;</span>
-              <h3>Era Prefix <span style="color:var(--text-faint);font-weight:400">(Digits 1–2)</span></h3>
-            </div>
-            <table class="ref-table">
-              <thead>
-                <tr><th>Code</th><th>Era</th><th>Approx. Years</th></tr>
-              </thead>
-              <tbody>
-                <tr><td>14</td><td>Vintage — Classic era</td><td>1980s–1990s</td></tr>
-                <tr><td>16</td><td>Transitional generation</td><td>1990s–2000s</td></tr>
-                <tr><td>11</td><td>Modern generation</td><td>2000s–2010s</td></tr>
-                <tr><td>12</td><td>Current generation</td><td>2020–present</td></tr>
-                <tr><td>22</td><td>Premium / Precious metal</td><td>2015–present</td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <!-- Bezel Codes -->
-          <div class="ref-card">
-            <div class="ref-card-header">
-              <span class="ref-card-icon dot-green">&#9632;</span>
-              <h3>Bezel Code <span style="color:var(--text-faint);font-weight:400">(Digit 6)</span></h3>
-            </div>
-            <table class="ref-table">
-              <thead>
-                <tr><th>Digit</th><th>Bezel Type</th></tr>
-              </thead>
-              <tbody>
-                <tr><td>0</td><td>Smooth — plain, polished</td></tr>
-                <tr><td>1</td><td>Unidirectional rotating (dive)</td></tr>
-                <tr><td>2</td><td>Engraved</td></tr>
-                <tr><td>3</td><td>Fluted — engine-turned</td></tr>
-                <tr><td>4</td><td>Gem-set / diamond</td></tr>
-                <tr><td>5</td><td>Bidirectional rotating (GMT)</td></tr>
-                <tr><td>6</td><td>Tachymeter (Daytona)</td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <!-- Bracelet Codes -->
-          <div class="ref-card">
-            <div class="ref-card-header">
-              <span class="ref-card-icon dot-rose">&#9632;</span>
-              <h3>Bracelet Code <span style="color:var(--text-faint);font-weight:400">(Digit 7)</span></h3>
-            </div>
-            <table class="ref-table">
-              <thead>
-                <tr><th>Digit</th><th>Bracelet</th></tr>
-              </thead>
-              <tbody>
-                <tr><td>0</td><td>Oyster — stainless steel</td></tr>
-                <tr><td>1</td><td>Jubilee — stainless steel</td></tr>
-                <tr><td>3</td><td>Oyster — two-tone SS + gold</td></tr>
-                <tr><td>4</td><td>Jubilee — two-tone</td></tr>
-                <tr><td>8</td><td>Oyster — full yellow gold</td></tr>
-                <tr><td>9</td><td>Oyster — white gold</td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <!-- Suffix Codes -->
-          <div class="ref-card">
-            <div class="ref-card-header">
-              <span class="ref-card-icon" style="color:var(--text-dim)">&#9632;</span>
-              <h3>Suffix Codes <span style="color:var(--text-faint);font-weight:400">(After digits)</span></h3>
-            </div>
-            <table class="ref-table">
-              <thead>
-                <tr><th>Code</th><th>Meaning</th></tr>
-              </thead>
-              <tbody>
-                <tr><td>LN</td><td>Black ceramic (Cerachrom) bezel</td></tr>
-                <tr><td>LV</td><td>Green ceramic bezel — Hulk / Kermit</td></tr>
-                <tr><td>LB</td><td>Blue ceramic bezel</td></tr>
-                <tr><td>BLNR</td><td>Black + blue ceramic — Batman</td></tr>
-                <tr><td>BLRO</td><td>Black + red ceramic — Pepsi</td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <!-- Model Codes — full width -->
-          <div class="ref-card full-width">
-            <div class="ref-card-header">
-              <span class="ref-card-icon dot-gold">&#9632;</span>
-              <h3>Known Model References <span style="color:var(--text-faint);font-weight:400">(Full 6-digit code)</span></h3>
-            </div>
-            <table class="ref-table">
-              <thead>
-                <tr><th>Reference</th><th>Model</th><th>Material</th><th>Era</th><th>Category</th></tr>
-              </thead>
-              <tbody>
-                <tr><td>116610</td><td>Submariner Date</td><td>Stainless Steel</td><td>pre-2020</td><td>Dive Watch</td></tr>
-                <tr><td>116613</td><td>Submariner Date</td><td>Steel + Yellow Gold</td><td>pre-2020</td><td>Dive Watch</td></tr>
-                <tr><td>116618</td><td>Submariner Date</td><td>Full Yellow Gold</td><td>pre-2020</td><td>Dive Watch</td></tr>
-                <tr><td>126610</td><td>Submariner Date</td><td>Stainless Steel</td><td>2020–present</td><td>Dive Watch</td></tr>
-                <tr><td>126613</td><td>Submariner Date</td><td>Steel + Yellow Gold</td><td>2020–present</td><td>Dive Watch</td></tr>
-                <tr><td>116500</td><td>Daytona</td><td>Stainless Steel</td><td>pre-2023</td><td>Chronograph</td></tr>
-                <tr><td>126500</td><td>Daytona</td><td>Stainless Steel</td><td>2023–present</td><td>Chronograph</td></tr>
-                <tr><td>116520</td><td>Daytona</td><td>Stainless Steel</td><td>pre-2016</td><td>Chronograph</td></tr>
-                <tr><td>116710</td><td>GMT-Master II</td><td>Stainless Steel</td><td>pre-2019</td><td>GMT / Traveler</td></tr>
-                <tr><td>126710</td><td>GMT-Master II</td><td>Stainless Steel</td><td>2019–present</td><td>GMT / Traveler</td></tr>
-                <tr><td>228238</td><td>Day-Date 40</td><td>18k Yellow Gold</td><td>2015–present</td><td>Dress Watch</td></tr>
-                <tr><td>116233</td><td>Datejust 36</td><td>Steel + Yellow Gold</td><td>pre-2016</td><td>Dress Watch</td></tr>
-                <tr><td>126334</td><td>Datejust 41</td><td>Stainless Steel</td><td>2016–present</td><td>Dress Watch</td></tr>
-              </tbody>
-            </table>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- ── Footer ──────────────────────────────────────────────────────────── -->
-  <footer>
-    <div class="container">
-      <div class="footer-inner">
-        <div>
-          <div class="footer-brand">RefDecoder</div>
-          <div class="footer-tagline">Built for watch enthusiasts, by watch enthusiasts.</div>
-        </div>
-        <p class="footer-disclaimer">
-          RefDecoder is an independent enthusiast resource and is not affiliated with, endorsed by, or connected to Rolex SA or any of its subsidiaries. All reference information is sourced from public enthusiast communities. Reference numbers, model names, and associated descriptions are used here purely for educational and informational purposes.
+        <p class="hint">
+          Try
+          <button class="ref-chip" data-chip="116613" type="button">116613</button>
+          or
+          <button class="ref-chip" data-chip="126710BLNR" type="button">126710BLNR</button>
         </p>
-      </div>
-    </div>
-  </footer>
 
-  <script src="data/references.js"></script>
-  <script src="decoder.js"></script>
+        <div class="pills" id="pills" role="list">
+          <button class="pill" id="pill-era" type="button" data-pill="era" role="listitem" aria-label="Era segment">
+            <span class="pill-tag">Era</span>
+            <span class="pill-value" data-value>– –</span>
+            <span class="pill-decoded" data-decoded></span>
+          </button>
+          <button class="pill" id="pill-model" type="button" data-pill="model" role="listitem" aria-label="Model segment">
+            <span class="pill-tag">Model</span>
+            <span class="pill-value" data-value>– – –</span>
+            <span class="pill-decoded" data-decoded></span>
+          </button>
+          <button class="pill" id="pill-bezel" type="button" data-pill="bezel" role="listitem" aria-label="Bezel segment">
+            <span class="pill-tag">Bezel</span>
+            <span class="pill-value" data-value>–</span>
+            <span class="pill-decoded" data-decoded></span>
+          </button>
+          <button class="pill" id="pill-bracelet" type="button" data-pill="bracelet" role="listitem" aria-label="Bracelet segment">
+            <span class="pill-tag">Bracelet</span>
+            <span class="pill-value" data-value>–</span>
+            <span class="pill-decoded" data-decoded></span>
+          </button>
+          <button class="pill" id="pill-suffix" type="button" data-pill="suffix" role="listitem" aria-label="Suffix segment">
+            <span class="pill-tag">Suffix</span>
+            <span class="pill-value" data-value>– –</span>
+            <span class="pill-decoded" data-decoded></span>
+          </button>
+        </div>
+
+        <div class="scroll-cue" id="scrollCue" aria-hidden="true">
+          <span>Result below</span>
+          <span class="arrow"></span>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+  <!-- RIGHT COLUMN (desktop) / MIDDLE SECTION (mobile) -->
+  <div class="right">
+    <section class="result-wrap" id="resultWrap" aria-live="polite">
+      <div class="result-card" id="resultCard" hidden></div>
+      <div class="result-empty" id="resultEmpty">Result appears here after 6 digits</div>
+    </section>
+  </div>
+</div>
+
+<!-- LEARN — single column under everything on all sizes -->
+<section class="learn" id="learn" aria-label="Learn the system">
+  <div class="learn-intro">
+    <p class="eyebrow">Optional</p>
+    <h3>Want to understand the <em>full system?</em></h3>
+  </div>
+
+  <div class="acc" id="acc">
+    <div class="acc-item" id="acc-era">
+      <button class="acc-head" type="button" aria-expanded="false">
+        <span class="lhs">
+          <span class="pos"><span class="swatch"></span>Digits 1–2</span>
+          <span class="name">Era</span>
+        </span>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="acc-body"><div><div class="acc-content">
+        <p>The first two digits encode which generation a watch belongs to — the case proportions, movement family, and material catalog of its era.</p>
+        <div class="codes">
+          <div class="k">11</div><div class="v">2000s–2010s generation</div>
+          <div class="k">12</div><div class="v">2020s generation (current)</div>
+          <div class="k">14</div><div class="v">1980s–1990s vintage</div>
+          <div class="k">16</div><div class="v">1990s–2000s transitional</div>
+          <div class="k">22</div><div class="v">Premium / precious metal current</div>
+        </div>
+      </div></div></div>
+    </div>
+
+    <div class="acc-item" id="acc-model">
+      <button class="acc-head" type="button" aria-expanded="false">
+        <span class="lhs">
+          <span class="pos"><span class="swatch"></span>Digits 3–5</span>
+          <span class="name">Model</span>
+        </span>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="acc-body"><div><div class="acc-content">
+        <p>The middle three digits identify the family — dive, GMT, dress, chronograph — and the specific size or movement variant within it.</p>
+        <div class="codes">
+          <div class="k">610</div><div class="v">Submariner Date</div>
+          <div class="k">500</div><div class="v">Daytona</div>
+          <div class="k">710</div><div class="v">GMT-Master II</div>
+          <div class="k">233</div><div class="v">Datejust 36</div>
+          <div class="k">334</div><div class="v">Datejust 41</div>
+          <div class="k">238</div><div class="v">Day-Date 40</div>
+          <div class="k">270</div><div class="v">Explorer</div>
+        </div>
+      </div></div></div>
+    </div>
+
+    <div class="acc-item" id="acc-bezel">
+      <button class="acc-head" type="button" aria-expanded="false">
+        <span class="lhs">
+          <span class="pos"><span class="swatch"></span>Digit 6</span>
+          <span class="name">Bezel</span>
+        </span>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="acc-body"><div><div class="acc-content">
+        <p>A single digit tells you what's around the dial — and often what kind of watch you're looking at.</p>
+        <div class="codes">
+          <div class="k">0</div><div class="v">Smooth</div>
+          <div class="k">1</div><div class="v">Rotating dive bezel</div>
+          <div class="k">3</div><div class="v">Fluted</div>
+          <div class="k">4</div><div class="v">Gem-set</div>
+          <div class="k">5</div><div class="v">GMT bidirectional</div>
+          <div class="k">6</div><div class="v">Tachymeter</div>
+        </div>
+      </div></div></div>
+    </div>
+
+    <div class="acc-item" id="acc-bracelet">
+      <button class="acc-head" type="button" aria-expanded="false">
+        <span class="lhs">
+          <span class="pos"><span class="swatch"></span>Digit 7</span>
+          <span class="name">Bracelet</span>
+        </span>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="acc-body"><div><div class="acc-content">
+        <p>One digit covers the strap style and the metal it's made from.</p>
+        <div class="codes">
+          <div class="k">0</div><div class="v">Oyster, steel</div>
+          <div class="k">1</div><div class="v">Jubilee, steel</div>
+          <div class="k">3</div><div class="v">Oyster, two-tone</div>
+          <div class="k">8</div><div class="v">Oyster, full yellow gold</div>
+          <div class="k">9</div><div class="v">Oyster, white gold</div>
+        </div>
+      </div></div></div>
+    </div>
+
+    <div class="acc-item" id="acc-suffix">
+      <button class="acc-head" type="button" aria-expanded="false">
+        <span class="lhs">
+          <span class="pos"><span class="swatch"></span>After digits</span>
+          <span class="name">Suffix</span>
+        </span>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="acc-body"><div><div class="acc-content">
+        <p>Letters following the digits describe the bezel insert — ceramic color combinations, sometimes with collector nicknames attached.</p>
+        <div class="codes">
+          <div class="k">LN</div><div class="v">Black ceramic bezel</div>
+          <div class="k">LV</div><div class="v">Green ceramic bezel</div>
+          <div class="k">LB</div><div class="v">Blue ceramic bezel</div>
+          <div class="k">BLNR</div><div class="v">Black/blue — “Batman”</div>
+          <div class="k">BLRO</div><div class="v">Black/red — “Pepsi”</div>
+          <div class="k">CHNR</div><div class="v">Chocolate/black — “Rootbeer”</div>
+        </div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="inner">
+    <div>
+      <div class="foot-brand"><span class="dot"></span>RolliDex</div>
+      <p class="foot-tag">The independent watch reference decoder.</p>
+    </div>
+    <p class="disclaimer">
+      RolliDex is an independent enthusiast resource and is not affiliated with, endorsed by, or connected to Rolex SA or any of its subsidiaries. All reference information is sourced from publicly available enthusiast communities and is provided for educational purposes only.
+    </p>
+  </div>
+</footer>
+
+<!-- Bottom-sheet popover for pill explanations -->
+<div class="sheet-scrim" id="sheetScrim" aria-hidden="true"></div>
+<aside class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" hidden>
+  <div class="grip"></div>
+  <button class="sheet-close" id="sheetClose" type="button" aria-label="Close">
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6l-12 12"/></svg>
+  </button>
+  <div class="sheet-head"><span class="swatch" id="sheetSwatch"></span><span class="tag" id="sheetTag">Era</span></div>
+  <h2 class="sheet-title" id="sheetTitle">—</h2>
+  <p class="sheet-value" id="sheetValue"></p>
+  <p class="sheet-body" id="sheetBody"></p>
+</aside>
+
+<script>
+/* ─────────────────────────────────────────────────────────────────────
+   THEME  —  resolved before paint (inline at top of body) to prevent FOUC
+   This block also runs before DOMContentLoaded so the right theme is applied
+   before the user sees anything.
+   ───────────────────────────────────────────────────────────────────── */
+function applyTheme(t){
+  document.documentElement.setAttribute("data-theme", t);
+  const btn = document.getElementById("themeToggle");
+  if(btn){
+    btn.setAttribute("aria-pressed", t === "light" ? "true" : "false");
+    btn.setAttribute("aria-label", t === "light" ? "Switch to dark mode" : "Switch to light mode");
+    btn.setAttribute("title", t === "light" ? "Switch to dark mode" : "Switch to light mode");
+  }
+}
+function initTheme(){
+  let saved = null;
+  try{ saved = localStorage.getItem("rollidex-theme"); }catch(e){}
+  const sysLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
+  applyTheme(saved || (sysLight ? "light" : "dark"));
+}
+initTheme();
+
+/* ─────────────────────────────────────────────────────────────────────
+   REFERENCE DATA  (single-file: inlined)
+   ───────────────────────────────────────────────────────────────────── */
+const REF = {
+  era:{
+    "14":{label:"1980s–1990s Generation",years:"approx. 1980–1995",note:"Classic vintage era. Matte dials, tritium lume, and original bracelet designs."},
+    "16":{label:"1990s–2000s Generation",years:"approx. 1990–2005",note:"Transitional era. Aluminum bezels, tritium then SuperLuminova lume, Cal. 3135 movements. Covers refs like 16610 Kermit, 16713 Root Beer, and 16520 Zenith Daytona."},
+    "11":{label:"2000s–2010s Generation",years:"approx. 2000–2019",note:"Transitional era introducing ceramic bezels and updated movements."},
+    "12":{label:"2020s Generation (Current)",years:"2020–present",note:"Latest generation with updated case proportions, improved luminescence, and modern calibers."},
+    "22":{label:"Day-Date 40 Generation",years:"2015–present",note:"Introduced the Day-Date 40mm case with Cal. 3255 and the Chronergy escapement. Precious metal only."}
+  },
+  model:{
+    "1002":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "1016":{name:"Explorer",material:null,era:null,category:"Explorer",significance:"Identified reference. Specifications being compiled."},
+    "1019":{name:"Milgauss",material:null,era:null,category:"Milgauss",significance:"Identified reference. Specifications being compiled."},
+    "1500":{name:"Date",material:null,era:null,category:"Date",significance:"Identified reference. Specifications being compiled."},
+    "1501":{name:"Date",material:null,era:null,category:"Date",significance:"Identified reference. Specifications being compiled."},
+    "1503":{name:"Date",material:null,era:null,category:"Date",significance:"Identified reference. Specifications being compiled."},
+    "1505":{name:"Date",material:null,era:null,category:"Date",significance:"Identified reference. Specifications being compiled."},
+    "1507":{name:"Date",material:null,era:null,category:"Date",significance:"Identified reference. Specifications being compiled."},
+    "1525":{name:"Date",material:null,era:null,category:"Date",significance:"Identified reference. Specifications being compiled."},
+    "1600":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "1601":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "1603":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "1625":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "1655":{name:"Explorer",material:null,era:null,category:"Explorer",significance:"Identified reference. Specifications being compiled."},
+    "1665":{name:"Sea-Dweller",material:null,era:null,category:"Sea-Dweller",significance:"Identified reference. Specifications being compiled."},
+    "1675":{name:"GMT-Master",material:null,era:null,category:"GMT-Master",significance:"Identified reference. Specifications being compiled."},
+    "1680":{name:"Submariner",material:null,era:null,category:"Submariner",significance:"Identified reference. Specifications being compiled."},
+    "1686":{name:"Yacht-Master 31",material:null,era:null,category:"Yacht-Master 31",significance:"Identified reference. Specifications being compiled."},
+    "1696":{name:"Yacht-Master 29",material:null,era:null,category:"Yacht-Master 29",significance:"Identified reference. Specifications being compiled."},
+    "1782":{name:"Datejust 31",material:null,era:null,category:"Datejust 31",significance:"Identified reference. Specifications being compiled."},
+    "1791":{name:"Lady-Datejust",material:null,era:null,category:"Lady-Datejust",significance:"Identified reference. Specifications being compiled."},
+    "1800":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "1802":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "1803":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "1804":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "1806":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "1807":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "4000":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "4012":{name:"Cellini",material:null,era:null,category:"Cellini",significance:"Identified reference. Specifications being compiled."},
+    "4014":{name:"Cellini",material:null,era:null,category:"Cellini",significance:"Identified reference. Specifications being compiled."},
+    "4015":{name:"Cellini",material:null,era:null,category:"Cellini",significance:"Identified reference. Specifications being compiled."},
+    "4016":{name:"Cellini",material:null,era:null,category:"Cellini",significance:"Identified reference. Specifications being compiled."},
+    "4017":{name:"Cellini",material:null,era:null,category:"Cellini",significance:"Identified reference. Specifications being compiled."},
+    "4031":{name:"Cellini",material:null,era:null,category:"Cellini",significance:"Identified reference. Specifications being compiled."},
+    "4101":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "4102":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "4103":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "4110":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "4111":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "4112":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "4126":{name:"Cellini",material:null,era:null,category:"Cellini",significance:"Identified reference. Specifications being compiled."},
+    "4127":{name:"Cellini",material:null,era:null,category:"Cellini",significance:"Identified reference. Specifications being compiled."},
+    "4151":{name:"Cellini",material:null,era:null,category:"Cellini",significance:"Identified reference. Specifications being compiled."},
+    "4153":{name:"Cellini",material:null,era:null,category:"Cellini",significance:"Identified reference. Specifications being compiled."},
+    "4232":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "4233":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "4312":{name:"Cellini",material:null,era:null,category:"Cellini",significance:"Identified reference. Specifications being compiled."},
+    "4313":{name:"Cellini",material:null,era:null,category:"Cellini",significance:"Identified reference. Specifications being compiled."},
+    "4315":{name:"Cellini",material:null,era:null,category:"Cellini",significance:"Identified reference. Specifications being compiled."},
+    "4316":{name:"Cellini",material:null,era:null,category:"Cellini",significance:"Identified reference. Specifications being compiled."},
+    "4342":{name:"Cellini",material:null,era:null,category:"Cellini",significance:"Identified reference. Specifications being compiled."},
+    "4344":{name:"Cellini",material:null,era:null,category:"Cellini",significance:"Identified reference. Specifications being compiled."},
+    "4360":{name:"Cellini",material:null,era:null,category:"Cellini",significance:"Identified reference. Specifications being compiled."},
+    "4400":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "4467":{name:"Datejust",material:null,era:null,category:"Datejust",significance:"Identified reference. Specifications being compiled."},
+    "4499":{name:"Air-King",material:null,era:null,category:"Air-King",significance:"Identified reference. Specifications being compiled."},
+    "4609":{name:"Cellini",material:null,era:null,category:"Cellini",significance:"Identified reference. Specifications being compiled."},
+    "4611":{name:"Cellini",material:null,era:null,category:"Cellini",significance:"Identified reference. Specifications being compiled."},
+    "4620":{name:"Cellini",material:null,era:null,category:"Cellini",significance:"Identified reference. Specifications being compiled."},
+    "4912":{name:"Cellini",material:null,era:null,category:"Cellini",significance:"Identified reference. Specifications being compiled."},
+    "4925":{name:"Air-King",material:null,era:null,category:"Air-King",significance:"Identified reference. Specifications being compiled."},
+    "5038":{name:"Cellini",material:null,era:null,category:"Cellini",significance:"Identified reference. Specifications being compiled."},
+    "5072":{name:"Cellini",material:null,era:null,category:"Cellini",significance:"Identified reference. Specifications being compiled."},
+    "5100":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "5112":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "5240":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "5241":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "5242":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "5243":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "5244":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "5310":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "5330":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "5440":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "5441":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "5442":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "5500":{name:"Air-King",material:null,era:null,category:"Air-King",significance:"Identified reference. Specifications being compiled."},
+    "5508":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "5510":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "5512":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "5513":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "5514":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "5517":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "5700":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "6062":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "6105":{name:"Explorer",material:null,era:null,category:"Explorer",significance:"Identified reference. Specifications being compiled."},
+    "6200":{name:"Daytona (Manual Wind)",material:null,era:null,category:"Daytona (Manual Wind)",significance:"Identified reference. Specifications being compiled."},
+    "6202":{name:"Daytona (Manual Wind)",material:null,era:null,category:"Daytona (Manual Wind)",significance:"Identified reference. Specifications being compiled."},
+    "6204":{name:"Submariner",material:null,era:null,category:"Submariner",significance:"Identified reference. Specifications being compiled."},
+    "6205":{name:"Daytona (Manual Wind)",material:null,era:null,category:"Daytona (Manual Wind)",significance:"Identified reference. Specifications being compiled."},
+    "6236":{name:"Daytona (Manual Wind)",material:null,era:null,category:"Daytona (Manual Wind)",significance:"Identified reference. Specifications being compiled."},
+    "6238":{name:"Daytona (Manual Wind)",material:null,era:null,category:"Daytona (Manual Wind)",significance:"Identified reference. Specifications being compiled."},
+    "6239":{name:"Daytona (Manual Wind)",material:null,era:null,category:"Daytona (Manual Wind)",significance:"Identified reference. Specifications being compiled."},
+    "6240":{name:"Daytona (Manual Wind)",material:null,era:null,category:"Daytona (Manual Wind)",significance:"Identified reference. Specifications being compiled."},
+    "6241":{name:"Daytona (Manual Wind)",material:null,era:null,category:"Daytona (Manual Wind)",significance:"Identified reference. Specifications being compiled."},
+    "6262":{name:"Daytona (Manual Wind)",material:null,era:null,category:"Daytona (Manual Wind)",significance:"Identified reference. Specifications being compiled."},
+    "6263":{name:"Daytona (Manual Wind)",material:null,era:null,category:"Daytona (Manual Wind)",significance:"Identified reference. Specifications being compiled."},
+    "6264":{name:"Daytona (Manual Wind)",material:null,era:null,category:"Daytona (Manual Wind)",significance:"Identified reference. Specifications being compiled."},
+    "6265":{name:"Daytona (Manual Wind)",material:null,era:null,category:"Daytona (Manual Wind)",significance:"Identified reference. Specifications being compiled."},
+    "6298":{name:"Explorer II",material:null,era:null,category:"Explorer II",significance:"Identified reference. Specifications being compiled."},
+    "6309":{name:"Explorer",material:null,era:null,category:"Explorer",significance:"Identified reference. Specifications being compiled."},
+    "6350":{name:"Explorer",material:null,era:null,category:"Explorer",significance:"Identified reference. Specifications being compiled."},
+    "6426":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "6510":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "6511":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "6530":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "6534":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "6535":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "6536":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "6537":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "6538":{name:"Submariner",material:null,era:null,category:"Submariner",significance:"Identified reference. Specifications being compiled."},
+    "6541":{name:"Milgauss",material:null,era:null,category:"Milgauss",significance:"Identified reference. Specifications being compiled."},
+    "6542":{name:"GMT-Master",material:null,era:null,category:"GMT-Master",significance:"Identified reference. Specifications being compiled."},
+    "6543":{name:"Milgauss",material:null,era:null,category:"Milgauss",significance:"Identified reference. Specifications being compiled."},
+    "6552":{name:"Air-King",material:null,era:null,category:"Air-King",significance:"Identified reference. Specifications being compiled."},
+    "6610":{name:"Explorer",material:null,era:null,category:"Explorer",significance:"Identified reference. Specifications being compiled."},
+    "6611":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "6612":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "6613":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "6671":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "6672":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "6693":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "6916":{name:"Ladies Date / Ladies Datejust",material:null,era:null,category:"Ladies Date / Ladies Datejust",significance:"Identified reference. Specifications being compiled."},
+    "6917":{name:"Ladies Date / Ladies Datejust",material:null,era:null,category:"Ladies Date / Ladies Datejust",significance:"Identified reference. Specifications being compiled."},
+    "6919":{name:"Ladies Date / Ladies Datejust",material:null,era:null,category:"Ladies Date / Ladies Datejust",significance:"Identified reference. Specifications being compiled."},
+    "8088":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "8115":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "8171":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "8201":{name:"Deepsea",material:null,era:null,category:"Deepsea",significance:"Identified reference. Specifications being compiled."},
+    "10065":{name:"Deepsea",material:null,era:null,category:"Deepsea",significance:"Identified reference. Specifications being compiled."},
+    "11626":{name:"Datejust 36",material:"Platinum",era:"See specifications",category:"Datejust 36",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "11650":{name:"Daytona Cosmograph",material:"Stainless Steel",era:"See specifications",category:"Daytona Cosmograph",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "11660":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "11661":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "11671":{name:"GMT-Master II",material:null,era:null,category:"GMT-Master II",significance:"Identified reference. Specifications being compiled."},
+    "12633":{name:"Datejust 41",material:"Stainless Steel & Yellow Gold (Rolesor)",era:"See specifications",category:"Datejust 41",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "12660":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "12662":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "12671":{name:"GMT-Master II",material:null,era:null,category:"GMT-Master II",significance:"Identified reference. Specifications being compiled."},
+    "13660":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "14000":{name:"Air-King",material:"Stainless Steel",era:"See specifications",category:"Air-King",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "14010":{name:"Air-King",material:"Stainless Steel",era:"See specifications",category:"Air-King",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "14060":{name:"Submariner",material:"Stainless Steel",era:"See specifications",category:"Submariner",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "14203":{name:"Oyster Perpetual",material:"Stainless Steel & Yellow Gold (Rolesor)",era:"See specifications",category:"Oyster Perpetual",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "14208":{name:"Oyster Perpetual",material:"18k Yellow Gold",era:"See specifications",category:"Oyster Perpetual",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "14233":{name:"Oyster Perpetual",material:"Stainless Steel & Yellow Gold (Rolesor)",era:"See specifications",category:"Oyster Perpetual",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "14238":{name:"Oyster Perpetual",material:"18k Yellow Gold",era:"See specifications",category:"Oyster Perpetual",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "14270":{name:"Explorer",material:"Stainless Steel",era:"See specifications",category:"Explorer",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "15000":{name:"Date",material:"Stainless Steel",era:"See specifications",category:"Date",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "15010":{name:"Date",material:"Stainless Steel",era:"See specifications",category:"Date",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "15013":{name:"Date",material:"Stainless Steel & Yellow Gold (Rolesor)",era:"See specifications",category:"Date",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "15027":{name:"Date",material:null,era:null,category:"Date",significance:"Identified reference. Specifications being compiled."},
+    "15037":{name:"Date",material:null,era:null,category:"Date",significance:"Identified reference. Specifications being compiled."},
+    "15038":{name:"Date",material:"18k Yellow Gold",era:"See specifications",category:"Date",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "15053":{name:"Date",material:"Stainless Steel & Yellow Gold (Rolesor)",era:"See specifications",category:"Date",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "15200":{name:"Date",material:"Stainless Steel",era:"See specifications",category:"Date",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "15210":{name:"Date",material:"Stainless Steel",era:"See specifications",category:"Date",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "15223":{name:"Date",material:"Stainless Steel & Yellow Gold (Rolesor)",era:"See specifications",category:"Date",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "15238":{name:"Date",material:"18k Yellow Gold",era:"See specifications",category:"Date",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "16000":{name:"Datejust",material:"Stainless Steel",era:"See specifications",category:"Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "16013":{name:"Datejust",material:"Stainless Steel & Yellow Gold (Rolesor)",era:"See specifications",category:"Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "16014":{name:"Datejust",material:"Stainless Steel & White Gold (Rolesor)",era:"See specifications",category:"Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "16018":{name:"Datejust",material:"18k Yellow Gold",era:"See specifications",category:"Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "16030":{name:"Datejust",material:"Stainless Steel",era:"See specifications",category:"Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "16078":{name:"Datejust",material:"18k Yellow Gold",era:"See specifications",category:"Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "16200":{name:"Datejust",material:"Stainless Steel",era:"See specifications",category:"Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "16203":{name:"Datejust",material:"Stainless Steel & Yellow Gold (Rolesor)",era:"See specifications",category:"Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "16220":{name:"Datejust",material:"Stainless Steel",era:"See specifications",category:"Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "16233":{name:"Datejust",material:"Stainless Steel & Yellow Gold (Rolesor)",era:"See specifications",category:"Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "16234":{name:"Datejust",material:"Stainless Steel & White Gold (Rolesor)",era:"See specifications",category:"Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "16238":{name:"Datejust",material:"18k Yellow Gold",era:"See specifications",category:"Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "16248":{name:"Datejust",material:"18k Yellow Gold",era:"See specifications",category:"Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "16250":{name:"Datejust",material:"Stainless Steel",era:"See specifications",category:"Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "16263":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "16264":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "16364":{name:"Datejust",material:"Stainless Steel & White Gold (Rolesor)",era:"See specifications",category:"Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "16518":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "16519":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "16520":{name:"Daytona",material:"Stainless Steel",era:"See specifications",category:"Daytona",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "16523":{name:"Daytona",material:"Stainless Steel & Yellow Gold (Rolesor)",era:"See specifications",category:"Daytona",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "16528":{name:"Daytona",material:"18k Yellow Gold",era:"See specifications",category:"Daytona",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "16550":{name:"Explorer II",material:"Stainless Steel",era:"See specifications",category:"Explorer II",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "16600":{name:"Sea-Dweller",material:"Stainless Steel",era:"See specifications",category:"Sea-Dweller",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "16610":{name:"Submariner",material:"Stainless Steel",era:"See specifications",category:"Submariner",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "16613":{name:"Submariner",material:"Stainless Steel & Yellow Gold (Rolesor)",era:"See specifications",category:"Submariner",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "16618":{name:"Submariner",material:"18k Yellow Gold",era:"See specifications",category:"Submariner",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "16622":{name:"Yacht-Master",material:null,era:null,category:"Yacht-Master",significance:"Identified reference. Specifications being compiled."},
+    "16623":{name:"Yacht-Master II",material:"Stainless Steel & Yellow Gold (Rolesor)",era:"See specifications",category:"Yacht-Master II",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "16628":{name:"Yacht-Master",material:"18k Yellow Gold",era:"See specifications",category:"Yacht-Master",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "16660":{name:"Sea-Dweller",material:"Stainless Steel",era:"See specifications",category:"Sea-Dweller",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "16700":{name:"GMT-Master II",material:"Stainless Steel",era:"See specifications",category:"GMT-Master II",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "16710":{name:"GMT-Master II",material:"Stainless Steel",era:"See specifications",category:"GMT-Master II",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "16713":{name:"GMT-Master II",material:"Stainless Steel & Yellow Gold (Rolesor)",era:"See specifications",category:"GMT-Master II",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "16718":{name:"GMT-Master II",material:"18k Yellow Gold",era:"See specifications",category:"GMT-Master II",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "16750":{name:"GMT-Master",material:"Stainless Steel",era:"See specifications",category:"GMT-Master",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "16753":{name:"GMT-Master",material:"Stainless Steel & Yellow Gold (Rolesor)",era:"See specifications",category:"GMT-Master",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "16758":{name:"GMT-Master",material:"18k Yellow Gold",era:"See specifications",category:"GMT-Master",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "16760":{name:"GMT-Master II",material:"Stainless Steel",era:"See specifications",category:"GMT-Master II",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "16800":{name:"Submariner",material:"Stainless Steel",era:"See specifications",category:"Submariner",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "16803":{name:"Submariner",material:"Stainless Steel & Yellow Gold (Rolesor)",era:"See specifications",category:"Submariner",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "17000":{name:"Datejust",material:"Stainless Steel",era:"See specifications",category:"Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "17013":{name:"Datejust",material:"Stainless Steel & Yellow Gold (Rolesor)",era:"See specifications",category:"Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "17014":{name:"Datejust",material:"Stainless Steel & White Gold (Rolesor)",era:"See specifications",category:"Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "17827":{name:"Datejust 31",material:null,era:null,category:"Datejust 31",significance:"Identified reference. Specifications being compiled."},
+    "18038":{name:"Day-Date",material:"18k Yellow Gold",era:"See specifications",category:"Day-Date",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "18039":{name:"Day-Date",material:"18k White Gold",era:"See specifications",category:"Day-Date",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "18048":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "18078":{name:"Day-Date",material:"18k Yellow Gold",era:"See specifications",category:"Day-Date",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "18238":{name:"Day-Date",material:"18k Yellow Gold",era:"See specifications",category:"Day-Date",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "18239":{name:"Day-Date",material:"18k White Gold",era:"See specifications",category:"Day-Date",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "18248":{name:"Day-Date",material:"18k Yellow Gold",era:"See specifications",category:"Day-Date",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "18249":{name:"Day-Date",material:"18k White Gold",era:"See specifications",category:"Day-Date",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "18298":{name:"Day-Date",material:"18k Yellow Gold",era:"See specifications",category:"Day-Date",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "18299":{name:"Day-Date",material:"18k White Gold",era:"See specifications",category:"Day-Date",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "18308":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "18338":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "18348":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "18946":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "18948":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "18956":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "18958":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "19018":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "19019":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "22820":{name:"Day-Date 40",material:"Stainless Steel",era:"See specifications",category:"Day-Date 40",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "32693":{name:"Sky-Dweller",material:"Stainless Steel & Yellow Gold (Rolesor)",era:"See specifications",category:"Sky-Dweller",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "33139":{name:"Deepsea",material:"18k White Gold",era:"See specifications",category:"Deepsea",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "33580":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "36240":{name:"Daytona",material:"Stainless Steel",era:"See specifications",category:"Daytona",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "50505":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "50509":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "50515":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "50519":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "50525":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "50529":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "50535":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "52506":{name:"Sky-Dweller",material:"Platinum",era:"See specifications",category:"Sky-Dweller",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "52508":{name:"Sky-Dweller",material:"18k Yellow Gold",era:"See specifications",category:"Sky-Dweller",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "52509":{name:"Sky-Dweller",material:"18k White Gold",era:"See specifications",category:"Sky-Dweller",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "67193":{name:"Ladies Oyster Perpetual",material:"Stainless Steel & Yellow Gold (Rolesor)",era:"See specifications",category:"Ladies Oyster Perpetual",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "68273":{name:"Midsize Oyster Perpetual Datejust",material:"Stainless Steel & Yellow Gold (Rolesor)",era:"See specifications",category:"Midsize Oyster Perpetual Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "68278":{name:"Midsize Oyster Perpetual Datejust",material:"18k Yellow Gold",era:"See specifications",category:"Midsize Oyster Perpetual Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "68628":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "69138":{name:"Ladies Date / Ladies Datejust",material:"18k Yellow Gold",era:"See specifications",category:"Ladies Date / Ladies Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "69159":{name:"Ladies Date / Ladies Datejust",material:"18k White Gold",era:"See specifications",category:"Ladies Date / Ladies Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "69163":{name:"Ladies Date / Ladies Datejust",material:"Stainless Steel & Yellow Gold (Rolesor)",era:"See specifications",category:"Ladies Date / Ladies Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "69173":{name:"Ladies Date / Ladies Datejust",material:"Stainless Steel & Yellow Gold (Rolesor)",era:"See specifications",category:"Ladies Date / Ladies Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "69174":{name:"Ladies Date / Ladies Datejust",material:"Stainless Steel & White Gold (Rolesor)",era:"See specifications",category:"Ladies Date / Ladies Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "69178":{name:"Ladies Date / Ladies Datejust",material:"18k Yellow Gold",era:"See specifications",category:"Ladies Date / Ladies Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "69622":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "69628":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "77080":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "78240":{name:"Lady-Datejust",material:"Stainless Steel",era:"See specifications",category:"Lady-Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "78274":{name:"Lady-Datejust",material:"Stainless Steel & White Gold (Rolesor)",era:"See specifications",category:"Lady-Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "79160":{name:"Lady-Datejust",material:"Stainless Steel",era:"See specifications",category:"Lady-Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "79173":{name:"Lady-Datejust",material:"Stainless Steel & Yellow Gold (Rolesor)",era:"See specifications",category:"Lady-Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "79174":{name:"Lady-Datejust",material:"Stainless Steel & White Gold (Rolesor)",era:"See specifications",category:"Lady-Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "79190":{name:"Lady-Datejust",material:"Stainless Steel",era:"See specifications",category:"Lady-Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "79288":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "114200":{name:"Air-King",material:"Stainless Steel",era:"See specifications",category:"Air-King",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "114210":{name:"Explorer",material:"Stainless Steel",era:"See specifications",category:"Explorer",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "114234":{name:"Explorer",material:"Stainless Steel & White Gold (Rolesor)",era:"See specifications",category:"Explorer",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "114300":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "115200":{name:"Date",material:"Stainless Steel",era:"See specifications",category:"Date",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "115210":{name:"Date",material:"Stainless Steel",era:"See specifications",category:"Date",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "115233":{name:"Date",material:"Stainless Steel & Yellow Gold (Rolesor)",era:"See specifications",category:"Date",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "115234":{name:"Date",material:"Stainless Steel & White Gold (Rolesor)",era:"See specifications",category:"Date",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "115238":{name:"Date",material:"18k Yellow Gold",era:"See specifications",category:"Date",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "116000":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "116138":{name:"Datejust",material:"18k Yellow Gold",era:"See specifications",category:"Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "116139":{name:"Datejust",material:"18k White Gold",era:"See specifications",category:"Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "116188":{name:"Datejust",material:"18k Yellow Gold",era:"See specifications",category:"Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "116189":{name:"Datejust",material:"18k White Gold",era:"See specifications",category:"Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "116199":{name:"Datejust",material:"18k White Gold",era:"See specifications",category:"Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "116201":{name:"Datejust",material:null,era:null,category:"Datejust",significance:"Identified reference. Specifications being compiled."},
+    "116203":{name:"Datejust",material:"Stainless Steel & Yellow Gold (Rolesor)",era:"See specifications",category:"Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "116208":{name:"Datejust",material:"18k Yellow Gold",era:"See specifications",category:"Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "116231":{name:"Datejust",material:null,era:null,category:"Datejust",significance:"Identified reference. Specifications being compiled."},
+    "116238":{name:"Datejust",material:"18k Yellow Gold",era:"See specifications",category:"Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "116243":{name:"Datejust",material:"Stainless Steel & Yellow Gold (Rolesor)",era:"See specifications",category:"Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "116244":{name:"Datejust",material:"Stainless Steel & White Gold (Rolesor)",era:"See specifications",category:"Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "116264":{name:"Datejust 36",material:"Stainless Steel & White Gold (Rolesor)",era:"See specifications",category:"Datejust 36",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "116300":{name:"Datejust",material:"Stainless Steel",era:"See specifications",category:"Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "116333":{name:"Datejust II",material:"Stainless Steel & Yellow Gold (Rolesor)",era:"See specifications",category:"Datejust II",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "116334":{name:"Datejust",material:"Stainless Steel & White Gold (Rolesor)",era:"See specifications",category:"Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "116503":{name:"Daytona",material:"Stainless Steel & Yellow Gold (Rolesor)",era:"See specifications",category:"Daytona",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "116505":{name:"Daytona",material:null,era:null,category:"Daytona",significance:"Identified reference. Specifications being compiled."},
+    "116506":{name:"Daytona",material:"Platinum",era:"See specifications",category:"Daytona",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "116508":{name:"Daytona",material:"18k Yellow Gold",era:"See specifications",category:"Daytona",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "116509":{name:"Daytona",material:"18k White Gold",era:"See specifications",category:"Daytona",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "116515":{name:"Daytona",material:null,era:null,category:"Daytona",significance:"Identified reference. Specifications being compiled."},
+    "116518":{name:"Daytona",material:"18k Yellow Gold",era:"See specifications",category:"Daytona",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "116519":{name:"Daytona",material:"18k White Gold",era:"See specifications",category:"Daytona",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "116576":{name:"Daytona Cosmograph",material:"Platinum",era:"See specifications",category:"Daytona Cosmograph",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "116588":{name:"Daytona Cosmograph",material:"18k Yellow Gold",era:"See specifications",category:"Daytona Cosmograph",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "116595":{name:"Daytona Cosmograph",material:null,era:null,category:"Daytona Cosmograph",significance:"Identified reference. Specifications being compiled."},
+    "116598":{name:"Daytona Cosmograph",material:"18k Yellow Gold",era:"See specifications",category:"Daytona Cosmograph",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "116599":{name:"Daytona",material:"18k White Gold",era:"See specifications",category:"Daytona",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "116628":{name:"Yacht-Master II",material:"18k Yellow Gold",era:"See specifications",category:"Yacht-Master II",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "116659":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "116660":{name:"Sea-Dweller",material:"Stainless Steel",era:"See specifications",category:"Sea-Dweller",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "116680":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "116681":{name:"Yacht-Master II",material:null,era:null,category:"Yacht-Master II",significance:"Identified reference. Specifications being compiled."},
+    "116688":{name:"Yacht-Master II",material:"18k Yellow Gold",era:"See specifications",category:"Yacht-Master II",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "116689":{name:"Yacht-Master II",material:"18k White Gold",era:"See specifications",category:"Yacht-Master II",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "116695":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "116713":{name:"GMT-Master II",material:"Stainless Steel & Yellow Gold (Rolesor)",era:"See specifications",category:"GMT-Master II",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "116718":{name:"GMT-Master II",material:"18k Yellow Gold",era:"See specifications",category:"GMT-Master II",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "116719":{name:"GMT-Master II",material:"18k White Gold",era:"See specifications",category:"GMT-Master II",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "116758":{name:"GMT-Master II",material:"18k Yellow Gold",era:"See specifications",category:"GMT-Master II",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "116759":{name:"GMT-Master II",material:"18k White Gold",era:"See specifications",category:"GMT-Master II",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "118135":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "118138":{name:"Day-Date",material:"18k Yellow Gold",era:"See specifications",category:"Day-Date",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "118139":{name:"Day-Date",material:"18k White Gold",era:"See specifications",category:"Day-Date",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "118206":{name:"Day-Date 36",material:"Platinum",era:"See specifications",category:"Day-Date 36",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "118208":{name:"Day-Date",material:"18k Yellow Gold",era:"See specifications",category:"Day-Date",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "118209":{name:"Day-Date",material:"18k White Gold",era:"See specifications",category:"Day-Date",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "118236":{name:"Day-Date",material:"Platinum",era:"See specifications",category:"Day-Date",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "118288":{name:"Day-Date",material:"18k Yellow Gold",era:"See specifications",category:"Day-Date",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "118289":{name:"Day-Date",material:"18k White Gold",era:"See specifications",category:"Day-Date",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "118346":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "118366":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "118388":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "118399":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "124200":{name:"Oyster Perpetual",material:"Stainless Steel",era:"See specifications",category:"Oyster Perpetual",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "124273":{name:"Explorer",material:"Stainless Steel & Yellow Gold (Rolesor)",era:"See specifications",category:"Explorer",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "124300":{name:"Oyster Perpetual",material:"Stainless Steel",era:"See specifications",category:"Oyster Perpetual",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "125535":{name:"Daytona",material:null,era:null,category:"Daytona",significance:"Identified reference. Specifications being compiled."},
+    "126000":{name:"Oyster Perpetual",material:"Stainless Steel",era:"See specifications",category:"Oyster Perpetual",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "126067":{name:"Deepsea",material:null,era:null,category:"Deepsea",significance:"Identified reference. Specifications being compiled."},
+    "126200":{name:"Datejust",material:"Stainless Steel",era:"See specifications",category:"Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "126201":{name:"Datejust",material:null,era:null,category:"Datejust",significance:"Identified reference. Specifications being compiled."},
+    "126203":{name:"Datejust",material:"Stainless Steel & Yellow Gold (Rolesor)",era:"See specifications",category:"Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "126231":{name:"Datejust",material:null,era:null,category:"Datejust",significance:"Identified reference. Specifications being compiled."},
+    "126233":{name:"Datejust",material:"Stainless Steel & Yellow Gold (Rolesor)",era:"See specifications",category:"Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "126234":{name:"Datejust",material:"Stainless Steel & White Gold (Rolesor)",era:"See specifications",category:"Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "126281":{name:"Datejust",material:null,era:null,category:"Datejust",significance:"Identified reference. Specifications being compiled."},
+    "126283":{name:"Datejust",material:"Stainless Steel & Yellow Gold (Rolesor)",era:"See specifications",category:"Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "126284":{name:"Datejust",material:"Stainless Steel & White Gold (Rolesor)",era:"See specifications",category:"Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "126303":{name:"Datejust",material:"Stainless Steel & Yellow Gold (Rolesor)",era:"See specifications",category:"Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "126502":{name:"Daytona",material:null,era:null,category:"Daytona",significance:"Identified reference. Specifications being compiled."},
+    "126503":{name:"Daytona",material:"Stainless Steel & Yellow Gold (Rolesor)",era:"See specifications",category:"Daytona",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "126505":{name:"Daytona",material:null,era:null,category:"Daytona",significance:"Identified reference. Specifications being compiled."},
+    "126506":{name:"Daytona",material:"Platinum",era:"See specifications",category:"Daytona",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "126508":{name:"Daytona",material:"18k Yellow Gold",era:"See specifications",category:"Daytona",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "126509":{name:"Daytona",material:"18k White Gold",era:"See specifications",category:"Daytona",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "126515":{name:"Oyster Perpetual",material:null,era:null,category:"Oyster Perpetual",significance:"Identified reference. Specifications being compiled."},
+    "126518":{name:"Oyster Perpetual",material:"18k Yellow Gold",era:"See specifications",category:"Oyster Perpetual",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "126519":{name:"Oyster Perpetual",material:"18k White Gold",era:"See specifications",category:"Oyster Perpetual",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "126525":{name:"Oyster Perpetual",material:null,era:null,category:"Oyster Perpetual",significance:"Identified reference. Specifications being compiled."},
+    "126528":{name:"Oyster Perpetual",material:"18k Yellow Gold",era:"See specifications",category:"Oyster Perpetual",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "126529":{name:"Oyster Perpetual",material:"18k White Gold",era:"See specifications",category:"Oyster Perpetual",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "126535":{name:"Oyster Perpetual",material:null,era:null,category:"Oyster Perpetual",significance:"Identified reference. Specifications being compiled."},
+    "126538":{name:"Daytona",material:"18k Yellow Gold",era:"See specifications",category:"Daytona",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "126539":{name:"Daytona",material:"18k White Gold",era:"See specifications",category:"Daytona",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "126555":{name:"Oyster Perpetual",material:null,era:null,category:"Oyster Perpetual",significance:"Identified reference. Specifications being compiled."},
+    "126579":{name:"Daytona",material:"18k White Gold",era:"See specifications",category:"Daytona",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "126589":{name:"Daytona",material:"18k White Gold",era:"See specifications",category:"Daytona",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "126595":{name:"Daytona",material:null,era:null,category:"Daytona",significance:"Identified reference. Specifications being compiled."},
+    "126598":{name:"Daytona",material:"18k Yellow Gold",era:"See specifications",category:"Daytona",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "126599":{name:"Oyster Perpetual",material:"18k White Gold",era:"See specifications",category:"Oyster Perpetual",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "126606":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "126618":{name:"Submariner",material:"18k Yellow Gold",era:"See specifications",category:"Submariner",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "126621":{name:"Yacht-Master",material:null,era:null,category:"Yacht-Master",significance:"Identified reference. Specifications being compiled."},
+    "126623":{name:"Yacht-Master II",material:"Stainless Steel & Yellow Gold (Rolesor)",era:"See specifications",category:"Yacht-Master II",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "126655":{name:"Yacht-Master",material:null,era:null,category:"Yacht-Master",significance:"Identified reference. Specifications being compiled."},
+    "126713":{name:"GMT-Master II",material:"Stainless Steel & Yellow Gold (Rolesor)",era:"See specifications",category:"GMT-Master II",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "126715":{name:"GMT-Master II",material:null,era:null,category:"GMT-Master II",significance:"Identified reference. Specifications being compiled."},
+    "126718":{name:"GMT-Master II",material:"18k Yellow Gold",era:"See specifications",category:"GMT-Master II",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "126719":{name:"GMT-Master II",material:"18k White Gold",era:"See specifications",category:"GMT-Master II",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "126720":{name:"GMT-Master II",material:"Stainless Steel",era:"See specifications",category:"GMT-Master II",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "126729":{name:"GMT-Master II",material:"18k White Gold",era:"See specifications",category:"GMT-Master II",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "127234":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "127235":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "127236":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "127285":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "127286":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "127334":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "127335":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "127336":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "127385":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "127386":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "128206":{name:"Day-Date 36",material:"Platinum",era:"See specifications",category:"Day-Date 36",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "128235":{name:"Day-Date",material:null,era:null,category:"Day-Date",significance:"Identified reference. Specifications being compiled."},
+    "128236":{name:"Day-Date",material:"Platinum",era:"See specifications",category:"Day-Date",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "128238":{name:"Day-Date",material:"18k Yellow Gold",era:"See specifications",category:"Day-Date",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "128239":{name:"Day-Date",material:"18k White Gold",era:"See specifications",category:"Day-Date",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "128345":{name:"Day-Date",material:null,era:null,category:"Day-Date",significance:"Identified reference. Specifications being compiled."},
+    "128346":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "128348":{name:"Day-Date",material:"18k Yellow Gold",era:"See specifications",category:"Day-Date",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "128349":{name:"Day-Date",material:"18k White Gold",era:"See specifications",category:"Day-Date",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "128366":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "128388":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "128395":{name:"Day-Date",material:null,era:null,category:"Day-Date",significance:"Identified reference. Specifications being compiled."},
+    "128396":{name:"Day-Date",material:"Platinum",era:"See specifications",category:"Day-Date",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "128398":{name:"Day-Date",material:"18k Yellow Gold",era:"See specifications",category:"Day-Date",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "128399":{name:"Day-Date",material:"18k White Gold",era:"See specifications",category:"Day-Date",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "134300":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "136660":{name:"Sea-Dweller",material:"Stainless Steel",era:"See specifications",category:"Sea-Dweller",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "136668":{name:"Deepsea",material:"18k Yellow Gold",era:"See specifications",category:"Deepsea",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "166201":{name:"Datejust",material:null,era:null,category:"Datejust",significance:"Identified reference. Specifications being compiled."},
+    "168000":{name:"Submariner",material:"Stainless Steel",era:"See specifications",category:"Submariner",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "168622":{name:"Yacht-Master",material:null,era:null,category:"Yacht-Master",significance:"Identified reference. Specifications being compiled."},
+    "168623":{name:"Yacht-Master 31",material:"Stainless Steel & Yellow Gold (Rolesor)",era:"See specifications",category:"Yacht-Master 31",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "169622":{name:"Yacht-Master 29",material:null,era:null,category:"Yacht-Master 29",significance:"Identified reference. Specifications being compiled."},
+    "169623":{name:"Yacht-Master",material:"Stainless Steel & Yellow Gold (Rolesor)",era:"See specifications",category:"Yacht-Master",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "176200":{name:"Oyster Perpetual",material:"Stainless Steel",era:"See specifications",category:"Oyster Perpetual",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "178241":{name:"Datejust 31",material:null,era:null,category:"Datejust 31",significance:"Identified reference. Specifications being compiled."},
+    "178273":{name:"Datejust 31",material:"Stainless Steel & Yellow Gold (Rolesor)",era:"See specifications",category:"Datejust 31",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "178274":{name:"Lady-Datejust",material:"Stainless Steel & White Gold (Rolesor)",era:"See specifications",category:"Lady-Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "178384":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "179158":{name:"Lady-Datejust",material:"18k Yellow Gold",era:"See specifications",category:"Lady-Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "179159":{name:"Lady-Datejust",material:"18k White Gold",era:"See specifications",category:"Lady-Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "179171":{name:"Lady-Datejust",material:null,era:null,category:"Lady-Datejust",significance:"Identified reference. Specifications being compiled."},
+    "179173":{name:"Lady-Datejust",material:"Stainless Steel & Yellow Gold (Rolesor)",era:"See specifications",category:"Lady-Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "179174":{name:"Lady-Datejust",material:"Stainless Steel & White Gold (Rolesor)",era:"See specifications",category:"Lady-Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "179178":{name:"Lady-Datejust",material:"18k Yellow Gold",era:"See specifications",category:"Lady-Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "179313":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "218206":{name:"Day-Date",material:"Platinum",era:"See specifications",category:"Day-Date",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "218235":{name:"Day-Date II",material:null,era:null,category:"Day-Date II",significance:"Identified reference. Specifications being compiled."},
+    "218238":{name:"Day-Date II",material:"18k Yellow Gold",era:"See specifications",category:"Day-Date II",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "218239":{name:"Day-Date II",material:"18k White Gold",era:"See specifications",category:"Day-Date II",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "224270":{name:"Explorer",material:"Stainless Steel",era:"See specifications",category:"Explorer",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "226570":{name:"Explorer II",material:"Stainless Steel",era:"See specifications",category:"Explorer II",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "228236":{name:"Day-Date",material:"Platinum",era:"See specifications",category:"Day-Date",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "228345":{name:"Day-Date",material:null,era:null,category:"Day-Date",significance:"Identified reference. Specifications being compiled."},
+    "228348":{name:"Day-Date",material:"18k Yellow Gold",era:"See specifications",category:"Day-Date",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "228349":{name:"Day-Date",material:"18k White Gold",era:"See specifications",category:"Day-Date",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "228396":{name:"Day-Date",material:"Platinum",era:"See specifications",category:"Day-Date",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "228398":{name:"Day-Date",material:"18k Yellow Gold",era:"See specifications",category:"Day-Date",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "268621":{name:"Yacht-Master",material:null,era:null,category:"Yacht-Master",significance:"Identified reference. Specifications being compiled."},
+    "268622":{name:"Yacht-Master",material:null,era:null,category:"Yacht-Master",significance:"Identified reference. Specifications being compiled."},
+    "268655":{name:"Yacht-Master",material:null,era:null,category:"Yacht-Master",significance:"Identified reference. Specifications being compiled."},
+    "276200":{name:"Oyster Perpetual",material:"Stainless Steel",era:"See specifications",category:"Oyster Perpetual",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "277200":{name:"Oyster Perpetual",material:"Stainless Steel",era:"See specifications",category:"Oyster Perpetual",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "278240":{name:"Lady-Datejust",material:"Stainless Steel",era:"See specifications",category:"Lady-Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "278241":{name:"Datejust",material:null,era:null,category:"Datejust",significance:"Identified reference. Specifications being compiled."},
+    "278243":{name:"Datejust",material:"Stainless Steel & Yellow Gold (Rolesor)",era:"See specifications",category:"Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "278271":{name:"Datejust",material:null,era:null,category:"Datejust",significance:"Identified reference. Specifications being compiled."},
+    "278273":{name:"Datejust",material:"Stainless Steel & Yellow Gold (Rolesor)",era:"See specifications",category:"Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "278274":{name:"Lady-Datejust",material:"Stainless Steel & White Gold (Rolesor)",era:"See specifications",category:"Lady-Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "278275":{name:"Datejust",material:null,era:null,category:"Datejust",significance:"Identified reference. Specifications being compiled."},
+    "278278":{name:"Datejust",material:"18k Yellow Gold",era:"See specifications",category:"Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "278285":{name:"Datejust",material:null,era:null,category:"Datejust",significance:"Identified reference. Specifications being compiled."},
+    "278288":{name:"Datejust",material:"18k Yellow Gold",era:"See specifications",category:"Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "278289":{name:"Datejust",material:"18k White Gold",era:"See specifications",category:"Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "278341":{name:"Datejust",material:null,era:null,category:"Datejust",significance:"Identified reference. Specifications being compiled."},
+    "278343":{name:"Datejust",material:"Stainless Steel & Yellow Gold (Rolesor)",era:"See specifications",category:"Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "278344":{name:"Datejust",material:"Stainless Steel & White Gold (Rolesor)",era:"See specifications",category:"Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "278381":{name:"Datejust",material:null,era:null,category:"Datejust",significance:"Identified reference. Specifications being compiled."},
+    "278383":{name:"Datejust",material:"Stainless Steel & Yellow Gold (Rolesor)",era:"See specifications",category:"Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "278384":{name:"Datejust",material:"Stainless Steel & White Gold (Rolesor)",era:"See specifications",category:"Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "279135":{name:"Lady-Datejust",material:null,era:null,category:"Lady-Datejust",significance:"Identified reference. Specifications being compiled."},
+    "279138":{name:"Lady-Datejust",material:"18k Yellow Gold",era:"See specifications",category:"Lady-Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "279139":{name:"Lady-Datejust",material:"18k White Gold",era:"See specifications",category:"Lady-Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "279160":{name:"Lady-Datejust",material:"Stainless Steel",era:"See specifications",category:"Lady-Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "279161":{name:"Lady-Datejust",material:null,era:null,category:"Lady-Datejust",significance:"Identified reference. Specifications being compiled."},
+    "279163":{name:"Lady-Datejust",material:"Stainless Steel & Yellow Gold (Rolesor)",era:"See specifications",category:"Lady-Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "279171":{name:"Lady-Datejust",material:null,era:null,category:"Lady-Datejust",significance:"Identified reference. Specifications being compiled."},
+    "279173":{name:"Lady-Datejust",material:"Stainless Steel & Yellow Gold (Rolesor)",era:"See specifications",category:"Lady-Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "279174":{name:"Lady-Datejust",material:"Stainless Steel & White Gold (Rolesor)",era:"See specifications",category:"Lady-Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "279175":{name:"Lady-Datejust",material:null,era:null,category:"Lady-Datejust",significance:"Identified reference. Specifications being compiled."},
+    "279178":{name:"Lady-Datejust",material:"18k Yellow Gold",era:"See specifications",category:"Lady-Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "279381":{name:"Lady-Datejust",material:null,era:null,category:"Lady-Datejust",significance:"Identified reference. Specifications being compiled."},
+    "279383":{name:"Lady-Datejust",material:"Stainless Steel & Yellow Gold (Rolesor)",era:"See specifications",category:"Lady-Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "279384":{name:"Lady-Datejust",material:"Stainless Steel & White Gold (Rolesor)",era:"See specifications",category:"Lady-Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "279458":{name:"Lady-Datejust",material:"18k Yellow Gold",era:"See specifications",category:"Lady-Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "279459":{name:"Lady-Datejust",material:"18k White Gold",era:"See specifications",category:"Lady-Datejust",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "326135":{name:"Sky-Dweller",material:null,era:null,category:"Sky-Dweller",significance:"Identified reference. Specifications being compiled."},
+    "326138":{name:"Sky-Dweller",material:"18k Yellow Gold",era:"See specifications",category:"Sky-Dweller",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "326139":{name:"Sky-Dweller",material:"18k White Gold",era:"See specifications",category:"Sky-Dweller",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "326235":{name:"Sky-Dweller",material:null,era:null,category:"Sky-Dweller",significance:"Identified reference. Specifications being compiled."},
+    "326238":{name:"Sky-Dweller",material:"18k Yellow Gold",era:"See specifications",category:"Sky-Dweller",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "326938":{name:"Sky-Dweller",material:"18k Yellow Gold",era:"See specifications",category:"Sky-Dweller",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "326939":{name:"Sky-Dweller",material:"18k White Gold",era:"See specifications",category:"Sky-Dweller",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "336138":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "336139":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
+    "336235":{name:"Sky-Dweller",material:null,era:null,category:"Sky-Dweller",significance:"Identified reference. Specifications being compiled."},
+    "336238":{name:"Sky-Dweller",material:"18k Yellow Gold",era:"See specifications",category:"Sky-Dweller",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "336239":{name:"Sky-Dweller",material:"18k White Gold",era:"See specifications",category:"Sky-Dweller",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "336933":{name:"Sky-Dweller",material:"Stainless Steel & Yellow Gold (Rolesor)",era:"See specifications",category:"Sky-Dweller",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "336934":{name:"Sky-Dweller",material:"Stainless Steel & White Gold (Rolesor)",era:"See specifications",category:"Sky-Dweller",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "336935":{name:"Sky-Dweller",material:null,era:null,category:"Sky-Dweller",significance:"Identified reference. Specifications being compiled."},
+    "336938":{name:"Sky-Dweller",material:"18k Yellow Gold",era:"See specifications",category:"Sky-Dweller",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "114060":{name:"Submariner (No Date)",material:"Stainless Steel",era:"2012–2020",category:"Dive Watch",bracelet:"Oyster",significance:"The purist's Submariner — no date window means a cleaner, symmetrical dial. Beloved by collectors for its understated elegance.",communityName:"No-Date Sub"},
+    "124060":{name:"Submariner (No Date)",material:"Stainless Steel",era:"2020–present",category:"Dive Watch",bracelet:"Oyster",significance:"Current-generation No-Date Submariner with Cal. 3230 and 41mm case. The purist choice in the modern lineup.",communityName:"No-Date Sub"},
+    "116610":{name:"Submariner Date",material:"Stainless Steel",era:"pre-2020",category:"Dive Watch",bracelet:"Oyster",significance:"The definitive modern Submariner before the 2020 refresh. Highly liquid market with strong collector demand.",communityNames:{"LV":"Hulk"}},
+    "116613":{name:"Submariner Date",material:"Steel + Yellow Gold (Two-Tone)",era:"pre-2020",category:"Dive Watch",bracelet:"Oyster",significance:"The Rolesor two-tone Submariner. Nicknamed 'Bluesy' in blue dial spec; balances sportiness with luxury.",communityNames:{"LB":"Bluesy"}},
+    "116618":{name:"Submariner Date",material:"Full Yellow Gold",era:"pre-2020",category:"Dive Watch",bracelet:"Oyster",significance:"All-gold Submariner — the pinnacle of the line's luxury expression before the 2020 update."},
+    "116619":{name:"Submariner Date",material:"18k White Gold",era:"pre-2020",category:"Dive Watch",bracelet:"Oyster",significance:"Full white gold Submariner in blue — one of the rarest Submariner variants."},
+    "126610":{name:"Submariner Date",material:"Stainless Steel",era:"2020–present",category:"Dive Watch",bracelet:"Oyster",significance:"The current-generation steel Submariner with a wider bezel and updated Cal. 3235 movement.",communityNames:{"LV":"Starbucks"}},
+    "126613":{name:"Submariner Date",material:"Steel + Yellow Gold (Two-Tone)",era:"2020–present",category:"Dive Watch",bracelet:"Oyster",significance:"Current-gen Rolesor Submariner with 41mm case and Cal. 3235.",communityNames:{"LB":"Bluesy"}},
+    "126619":{name:"Submariner Date",material:"18k White Gold",era:"2020–present",category:"Dive Watch",bracelet:"Oyster",significance:"Current white gold Submariner, introduced for the first time in the 126 generation."},
+    "116600":{name:"Sea-Dweller",material:"Stainless Steel",era:"2014–2017",category:"Dive Watch",bracelet:"Oyster",significance:"First ceramic-bezel Sea-Dweller. Short 3-year run makes it relatively scarce."},
+    "126600":{name:"Sea-Dweller",material:"Stainless Steel",era:"2017–present",category:"Dive Watch",bracelet:"Oyster",significance:"50th anniversary Sea-Dweller. Grew to 43mm and gained a Cyclops lens for the first time."},
+    "126603":{name:"Sea-Dweller",material:"Steel + Yellow Gold (Two-Tone)",era:"2018–present",category:"Dive Watch",bracelet:"Jubilee",significance:"First-ever two-tone Sea-Dweller, uniquely paired with a Jubilee bracelet."},
+    "126660":{name:"Deepsea",material:"Stainless Steel",era:"2018–present",category:"Dive Watch",bracelet:"Oyster",significance:"3,900m water resistance. The most technically extreme watch in the Rolex catalogue."},
+    "116520":{name:"Daytona",material:"Stainless Steel",era:"pre-2016",category:"Chronograph",bracelet:"Oyster",significance:"Pre-ceramic-bezel Daytona — the last generation with a steel bezel and a benchmark of collectibility."},
+    "116500":{name:"Daytona",material:"Stainless Steel",era:"pre-2023",category:"Chronograph",bracelet:"Oyster",significance:"The steel Daytona with ceramic bezel — one of the most sought-after references in modern watchmaking. Notorious waitlists.",communityNames:{"LN":"Panda"}},
+    "126500":{name:"Daytona",material:"Stainless Steel",era:"2023–present",category:"Chronograph",bracelet:"Oyster",significance:"The newest Daytona generation, featuring a larger 40mm case and updated in-house movement."},
+    "116710":{name:"GMT-Master II",material:"Stainless Steel",era:"pre-2019",category:"GMT / Traveler",bracelet:"Oyster",significance:"Previous-gen GMT-Master II — origin of the Batman (BLNR) and Pepsi (BLRO) references.",communityNames:{"BLNR":"Batman","BLRO":"Pepsi"}},
+    "116711":{name:"GMT-Master II",material:"Steel + Yellow Gold (Two-Tone)",era:"2005–2018",category:"GMT / Traveler",bracelet:"Oyster",significance:"Two-tone Root Beer predecessor. Brown and black bezel on yellow gold Rolesor.",communityNames:{"CHNR":"Root Beer"}},
+    "126710":{name:"GMT-Master II",material:"Stainless Steel",era:"2019–present",category:"GMT / Traveler",bracelet:"Jubilee",significance:"Current GMT-Master II with Jubilee bracelet option and upgraded Cal. 3285 movement.",communityNames:{"BLNR":"Batgirl","BLRO":"Pepsi"}},
+    "126711":{name:"GMT-Master II",material:"Steel + Everose Gold (Two-Tone)",era:"2018–present",category:"GMT / Traveler",bracelet:"Jubilee",significance:"Root Beer GMT. Brown and black ceramic bezel on Everose Rolesor — one of the most distinctive GMTs made.",communityNames:{"CHNR":"Root Beer"}},
+    "116621":{name:"Yacht-Master 40",material:"Steel + Everose Gold (Two-Tone)",era:"2012–present",category:"Luxury Sport",bracelet:"Oyster",significance:"Everose Rolesor Yacht-Master with platinum bezel and signature chocolate dial."},
+    "116622":{name:"Yacht-Master 40",material:"Stainless Steel",era:"2012–present",category:"Luxury Sport",bracelet:"Oyster",significance:"Steel Yacht-Master with platinum bezel — the most accessible Yacht-Master 40."},
+    "116655":{name:"Yacht-Master 40",material:"Everose Gold",era:"2015–present",category:"Luxury Sport",bracelet:"Oysterflex",significance:"Introduced the Oysterflex rubber bracelet to the lineup. Everose gold on elastomer."},
+    "226627":{name:"Yacht-Master 42",material:"RLX Titanium",era:"2023–present",category:"Luxury Sport",bracelet:"Oysterflex",significance:"First titanium bezel in Rolex history. Dark rhodium dial and midnight blue bezel."},
+    "114270":{name:"Explorer",material:"Stainless Steel",era:"2001–2010",category:"Sport Watch",bracelet:"Oyster",significance:"The definitive 36mm Explorer for a generation. Pure minimalist 3-6-9 dial design."},
+    "214270":{name:"Explorer",material:"Stainless Steel",era:"2010–2021",category:"Sport Watch",bracelet:"Oyster",significance:"Grew the Explorer to 39mm. Early long-hand variants are a specific collector target."},
+    "124270":{name:"Explorer",material:"Stainless Steel",era:"2021–present",category:"Sport Watch",bracelet:"Oyster",significance:"Triumphant return to 36mm. Cal. 3230 with 70-hour power reserve."},
+    "118238":{name:"Day-Date 36",material:"18k Yellow Gold",era:"2000–2015",category:"Dress Watch",bracelet:"President",significance:"The canonical yellow gold President's Watch. Worn by heads of state since 1956."},
+    "118239":{name:"Day-Date 36",material:"18k White Gold",era:"2000–2015",category:"Dress Watch",bracelet:"President",significance:"White gold Day-Date 36 — a cooler, more contemporary alternative to yellow gold."},
+    "228238":{name:"Day-Date 40",material:"18k Yellow Gold",era:"2015–present",category:"Dress Watch",bracelet:"President",significance:"The 'President's Watch' in 40mm. Symbol of achievement — worn by world leaders for decades."},
+    "228239":{name:"Day-Date 40",material:"18k White Gold",era:"2015–present",category:"Dress Watch",bracelet:"President",significance:"White gold Day-Date 40 with Cal. 3255. The most contemporary Day-Date in the current lineup."},
+    "228206":{name:"Day-Date 40",material:"Platinum",era:"2015–present",category:"Dress Watch",bracelet:"President",significance:"The pinnacle of the Rolex catalogue. Platinum case with the exclusive ice blue dial."},
+    "116233":{name:"Datejust 36",material:"Steel + Yellow Gold (Two-Tone)",era:"pre-2016",category:"Dress Watch",bracelet:"Jubilee",significance:"Classic Rolesor Datejust — the original luxury sports watch, refined over generations."},
+    "126300":{name:"Datejust 41",material:"Stainless Steel",era:"2016–present",category:"Dress Watch",bracelet:"Oyster",significance:"All-steel Datejust 41 with smooth bezel — the most understated large Datejust configuration."},
+    "126333":{name:"Datejust 41",material:"Steel + Yellow Gold (Two-Tone)",era:"2016–present",category:"Dress Watch",bracelet:"Jubilee",significance:"Two-tone Datejust 41 in Rolesor, blending sport and dress sensibilities."},
+    "126334":{name:"Datejust 41",material:"Stainless Steel",era:"2016–present",category:"Dress Watch",bracelet:"Jubilee",significance:"The modern large Datejust — versatile enough for boardroom or weekend wear."},
+    "116400":{name:"Milgauss",material:"Stainless Steel",era:"2007–2019",category:"Anti-Magnetic",bracelet:"Oyster",significance:"Rolex's magnetic-field resistant watch, built for scientists. The 116400GV is famous for its green sapphire crystal — unique in the entire Rolex catalogue.",communityNames:{"GV":"Green Milgauss"}}
+  },
+  bezel:{
+    "0":{label:"Smooth Bezel",description:"Plain polished or brushed bezel with no markings. Found on dress watches and precious-metal references."},
+    "1":{label:"Rotating Dive Bezel",description:"Unidirectional dive standard. Rotates counterclockwise only, to measure elapsed dive time."},
+    "2":{label:"Engraved Bezel",description:"Decoratively engraved bezel, often on vintage and anniversary references."},
+    "3":{label:"Fluted Bezel",description:"Engine-turned fluting pattern — originally functional, now a hallmark of dress and precious-metal models."},
+    "4":{label:"Gem-Set Bezel",description:"Set with diamonds or other precious stones. Reserved for luxury and precious-metal variants."},
+    "5":{label:"GMT Bidirectional Bezel",description:"24-hour graduated bezel that rotates in both directions to track a second time zone."},
+    "6":{label:"Tachymeter Bezel",description:"Fixed bezel calibrated to measure speed over distance — exclusive to the chronograph line."}
+  },
+  bracelet:{
+    "0":{label:"Oyster, Steel",description:"Three-link solid steel bracelet. Robust, sporty, water-resistant — the original."},
+    "1":{label:"Jubilee, Steel",description:"Five-link bracelet with center links. More refined appearance, dressier feel."},
+    "3":{label:"Oyster, Two-Tone",description:"Oyster construction in two-tone: steel outer links, yellow gold center links."},
+    "4":{label:"Jubilee, Two-Tone",description:"Five-link Jubilee in two-tone. Classic dressy bracelet with precious-metal warmth."},
+    "7":{label:"RLX Titanium / 14k Yellow Gold",description:"Dual-meaning code. On 22- era references: RLX Titanium (Grade 5, ~40% lighter than steel). On vintage references: 14k Yellow Gold."},
+    "8":{label:"Oyster, Full Yellow Gold",description:"Solid 18k yellow gold Oyster bracelet. Heavy, substantial, unmistakably luxurious."},
+    "9":{label:"Oyster, White Gold",description:"Solid 18k white gold Oyster bracelet — platinum-adjacent in look."}
+  },
+  suffix:{
+    "LN":{label:"Black Ceramic Bezel",color:"#2a2a2a",description:"Used on Submariner, Daytona, GMT-Master II, and Sea-Dweller references to denote a full black Cerachrom ceramic bezel insert. Scratch-resistant and UV-stable."},
+    "LV":{label:"Green Ceramic Bezel",color:"#2d4a2d",description:"Cerachrom insert in vivid green. 'Hulk' on the 116610LV; 'Kermit' on the older 16610LV; 'Starbucks' on the 126610LV."},
+    "LB":{label:"Blue Ceramic Bezel",color:"#1a2d4a",description:"Cerachrom insert in deep blue. Paired with white gold indices for a crisp nautical aesthetic."},
+    "BLNR":{label:"Black / Blue Ceramic Bezel",color:"#1a1a3a",description:"Bicolor Cerachrom in black and blue. Day half blue, night half black — a technically remarkable single-piece ceramic bezel."},
+    "BLRO":{label:"Blue / Red Ceramic Bezel (Pepsi)",color:"#3a1a1a",description:"Bicolor Cerachrom in blue and red. Revives the original 1955 GMT-Master 'Pepsi' color scheme in ultra-hard ceramic."},
+    "CHNR":{label:"Brown / Black Ceramic Bezel (Root Beer)",color:"#3a2010",description:"Bicolor Cerachrom in chocolate brown and black. The modern 'Root Beer' — a warm, earthy tone that pairs with Everose gold Rolesor."},
+    "GV":{label:"Green Sapphire Crystal",color:"#1a3a1a",description:"Not a bezel insert but a unique green-tinted sapphire crystal — the only Rolex to feature a colored crystal. Exclusive to the Milgauss 116400GV."}
+  }
+};
+
+/* ─────────────────────────────────────────────────────────────────────
+   ICONS  (inline SVG — case, bezel, bracelet, era)
+   ───────────────────────────────────────────────────────────────────── */
+const ICONS = {
+  case:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="7"/><path d="M10 5V3M14 5V3M10 21v-2M14 21v-2"/></svg>',
+  bezel:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4.5"/></svg>',
+  bracelet:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="6" y="4" width="12" height="3.5" rx="1"/><rect x="6" y="9" width="12" height="3.5" rx="1"/><rect x="6" y="14" width="12" height="3.5" rx="1"/><rect x="6" y="19" width="12" height="2" rx="1"/></svg>',
+  era:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2"/></svg>',
+  ceramic:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="8"/><path d="M4 12a8 8 0 0 1 16 0"/></svg>'
+};
+
+/* ─────────────────────────────────────────────────────────────────────
+   COPY for pill bottom-sheets  (long-form explanations)
+   ───────────────────────────────────────────────────────────────────── */
+const PILL_COPY = {
+  era:{
+    title:"Era",
+    blurb:"The first two digits tell you which generation the watch belongs to — its case proportions, the family of movement inside, and roughly when it was made."
+  },
+  model:{
+    title:"Model",
+    blurb:"Digits three through five identify the watch family — dive, GMT, dress, chronograph — and the specific case size or movement variant within that family."
+  },
+  bezel:{
+    title:"Bezel",
+    blurb:"The sixth digit describes what surrounds the dial: a rotating dive bezel, a fluted dress bezel, a tachymeter, and so on. It often tells you the type of watch in one character."
+  },
+  bracelet:{
+    title:"Bracelet",
+    blurb:"The seventh digit covers the strap style and the metal it's made from — steel Oyster, steel Jubilee, two-tone, or solid gold."
+  },
+  suffix:{
+    title:"Suffix",
+    blurb:"Letters after the digits describe the bezel insert — ceramic color combinations, sometimes with widely-used collector nicknames (Batman, Pepsi, Rootbeer)."
+  }
+};
+
+/* ─────────────────────────────────────────────────────────────────────
+   DECODER LOGIC
+   ───────────────────────────────────────────────────────────────────── */
+function parse(raw){
+  const clean = (raw||"").replace(/[\s\-]/g,"").toUpperCase();
+  const m = clean.match(/^(\d+)/);
+  const digits = m?m[1]:"";
+  const suffix = clean.slice(digits.length);
+  return {
+    full:clean,
+    digits,
+    era:digits.slice(0,2),
+    modelKey:digits.slice(0,6),
+    modelSeg:digits.slice(2,5),
+    bezelDig:digits[4] ?? "",
+    bracDig:digits[5] ?? "",
+    suffix
+  };
+}
+
+function resolve(p){
+  const model = p.modelKey.length>=6?REF.model[p.modelKey]:null;
+  return {
+    era:p.era?REF.era[p.era]:null,
+    model,
+    bezel:p.bezelDig?REF.bezel[p.bezelDig]:null,
+    brac:(p.bracDig?REF.bracelet[p.bracDig]:null)||(model?.bracelet?{label:model.bracelet,description:""}:null),
+    suffix:p.suffix?REF.suffix[p.suffix]:null
+  };
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   PILL UPDATES
+   ───────────────────────────────────────────────────────────────────── */
+function setPill(id,{value,decoded,active,unknown}){
+  const el = document.getElementById("pill-"+id);
+  if(!el) return;
+  el.querySelector("[data-value]").textContent = value;
+  el.querySelector("[data-decoded]").textContent = decoded || "";
+  el.classList.toggle("is-active", !!active);
+  el.classList.toggle("is-unknown", !!unknown);
+}
+
+function updateAll(raw){
+  const p = parse(raw);
+  const d = resolve(p);
+
+  setPill("era",{
+    value: p.era ? p.era : "– –",
+    decoded: d.era?.label?.split(" ")[0] || (p.era ? "unknown" : ""),
+    active: p.era.length>0,
+    unknown: p.era.length===2 && !d.era
+  });
+  setPill("model",{
+    value: p.modelSeg ? p.modelSeg.padEnd(3,"·") : "– – –",
+    decoded: d.model?.name || (p.modelSeg.length===3 && p.modelKey.length>=6 && !d.model ? "unknown" : ""),
+    active: p.modelSeg.length>0,
+    unknown: p.modelKey.length>=6 && !d.model
+  });
+  setPill("bezel",{
+    value: p.bezelDig || "–",
+    decoded: d.bezel?.label?.split(" ")[0] || (p.bezelDig && !d.bezel ? "unknown" : ""),
+    active: !!p.bezelDig,
+    unknown: !!p.bezelDig && !d.bezel
+  });
+  setPill("bracelet",{
+    value: p.bracDig || "–",
+    decoded: d.brac?.label?.split(",")[0] || (p.bracDig && !d.brac ? "unknown" : ""),
+    active: !!p.bracDig,
+    unknown: !!p.bracDig && !d.brac
+  });
+  setPill("suffix",{
+    value: p.suffix || "– –",
+    decoded: d.suffix?.label?.split("—")[0]?.trim() || (p.suffix && !d.suffix ? "unknown" : ""),
+    active: !!p.suffix,
+    unknown: !!p.suffix && !d.suffix
+  });
+
+  // Result card
+  if(p.digits.length>=6){
+    renderCard(p,d);
+  }else{
+    hideCard();
+  }
+
+  // Scroll cue
+  const cue = document.getElementById("scrollCue");
+  if(cue) cue.classList.toggle("show", p.digits.length>=6);
+
+  // Learn section reveal
+  const learn = document.getElementById("learn");
+  if(learn && p.digits.length>=6) learn.classList.add("visible");
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   RESULT CARD
+   ───────────────────────────────────────────────────────────────────── */
+let _last = null;
+
+function renderCard(p,d){
+  _last = {p,d};
+  const card = document.getElementById("resultCard");
+  const empty = document.getElementById("resultEmpty");
+
+  const isPartial = !d.model;
+  const modelName = d.model?.name || "Unknown reference";
+  const material = d.model?.material || "—";
+  const category = d.model?.category || "";
+  const significance = d.model?.significance || d.era?.note || "";
+
+  // Bezel display: combine generic bezel + ceramic suffix if both present
+  let bezelLine = "";
+  let bezelSub = "";
+  if(d.bezel){
+    bezelLine = d.bezel.label;
+    bezelSub = d.bezel.description.split(".")[0];
+  }else if(p.bezelDig){
+    bezelLine = `Digit "${p.bezelDig}" — not in database`;
+  }
+  let ceramicHTML = "";
+  if(d.suffix){
+    ceramicHTML = `<span class="ceramic-swatch" style="background:${d.suffix.color}"></span>${d.suffix.label}`;
+  }
+
+  let braceletLine = "";
+  let braceletSub = "";
+  if(d.brac){
+    braceletLine = d.brac.label;
+    braceletSub = d.brac.description.split(".")[0];
+  }else if(p.bracDig){
+    braceletLine = `Digit "${p.bracDig}" — not in database`;
+  }
+
+  let html = "";
+  html += `<div class="rc-head">
+    <div>
+      <div class="rc-ref">${p.full}</div>
+    </div>
+    ${d.era ? `<div class="rc-era-pill" title="${d.era.years}">${d.era.label.replace(' Generation','').replace(/–/g,'–')}</div>` : ""}
+  </div>`;
+  if(isPartial){
+    html += `<div class="rc-partial">This exact reference isn't in our database — here's what the digits tell us.</div>`;
+  }
+  html += `<h2 class="rc-title">${modelName}</h2>`;
+  const communityName = (d.model?.communityNames && p.suffix)
+    ? (d.model.communityNames[p.suffix] ?? d.model.communityName ?? null)
+    : (d.model?.communityName ?? null);
+  if(communityName) html += `<div class="rc-community">Known as <em>&ldquo;${communityName}&rdquo;</em></div>`;
+  if(category) html += `<div class="rc-category">${category}</div>`;
+
+  html += `<div class="rc-rows">`;
+  html += rowHTML(ICONS.case, "Material", material, "");
+  if(bezelLine) html += rowHTML(ICONS.bezel, "Bezel", bezelLine, bezelSub);
+  if(d.suffix)  html += rowHTML(ICONS.ceramic, "Ceramic insert", ceramicHTML, d.suffix.description.split(".")[0]);
+  if(braceletLine) html += rowHTML(ICONS.bracelet, "Bracelet", braceletLine, braceletSub);
+  if(d.era) html += rowHTML(ICONS.era, "Era", d.era.label.replace(' Generation',''), d.era.years);
+  html += `</div>`;
+
+  if(significance){
+    html += `<div class="rc-why">
+      <span class="lbl">Why this matters</span>
+      <p>${significance}</p>
+    </div>`;
+  }
+
+  html += `<div class="rc-actions">
+    <button class="btn" id="copyBtn" type="button">Copy summary</button>
+  </div>`;
+
+  card.innerHTML = html;
+  card.hidden = false;
+  // Force reflow then animate in
+  // eslint-disable-next-line no-unused-expressions
+  card.offsetHeight;
+  card.classList.add("show");
+  empty.style.display = "none";
+
+  const cb = document.getElementById("copyBtn");
+  if(cb) cb.addEventListener("click", copySummary);
+}
+
+function rowHTML(icon,label,value,sub){
+  return `<div class="rc-row">
+    <span class="ic">${icon}</span>
+    <span class="lbl">${label}</span>
+    <span class="val">${value}${sub?`<small>${sub}</small>`:""}</span>
+  </div>`;
+}
+
+function hideCard(){
+  const card = document.getElementById("resultCard");
+  const empty = document.getElementById("resultEmpty");
+  card.classList.remove("show");
+  setTimeout(()=>{
+    if(!card.classList.contains("show")){
+      card.hidden = true;
+      card.innerHTML = "";
+    }
+  }, 400);
+  empty.style.display = "";
+}
+
+function copySummary(){
+  if(!_last) return;
+  const {p,d} = _last;
+  const lines = [
+    `Reference: ${p.full}`,
+    d.model && `Model: ${d.model.name}`,
+    d.model && `Material: ${d.model.material}`,
+    d.era && `Era: ${d.era.label} (${d.era.years})`,
+    d.bezel && `Bezel: ${d.bezel.label}`,
+    d.suffix && `Ceramic insert: ${d.suffix.label}`,
+    d.brac && `Bracelet: ${d.brac.label}`,
+    d.model?.significance && `Note: ${d.model.significance}`,
+    `Decoded with RolliDex`,
+    `rollidex.com`
+  ].filter(Boolean);
+  navigator.clipboard?.writeText(lines.join("\n")).then(()=>{
+    const btn = document.getElementById("copyBtn");
+    if(btn){ btn.textContent = "Copied ✓"; setTimeout(()=>{btn.textContent="Copy summary";},1800); }
+  }).catch(()=>{});
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   PILL SHEET
+   ───────────────────────────────────────────────────────────────────── */
+function openSheet(pillKey){
+  const sheet = document.getElementById("sheet");
+  const scrim = document.getElementById("sheetScrim");
+  const p = parse(document.getElementById("refInput").value);
+  const d = resolve(p);
+
+  const meta = PILL_COPY[pillKey];
+  let title = meta.title;
+  let value = "";
+  let blurb = meta.blurb;
+  let color = "var(--text-muted)";
+
+  switch(pillKey){
+    case "era":
+      color = "var(--era)";
+      if(d.era){ title = d.era.label; value = `${p.era} · ${d.era.years}`; blurb = d.era.note; }
+      else if(p.era){ value = `${p.era} — not in database`; }
+      break;
+    case "model":
+      color = "var(--model)";
+      if(d.model){ title = d.model.name; value = `${p.modelKey} · ${d.model.material}`; blurb = d.model.significance; }
+      else if(p.modelSeg){ value = `${p.modelSeg} — not in database`; }
+      break;
+    case "bezel":
+      color = "var(--bezel)";
+      if(d.bezel){ title = d.bezel.label; value = `Digit ${p.bezelDig}`; blurb = d.bezel.description; }
+      else if(p.bezelDig){ value = `${p.bezelDig} — not in database`; }
+      break;
+    case "bracelet":
+      color = "var(--bracelet)";
+      if(d.brac){ title = d.brac.label; value = `Digit ${p.bracDig}`; blurb = d.brac.description; }
+      else if(p.bracDig){ value = `${p.bracDig} — not in database`; }
+      break;
+    case "suffix":
+      color = "var(--suffix)";
+      if(d.suffix){ title = d.suffix.label; value = p.suffix; blurb = d.suffix.description; }
+      else if(p.suffix){ value = `${p.suffix} — not in database`; }
+      break;
+  }
+
+  document.getElementById("sheetTag").textContent = meta.title.toUpperCase();
+  document.getElementById("sheetSwatch").style.background = color;
+  document.getElementById("sheetTitle").textContent = title;
+  document.getElementById("sheetValue").textContent = value;
+  document.getElementById("sheetBody").textContent = blurb;
+
+  sheet.hidden = false;
+  // small delay so the transition fires
+  requestAnimationFrame(()=>{
+    sheet.classList.add("open");
+    scrim.classList.add("open");
+  });
+}
+function closeSheet(){
+  const sheet = document.getElementById("sheet");
+  const scrim = document.getElementById("sheetScrim");
+  sheet.classList.remove("open");
+  scrim.classList.remove("open");
+  setTimeout(()=>{ if(!sheet.classList.contains("open")) sheet.hidden = true; }, 340);
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   ACCORDION
+   ───────────────────────────────────────────────────────────────────── */
+function bindAccordion(){
+  document.querySelectorAll(".acc-item").forEach(item=>{
+    const head = item.querySelector(".acc-head");
+    head.addEventListener("click", ()=>{
+      const open = item.getAttribute("data-open") === "true";
+      // close others
+      document.querySelectorAll(".acc-item[data-open='true']").forEach(o=>{
+        if(o !== item){ o.setAttribute("data-open","false"); o.querySelector(".acc-head").setAttribute("aria-expanded","false"); }
+      });
+      item.setAttribute("data-open", open ? "false" : "true");
+      head.setAttribute("aria-expanded", open ? "false" : "true");
+    });
+  });
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   BIND IT ALL
+   ───────────────────────────────────────────────────────────────────── */
+window.addEventListener("DOMContentLoaded", ()=>{
+  const input = document.getElementById("refInput");
+  const row = document.getElementById("inputRow");
+  const clear = document.getElementById("clearBtn");
+
+  input.addEventListener("input", e=>{
+    const v = e.target.value;
+    row.classList.toggle("is-empty", !v);
+    clear.classList.toggle("show", !!v);
+    updateAll(v);
+  });
+  input.addEventListener("focus", ()=>row.classList.add("is-focused"));
+  input.addEventListener("blur", ()=>row.classList.remove("is-focused"));
+
+  clear.addEventListener("click", ()=>{
+    input.value = "";
+    row.classList.add("is-empty");
+    clear.classList.remove("show");
+    updateAll("");
+    input.focus();
+  });
+
+  document.querySelectorAll(".ref-chip").forEach(c=>{
+    c.addEventListener("click", ()=>{
+      input.value = c.dataset.chip;
+      row.classList.remove("is-empty");
+      clear.classList.add("show");
+      input.focus();
+      updateAll(input.value);
+    });
+  });
+
+  document.querySelectorAll(".pill").forEach(p=>{
+    p.addEventListener("click", ()=>openSheet(p.dataset.pill));
+  });
+
+  document.getElementById("sheetScrim").addEventListener("click", closeSheet);
+  document.getElementById("sheetClose").addEventListener("click", closeSheet);
+  document.addEventListener("keydown", e=>{ if(e.key === "Escape") closeSheet(); });
+
+  bindAccordion();
+
+  // Theme toggle
+  const tbtn = document.getElementById("themeToggle");
+  if(tbtn){
+    // re-apply so aria attrs sync to whatever initTheme picked
+    applyTheme(document.documentElement.getAttribute("data-theme") || "dark");
+    tbtn.addEventListener("click", ()=>{
+      const cur = document.documentElement.getAttribute("data-theme");
+      const next = cur === "light" ? "dark" : "light";
+      applyTheme(next);
+      try{ localStorage.setItem("rollidex-theme", next); }catch(e){}
+    });
+  }
+  // Follow system changes only if the user hasn't explicitly chosen
+  if(window.matchMedia){
+    window.matchMedia("(prefers-color-scheme: light)").addEventListener?.("change", e=>{
+      try{ if(localStorage.getItem("rollidex-theme")) return; }catch(_){}
+      applyTheme(e.matches ? "light" : "dark");
+    });
+  }
+
+  // Auto-focus on desktop only — on mobile, don't pop the keyboard before they've seen the page
+  if(window.matchMedia("(min-width:900px)").matches){
+    setTimeout(()=>input.focus(), 300);
+  }
+
+  // initial empty state
+  updateAll("");
+});
+</script>
+
 </body>
 </html>
