@@ -793,7 +793,18 @@ input:-webkit-autofill{-webkit-text-fill-color:var(--text);-webkit-box-shadow:0 
 .related-header{margin-bottom:14px;}
 .related-eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--text-muted);}
 /* ── Catalog section ─────────────────────────────────────────────────── */
-.catalog-section{border-top:1px solid var(--hairline);padding:48px 0;}
+.catalog-section{border-top:1px solid var(--hairline);padding:48px 0;min-height:320px;}
+.catalog-panel{opacity:1;transform:translateY(0);transition:opacity 300ms ease,transform 300ms ease;}
+.catalog-panel.hidden-out{opacity:0;transform:translateY(-12px);pointer-events:none;}
+.catalog-detail{opacity:0;transform:translateY(16px);transition:opacity 350ms ease,transform 350ms ease;}
+.catalog-detail.visible-in{opacity:1;transform:translateY(0);}
+.catalog-detail-head{margin-bottom:20px;}
+.catalog-back-btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:var(--text-muted);padding:8px 0;border:none;background:none;cursor:pointer;transition:color 200ms;}
+.catalog-back-btn:hover{color:var(--gold);}
+.catalog-back-btn svg{transition:transform 200ms;}
+.catalog-back-btn:hover svg{transform:translateX(-3px);}
+.catalog-detail-card{background:var(--surface);border:1px solid var(--hairline);border-radius:var(--r-xl);padding:28px 24px 26px;position:relative;box-shadow:var(--shadow-card);overflow:hidden;}
+.catalog-detail-card::before{content:"";position:absolute;inset:0;background:radial-gradient(120% 80% at 100% 0%,rgba(201,168,76,0.06),transparent 50%);pointer-events:none;}
 .catalog-header{margin-bottom:24px;}
 .catalog-title-row{display:flex;align-items:baseline;gap:14px;margin-bottom:16px;}
 .catalog-title{font-family:var(--serif);font-weight:400;font-size:clamp(22px,4vw,30px);color:var(--text);letter-spacing:-0.01em;}
@@ -1682,24 +1693,40 @@ footer .inner{
 
 <section class="catalog-section" id="catalogSection">
   <div class="shell">
-    <div class="catalog-header">
-      <div class="catalog-title-row">
-        <h2 class="catalog-title">Browse the collection</h2>
-        <span class="catalog-count" id="catalogCount"></span>
+
+    <!-- PANEL A: Browse mode (default visible) -->
+    <div class="catalog-panel" id="catalogPanel">
+      <div class="catalog-header">
+        <div class="catalog-title-row">
+          <h2 class="catalog-title">Browse the collection</h2>
+          <span class="catalog-count" id="catalogCount"></span>
+        </div>
+        <div class="catalog-filters" id="catalogFilters"></div>
       </div>
-      <div class="catalog-filters" id="catalogFilters"></div>
-    </div>
-    <div class="carousel-wrap">
-      <div class="carousel-track" id="catalogTrack"></div>
-      <div class="carousel-nav">
-        <button class="carousel-btn" id="catalogPrev" aria-label="Previous">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
-        </button>
-        <button class="carousel-btn" id="catalogNext" aria-label="Next">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
-        </button>
+      <div class="carousel-wrap">
+        <div class="carousel-track" id="catalogTrack"></div>
+        <div class="carousel-nav">
+          <button class="carousel-btn" id="catalogPrev" aria-label="Previous">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button class="carousel-btn" id="catalogNext" aria-label="Next">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
       </div>
     </div>
+
+    <!-- PANEL B: Watch detail (hidden by default) -->
+    <div class="catalog-detail" id="catalogDetail" hidden>
+      <div class="catalog-detail-head">
+        <button class="catalog-back-btn" id="catalogBack" type="button" aria-label="Back to collection">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+          Browse collection
+        </button>
+      </div>
+      <div class="catalog-detail-card" id="catalogDetailCard"></div>
+    </div>
+
   </div>
 </section>
 
@@ -2965,13 +2992,18 @@ function startAutoScroll(trackId, speedPxPerSecond){
     const ref = card.querySelector(".wc-ref")?.textContent?.trim();
     if(ref){
       clone.addEventListener("click", ()=>{
-        const inp = document.getElementById("refInput");
-        inp.value = ref;
-        document.getElementById("inputRow").classList.remove("is-empty");
-        document.getElementById("clearBtn").classList.add("show");
-        document.getElementById("searchSuggestions").hidden = true;
-        updateAll(ref);
-        document.querySelector(".hero")?.scrollIntoView({behavior:"smooth",block:"start"});
+        if(trackId === "catalogTrack"){
+          const cloneData = REF.model[ref];
+          if(cloneData) showCatalogDetail(ref, cloneData);
+        } else {
+          const inp = document.getElementById("refInput");
+          inp.value = ref;
+          document.getElementById("inputRow").classList.remove("is-empty");
+          document.getElementById("clearBtn").classList.add("show");
+          document.getElementById("searchSuggestions").hidden = true;
+          updateAll(ref);
+          document.querySelector(".hero")?.scrollIntoView({behavior:"smooth",block:"start"});
+        }
       });
     }
     track.appendChild(clone);
@@ -3067,14 +3099,18 @@ function makeWatchCard(ref, data, extraClass){
     ${data.category ? `<div class="wc-badge">${data.category}</div>` : ""}
   `;
   card.addEventListener("click", ()=>{
-    const input = document.getElementById("refInput");
-    input.value = ref;
-    document.getElementById("inputRow").classList.remove("is-empty");
-    document.getElementById("clearBtn").classList.add("show");
-    document.getElementById("searchSuggestions").hidden = true;
-    updateAll(ref);
-    input.focus();
-    document.querySelector(".hero")?.scrollIntoView({behavior:"smooth",block:"start"});
+    if(card.closest("#catalogPanel")){
+      showCatalogDetail(ref, data);
+    } else {
+      const input = document.getElementById("refInput");
+      input.value = ref;
+      document.getElementById("inputRow").classList.remove("is-empty");
+      document.getElementById("clearBtn").classList.add("show");
+      document.getElementById("searchSuggestions").hidden = true;
+      updateAll(ref);
+      input.focus();
+      document.querySelector(".hero")?.scrollIntoView({behavior:"smooth",block:"start"});
+    }
   });
   return card;
 }
@@ -3203,6 +3239,92 @@ function buildCatalogFilters(){
     });
     filtersEl.appendChild(chip);
   });
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   CATALOG DETAIL PANEL
+   ───────────────────────────────────────────────────────────────────── */
+function showCatalogDetail(ref, _data){
+  const panel      = document.getElementById("catalogPanel");
+  const detail     = document.getElementById("catalogDetail");
+  const detailCard = document.getElementById("catalogDetailCard");
+  if(!panel || !detail || !detailCard) return;
+
+  const p = parse(ref);
+  const d = resolve(p);
+
+  const modelName = d.model?.name || _data?.name || "Unknown reference";
+  const material  = d.model?.material || _data?.material || "—";
+  const category  = d.model?.category || _data?.category || "";
+  const significance = d.model?.significance || d.era?.note || "";
+  const communityName = d.model?.communityName ?? null;
+
+  let bezelLine = "", bezelSub = "";
+  if(d.bezel){ bezelLine = d.bezel.label; bezelSub = d.bezel.description.split(".")[0]; }
+  else if(p.bezelDig){ bezelLine = `Digit "${p.bezelDig}" — not in database`; }
+
+  let ceramicHTML = "";
+  if(d.suffix){ ceramicHTML = `<span class="ceramic-swatch" style="background:${d.suffix.color}"></span>${d.suffix.label}`; }
+
+  let braceletLine = "", braceletSub = "";
+  if(d.brac){ braceletLine = d.brac.label; braceletSub = d.brac.description.split(".")[0]; }
+  else if(p.bracDig){ braceletLine = `Digit "${p.bracDig}" — not in database`; }
+
+  let html = `<div class="rc-head">
+    <div><div class="rc-ref">${p.full}</div></div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      ${d.era ? `<div class="rc-era-pill" title="${d.era.years}">${d.era.label.replace(" Generation","")}</div>` : ""}
+    </div>
+  </div>`;
+  html += `<h2 class="rc-title">${modelName}</h2>`;
+  if(communityName) html += `<div class="rc-community">Known as <em>&ldquo;${communityName}&rdquo;</em></div>`;
+  if(category) html += `<div class="rc-category">${category}</div>`;
+  html += `<div class="rc-rows">`;
+  html += rowHTML(ICONS.case, "Material", material, "");
+  if(bezelLine) html += rowHTML(ICONS.bezel, "Bezel", bezelLine, bezelSub);
+  if(d.suffix)  html += rowHTML(ICONS.ceramic, "Ceramic insert", ceramicHTML, d.suffix.description.split(".")[0]);
+  if(braceletLine) html += rowHTML(ICONS.bracelet, "Bracelet", braceletLine, braceletSub);
+  if(d.era) html += rowHTML(ICONS.era, "Era", d.era.label.replace(" Generation",""), d.era.years);
+  html += `</div>`;
+  if(significance){
+    html += `<div class="rc-why"><span class="lbl">Why this matters</span><p>${significance}</p></div>`;
+  }
+  html += `<div class="rc-actions" style="margin-top:18px;">
+    <button class="btn primary" id="catalogDecodeBtn" type="button">Decode this reference ↑</button>
+  </div>`;
+
+  detailCard.innerHTML = html;
+
+  document.getElementById("catalogDecodeBtn")?.addEventListener("click", ()=>{
+    const input = document.getElementById("refInput");
+    input.value = ref;
+    document.getElementById("inputRow").classList.remove("is-empty");
+    document.getElementById("clearBtn").classList.add("show");
+    document.getElementById("searchSuggestions").hidden = true;
+    updateAll(ref);
+    closeCatalogDetail();
+    document.querySelector(".hero")?.scrollIntoView({behavior:"smooth",block:"start"});
+  });
+
+  panel.classList.add("hidden-out");
+  detail.hidden = false;
+  void detail.offsetHeight;
+  detail.classList.add("visible-in");
+
+  document.getElementById("catalogSection")?.scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+
+function closeCatalogDetail(){
+  const panel  = document.getElementById("catalogPanel");
+  const detail = document.getElementById("catalogDetail");
+  if(!panel || !detail) return;
+  detail.classList.remove("visible-in");
+  panel.classList.remove("hidden-out");
+  setTimeout(()=>{
+    detail.hidden = true;
+    const dc = document.getElementById("catalogDetailCard");
+    if(dc) dc.innerHTML = "";
+  }, 350);
 }
 
 /* ─────────────────────────────────────────────────────────────────────
@@ -3426,6 +3548,8 @@ window.addEventListener("DOMContentLoaded", ()=>{
       startAutoScroll("catalogTrack", 55);
     }
   }, 500);
+
+  document.getElementById("catalogBack")?.addEventListener("click", closeCatalogDetail);
 
   // Theme toggle
   const tbtn = document.getElementById("themeToggle");
