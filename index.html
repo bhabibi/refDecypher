@@ -729,6 +729,87 @@ input:-webkit-autofill{-webkit-text-fill-color:var(--text);-webkit-box-shadow:0 
   background:var(--shade-card);
   border-bottom:1px solid var(--hairline);
 }
+/* ── Carousel Base ───────────────────────────────────────────────────── */
+.carousel-wrap{position:relative;}
+.carousel-track{
+  display:flex;gap:12px;
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  scroll-behavior:smooth;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+  padding-bottom:4px;
+}
+.carousel-track::-webkit-scrollbar{display:none;}
+.carousel-nav{display:none;gap:8px;margin-top:16px;justify-content:flex-end;}
+@media(min-width:560px){.carousel-nav{display:flex;}}
+.carousel-btn{
+  width:36px;height:36px;border-radius:50%;
+  border:1px solid var(--hairline);background:var(--shade-soft);
+  color:var(--text-dim);display:flex;align-items:center;justify-content:center;
+  transition:background 200ms,color 200ms,border-color 200ms;cursor:pointer;
+}
+.carousel-btn:hover{background:var(--shade-mute);color:var(--text);border-color:var(--hairline-strong);}
+.carousel-btn:disabled{opacity:0.3;cursor:default;}
+/* ── Watch Card ─────────────────────────────────────────────────────── */
+.watch-card{
+  scroll-snap-align:start;flex-shrink:0;width:180px;
+  background:var(--surface);border:1px solid var(--hairline);
+  border-radius:var(--r-md);padding:16px 14px 14px;
+  cursor:pointer;
+  transition:border-color 250ms,background 250ms,transform 200ms;
+  position:relative;overflow:hidden;
+}
+.watch-card:hover{
+  border-color:color-mix(in oklab, var(--gold) 40%, transparent);
+  background:var(--elevated);transform:translateY(-2px);
+}
+.watch-card:active{transform:translateY(0);}
+.watch-card::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--card-color,var(--gold));opacity:0.6;
+}
+.wc-ref{font-family:var(--mono);font-size:11px;letter-spacing:0.14em;color:var(--text-muted);margin-bottom:8px;text-transform:uppercase;}
+.wc-name{font-family:var(--serif);font-size:15px;color:var(--text);line-height:1.25;margin-bottom:6px;letter-spacing:-0.005em;}
+.wc-community{font-family:var(--serif);font-style:italic;font-size:13px;color:var(--gold);margin-bottom:8px;line-height:1.2;}
+.wc-material{font-size:11.5px;color:var(--text-muted);line-height:1.4;}
+.wc-era{font-family:var(--mono);font-size:10px;letter-spacing:0.12em;color:var(--text-faint);margin-top:8px;text-transform:uppercase;}
+.wc-badge{
+  display:inline-block;font-family:var(--mono);font-size:9px;
+  letter-spacing:0.14em;text-transform:uppercase;
+  padding:2px 7px;border-radius:99px;margin-top:8px;
+  background:color-mix(in oklab, var(--card-color,var(--gold)) 12%, transparent);
+  color:var(--card-color,var(--gold));
+  border:1px solid color-mix(in oklab, var(--card-color,var(--gold)) 30%, transparent);
+}
+.featured-card{width:200px;}
+.catalog-card{width:180px;}
+/* ── Featured carousel ───────────────────────────────────────────────── */
+.featured-section{margin-top:36px;padding-top:28px;border-top:1px solid var(--hairline);}
+.featured-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.featured-eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--text-muted);}
+/* ── Related carousel (inside result card) ───────────────────────────── */
+.related-section{padding:20px 24px 24px;border-top:1px solid var(--hairline);margin-top:4px;}
+.related-header{margin-bottom:14px;}
+.related-eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--text-muted);}
+/* ── Catalog section ─────────────────────────────────────────────────── */
+.catalog-section{border-top:1px solid var(--hairline);padding:48px 0;}
+.catalog-header{margin-bottom:24px;}
+.catalog-title-row{display:flex;align-items:baseline;gap:14px;margin-bottom:16px;}
+.catalog-title{font-family:var(--serif);font-weight:400;font-size:clamp(22px,4vw,30px);color:var(--text);letter-spacing:-0.01em;}
+.catalog-count{font-family:var(--mono);font-size:11px;letter-spacing:0.14em;color:var(--text-muted);text-transform:uppercase;}
+.catalog-filters{display:flex;flex-wrap:wrap;gap:6px;}
+.filter-chip{
+  font-family:var(--mono);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;
+  padding:6px 12px;border:1px solid var(--hairline);border-radius:99px;
+  color:var(--text-dim);background:var(--shade-soft);cursor:pointer;transition:all 200ms;
+}
+.filter-chip:hover{border-color:var(--hairline-strong);color:var(--text);}
+.filter-chip.active{
+  background:color-mix(in oklab, var(--gold) 12%, transparent);
+  border-color:color-mix(in oklab, var(--gold) 40%, transparent);
+  color:var(--gold);
+}
 .result-grip{
   display:none;
   width:36px;height:4px;
@@ -1446,6 +1527,23 @@ footer .inner{
           </button>
         </div>
 
+        <div class="featured-section" id="featuredSection">
+          <div class="featured-header">
+            <span class="featured-eyebrow">Notable references</span>
+          </div>
+          <div class="carousel-wrap">
+            <div class="carousel-track" id="featuredTrack"></div>
+            <div class="carousel-nav">
+              <button class="carousel-btn" id="featuredPrev" aria-label="Previous">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+              </button>
+              <button class="carousel-btn" id="featuredNext" aria-label="Next">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
         <div class="scroll-cue" id="scrollCue" aria-hidden="true">
           <span>Result below</span>
           <span class="arrow"></span>
@@ -1575,6 +1673,29 @@ footer .inner{
           <div class="k">CHNR</div><div class="v">Chocolate/black — “Rootbeer”</div>
         </div>
       </div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="catalog-section" id="catalogSection">
+  <div class="shell">
+    <div class="catalog-header">
+      <div class="catalog-title-row">
+        <h2 class="catalog-title">Browse the collection</h2>
+        <span class="catalog-count" id="catalogCount"></span>
+      </div>
+      <div class="catalog-filters" id="catalogFilters"></div>
+    </div>
+    <div class="carousel-wrap">
+      <div class="carousel-track" id="catalogTrack"></div>
+      <div class="carousel-nav">
+        <button class="carousel-btn" id="catalogPrev" aria-label="Previous">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <button class="carousel-btn" id="catalogNext" aria-label="Next">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+      </div>
     </div>
   </div>
 </section>
@@ -2621,12 +2742,43 @@ function renderCard(p,d){
     </div>`;
   }
 
+  // Related carousel placeholder — populated after innerHTML set
+  const relatedRefs = getRelatedRefs(p, d);
+  if(relatedRefs.length > 0){
+    html += `<div class="related-section">
+      <div class="related-header"><span class="related-eyebrow">Related references</span></div>
+      <div class="carousel-wrap">
+        <div class="carousel-track related-track"></div>
+        <div class="carousel-nav">
+          <button class="carousel-btn related-prev" aria-label="Previous">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button class="carousel-btn related-next" aria-label="Next">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>`;
+  }
+
   card.innerHTML = html;
   card.hidden = false;
   card.offsetHeight;
   card.classList.add("show");
   card.classList.remove("rc-vintage");
   empty.style.display = "none";
+
+  // Build related carousel track now that DOM is set
+  if(relatedRefs.length > 0){
+    const relatedTrack = card.querySelector(".related-track");
+    if(relatedTrack){
+      relatedRefs.forEach(ref => {
+        const data = REF.model[ref];
+        if(data) relatedTrack.appendChild(makeWatchCard(ref, data, "catalog-card"));
+      });
+      bindCarouselNav(null,null,null,relatedTrack,card.querySelector(".related-prev"),card.querySelector(".related-next"));
+    }
+  }
 
   // Row stagger reveal
   const rows = card.querySelectorAll(".rc-row");
@@ -2785,6 +2937,161 @@ function bindAccordion(){
       item.setAttribute("data-open", open ? "false" : "true");
       head.setAttribute("aria-expanded", open ? "false" : "true");
     });
+  });
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   CAROUSEL HELPERS
+   ───────────────────────────────────────────────────────────────────── */
+const CAT_COLORS = {
+  "Dive Watch":    "var(--era)",
+  "Chronograph":   "var(--model)",
+  "GMT / Traveler":"var(--bezel)",
+  "Dress Watch":   "var(--bracelet)",
+  "Luxury Sport":  "var(--suffix)",
+  "Sport Watch":   "var(--era)",
+  "Anti-Magnetic": "var(--suffix)"
+};
+
+function makeWatchCard(ref, data, extraClass){
+  const card = document.createElement("div");
+  card.className = "watch-card" + (extraClass ? " "+extraClass : "");
+  const color = CAT_COLORS[data.category] || "var(--gold)";
+  card.style.setProperty("--card-color", color);
+  card.innerHTML = `
+    <div class="wc-ref">${ref}</div>
+    <div class="wc-name">${data.name||"—"}</div>
+    ${data.communityName ? `<div class="wc-community">&ldquo;${data.communityName}&rdquo;</div>` : ""}
+    <div class="wc-material">${data.material||""}</div>
+    ${data.era ? `<div class="wc-era">${data.era}</div>` : ""}
+    ${data.category ? `<div class="wc-badge">${data.category}</div>` : ""}
+  `;
+  card.addEventListener("click", ()=>{
+    const input = document.getElementById("refInput");
+    input.value = ref;
+    document.getElementById("inputRow").classList.remove("is-empty");
+    document.getElementById("clearBtn").classList.add("show");
+    document.getElementById("searchSuggestions").hidden = true;
+    updateAll(ref);
+    input.focus();
+    document.querySelector(".hero")?.scrollIntoView({behavior:"smooth",block:"start"});
+  });
+  return card;
+}
+
+function bindCarouselNav(trackId, prevId, nextId, trackEl, prevEl, nextEl){
+  const track = trackEl || (trackId ? document.getElementById(trackId) : null);
+  const prev  = prevEl  || (prevId  ? document.getElementById(prevId)  : null);
+  const next  = nextEl  || (nextId  ? document.getElementById(nextId)  : null);
+  if(!track) return;
+
+  const scroll = dir => {
+    const cardW = track.querySelector(".watch-card")?.offsetWidth || 200;
+    track.scrollBy({left: dir * (cardW + 12) * 2, behavior:"smooth"});
+  };
+
+  if(prev) prev.addEventListener("click", ()=>scroll(-1));
+  if(next) next.addEventListener("click", ()=>scroll(1));
+
+  const updateBtns = ()=>{
+    if(prev) prev.disabled = track.scrollLeft <= 0;
+    if(next) next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+  };
+  track.addEventListener("scroll", updateBtns, {passive:true});
+  // Run after a frame so scrollWidth is fully computed
+  requestAnimationFrame(updateBtns);
+}
+
+function getRelatedRefs(p, d){
+  const related = [];
+  const baseModel = p.modelKey;
+  const currentRef = p.full;
+
+  // 1. Other variants from the base model's variants array
+  const baseData = REF.model[baseModel];
+  if(baseData?.variants){
+    baseData.variants.forEach(v=>{
+      const fullRef = baseModel + v.suffix;
+      if(fullRef !== currentRef && REF.model[fullRef]) related.push(fullRef);
+    });
+  }
+
+  // 2. Common suffix candidates not yet added
+  ["LN","LV","LB","BLNR","BLRO","CHNR"].forEach(suf=>{
+    const candidate = baseModel + suf;
+    if(candidate !== currentRef && REF.model[candidate] && !related.includes(candidate)){
+      related.push(candidate);
+    }
+  });
+
+  // 3. Same category, same era prefix
+  if(d.model?.category && p.era){
+    Object.entries(REF.model).forEach(([ref, data])=>{
+      if(data.category === d.model.category && ref.startsWith(p.era) && ref !== currentRef && !related.includes(ref) && data.significance && !data.significance.includes("being compiled") && related.length < 8){
+        related.push(ref);
+      }
+    });
+  }
+
+  return related.slice(0, 6);
+}
+
+/* ── Featured carousel ─────────────────────────────────────────────── */
+function buildFeaturedCarousel(){
+  const refs = ["116710BLNR","126710BLRO","116610LV","126610LV","116613LB","116500LN","228206","114060","126711CHNR","116655"];
+  const track = document.getElementById("featuredTrack");
+  if(!track) return;
+  refs.forEach(ref=>{
+    const data = REF.model[ref];
+    if(data) track.appendChild(makeWatchCard(ref, data, "featured-card"));
+  });
+  bindCarouselNav("featuredTrack","featuredPrev","featuredNext");
+}
+
+/* ── Catalog carousel ──────────────────────────────────────────────── */
+const CATALOG_FAMILIES = ["All","Submariner","Daytona","GMT-Master II","Datejust","Day-Date","Explorer","Yacht-Master","Sea-Dweller"];
+
+function buildCatalogCarousel(family){
+  const track   = document.getElementById("catalogTrack");
+  const countEl = document.getElementById("catalogCount");
+  if(!track) return;
+
+  track.innerHTML = "";
+
+  const refs = Object.entries(REF.model)
+    .filter(([ref, data])=>{
+      if(!data.significance || data.significance.includes("Specifications being compiled") || data.significance.includes("being researched")) return false;
+      if(family && family !== "All" && data.category !== family && !data.name?.includes(family)) return false;
+      return true;
+    })
+    .map(([ref, data])=>({ref, ...data}));
+
+  refs.sort((a,b)=>{
+    const aHas = !!a.communityName, bHas = !!b.communityName;
+    if(aHas && !bHas) return -1;
+    if(!aHas && bHas) return 1;
+    return a.ref.localeCompare(b.ref);
+  });
+
+  refs.forEach(item=>track.appendChild(makeWatchCard(item.ref, item, "catalog-card")));
+  if(countEl) countEl.textContent = `${refs.length} references`;
+  bindCarouselNav("catalogTrack","catalogPrev","catalogNext");
+}
+
+function buildCatalogFilters(){
+  const filtersEl = document.getElementById("catalogFilters");
+  if(!filtersEl) return;
+  CATALOG_FAMILIES.forEach(family=>{
+    const chip = document.createElement("button");
+    chip.type = "button";
+    chip.className = "filter-chip" + (family === "All" ? " active" : "");
+    chip.textContent = family;
+    chip.addEventListener("click", ()=>{
+      document.querySelectorAll(".filter-chip").forEach(c=>c.classList.remove("active"));
+      chip.classList.add("active");
+      buildCatalogCarousel(family);
+    });
+    filtersEl.appendChild(chip);
   });
 }
 
@@ -2998,6 +3305,9 @@ window.addEventListener("DOMContentLoaded", ()=>{
   document.addEventListener("keydown", e=>{ if(e.key === "Escape") closeSheet(); });
 
   bindAccordion();
+  buildFeaturedCarousel();
+  buildCatalogFilters();
+  buildCatalogCarousel("All");
 
   // Theme toggle
   const tbtn = document.getElementById("themeToggle");
