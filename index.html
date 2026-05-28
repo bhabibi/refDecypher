@@ -633,6 +633,102 @@ input:-webkit-autofill{-webkit-text-fill-color:var(--text);-webkit-box-shadow:0 
   color:var(--era);
   transition:color 250ms ease;
 }
+/* ── Variant picker ──────────────────────────────────────────────────── */
+.variant-picker{
+  background:var(--surface);
+  border:1px solid var(--hairline);
+  border-radius:var(--r-xl);
+  padding:24px;
+  max-width:var(--maxw);
+  margin:0 auto;
+  box-shadow:var(--shadow-card);
+  animation:variantPickerIn 350ms cubic-bezier(0.2,0.8,0.2,1) both;
+  position:relative;
+  z-index:1;
+}
+@keyframes variantPickerIn{
+  from{opacity:0;transform:translateY(16px) scale(0.98);}
+  to{opacity:1;transform:none;}
+}
+.vp-head{margin-bottom:16px;}
+.vp-model-name{
+  font-family:var(--serif);
+  font-size:clamp(22px,5vw,32px);
+  color:var(--text);
+  margin-bottom:4px;
+}
+.vp-category{
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--gold);
+}
+.vp-prompt{
+  font-size:13px;
+  color:var(--text-muted);
+  margin-bottom:16px;
+  font-family:var(--mono);
+  letter-spacing:0.06em;
+}
+.vp-chips{display:flex;flex-direction:column;gap:8px;}
+.vp-chip{
+  display:flex;align-items:center;gap:14px;
+  padding:14px 18px;
+  border:1px solid var(--hairline);
+  border-radius:var(--r-md);
+  background:var(--shade-soft);
+  cursor:pointer;
+  transition:background 200ms,border-color 200ms,transform 150ms;
+  text-align:left;
+  width:100%;
+}
+.vp-chip:hover{background:var(--shade-mute);border-color:var(--hairline-strong);transform:translateX(4px);}
+.vp-chip:active{transform:translateX(2px);}
+.vp-chip .vp-swatch{width:24px;height:24px;border-radius:50%;border:1px solid rgba(255,255,255,0.15);flex-shrink:0;}
+.vp-chip .vp-suffix{font-family:var(--mono);font-size:14px;color:var(--gold);min-width:52px;letter-spacing:0.06em;}
+.vp-chip .vp-label{font-size:15px;color:var(--text);flex:1;}
+.vp-chip .vp-community{font-family:var(--serif);font-style:italic;font-size:14px;color:var(--text-dim);}
+.vp-chip .vp-arrow{color:var(--text-muted);font-size:16px;}
+/* ── Search suggestions dropdown ─────────────────────────────────────── */
+.search-suggestions{
+  position:absolute;
+  top:calc(100% + 8px);
+  left:0;right:0;
+  background:var(--elevated);
+  border:1px solid var(--hairline-strong);
+  border-radius:var(--r-md);
+  box-shadow:0 8px 32px rgba(0,0,0,0.4);
+  z-index:50;
+  max-height:320px;
+  overflow-y:auto;
+  animation:suggestIn 200ms ease both;
+}
+@keyframes suggestIn{
+  from{opacity:0;transform:translateY(-8px);}
+  to{opacity:1;transform:none;}
+}
+.suggestion-item{
+  display:flex;align-items:center;gap:14px;
+  padding:12px 18px;
+  cursor:pointer;
+  border-bottom:1px solid var(--hairline);
+  transition:background 150ms;
+}
+.suggestion-item:last-child{border-bottom:none;}
+.suggestion-item:hover{background:var(--shade-mute);}
+.suggestion-ref{font-family:var(--mono);font-size:14px;color:var(--gold);min-width:100px;letter-spacing:0.06em;}
+.suggestion-name{font-size:14px;color:var(--text);flex:1;}
+.suggestion-community{font-family:var(--serif);font-style:italic;font-size:13px;color:var(--text-dim);}
+.suggestion-category{font-family:var(--mono);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);}
+.suggestion-section{
+  padding:8px 18px 4px;
+  font-family:var(--mono);font-size:10px;
+  letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--text-muted);
+  background:var(--shade-card);
+  border-bottom:1px solid var(--hairline);
+}
 .result-grip{
   display:none;
   width:36px;height:4px;
@@ -1309,6 +1405,7 @@ footer .inner{
             aria-label="Reference number"
           />
           <button class="clear-btn" id="clearBtn" type="button" aria-label="Clear input">Clear</button>
+          <div class="search-suggestions" id="searchSuggestions" hidden role="listbox"></div>
         </div>
         <div class="parse-feedback" id="parseFeedback" aria-live="polite"></div>
         <p class="hint">
@@ -1364,6 +1461,7 @@ footer .inner{
       <div class="result-card" id="resultCard" hidden></div>
       <div class="result-empty" id="resultEmpty">Result appears here after 6 digits</div>
     </section>
+    <div class="variant-picker" id="variantPicker" hidden></div>
   </div>
 </div>
 
@@ -2332,13 +2430,61 @@ function updateAll(raw){
     unknown: !!p.suffix && !d.suffix
   });
 
-  // Result card
+  // Result card / variant picker
+  const variantPicker = document.getElementById("variantPicker");
   const is5513 = p.full === "5513";
+  const showVP = !is5513 && p.digits.length === 6 && !p.suffix && d.model?.variants?.length > 0;
+
   if(is5513){
+    if(variantPicker) variantPicker.hidden = true;
     show5513Card();
+  } else if(showVP){
+    // Hide result card, build and show variant picker
+    const card = document.getElementById("resultCard");
+    card.classList.remove("show");
+    card.hidden = true;
+    document.getElementById("resultEmpty").style.display = "none";
+
+    variantPicker.innerHTML = `
+      <div class="vp-head">
+        <div class="vp-model-name" id="vpModelName"></div>
+        <div class="vp-category" id="vpCategory"></div>
+      </div>
+      <div class="vp-prompt">Select a variant to continue</div>
+      <div class="vp-chips" id="vpChips"></div>
+    `;
+    document.getElementById("vpModelName").textContent = d.model.name;
+    document.getElementById("vpCategory").textContent  = d.model.category || "";
+
+    const chipsEl = document.getElementById("vpChips");
+    d.model.variants.forEach(v => {
+      const chip = document.createElement("button");
+      chip.type = "button";
+      chip.className = "vp-chip";
+      chip.innerHTML = `
+        <span class="vp-swatch" style="background:${v.color}"></span>
+        <span class="vp-suffix">${v.suffix}</span>
+        <span class="vp-label">${v.label}</span>
+        ${v.communityName ? `<span class="vp-community">&ldquo;${v.communityName}&rdquo;</span>` : ""}
+        <span class="vp-arrow">→</span>
+      `;
+      chip.addEventListener("click", () => {
+        const inp = document.getElementById("refInput");
+        inp.value = p.digits + v.suffix;
+        document.getElementById("inputRow").classList.remove("is-empty");
+        document.getElementById("clearBtn").classList.add("show");
+        variantPicker.hidden = true;
+        updateAll(inp.value);
+        inp.focus();
+      });
+      chipsEl.appendChild(chip);
+    });
+    variantPicker.hidden = false;
   } else if(p.digits.length>=6){
+    if(variantPicker) variantPicker.hidden = true;
     renderCard(p,d);
-  }else{
+  } else {
+    if(variantPicker) variantPicker.hidden = true;
     hideCard();
   }
 
@@ -2348,7 +2494,7 @@ function updateAll(raw){
 
   // Learn section reveal
   const learn = document.getElementById("learn");
-  if(learn && (p.digits.length>=6 || is5513)) learn.classList.add("visible");
+  if(learn && (p.digits.length>=6 || is5513 || showVP)) learn.classList.add("visible");
 
   // Anatomy diagram live highlight
   updateAnatomyHighlight(p);
@@ -2643,6 +2789,73 @@ function bindAccordion(){
 }
 
 /* ─────────────────────────────────────────────────────────────────────
+   SEARCH SUGGESTIONS
+   ───────────────────────────────────────────────────────────────────── */
+function buildSuggestions(raw){
+  const sugEl = document.getElementById("searchSuggestions");
+  if(!sugEl) return;
+  if(!raw || raw.length < 3){ sugEl.hidden = true; return; }
+
+  const q = raw.toUpperCase().replace(/[\s\-]/g,"");
+  const matches = [];
+
+  Object.entries(REF.model).forEach(([key, val])=>{
+    if(!val.name || val.name === "Rolex Reference") return;
+    if(key.includes(q) || val.name.toUpperCase().includes(q)){
+      matches.push({ref:key, ...val});
+    }
+  });
+
+  const top = matches.slice(0, 8);
+  if(top.length === 0){ sugEl.hidden = true; return; }
+
+  sugEl.innerHTML = "";
+  const refMatches  = top.filter(m => m.ref.startsWith(q));
+  const nameMatches = top.filter(m => !m.ref.startsWith(q));
+
+  if(refMatches.length > 0){
+    const sec = document.createElement("div");
+    sec.className = "suggestion-section";
+    sec.textContent = "References";
+    sugEl.appendChild(sec);
+    refMatches.forEach(m => sugEl.appendChild(makeSuggestionItem(m)));
+  }
+  if(nameMatches.length > 0){
+    const sec = document.createElement("div");
+    sec.className = "suggestion-section";
+    sec.textContent = "Models";
+    sugEl.appendChild(sec);
+    nameMatches.forEach(m => sugEl.appendChild(makeSuggestionItem(m)));
+  }
+
+  sugEl.hidden = false;
+}
+
+function makeSuggestionItem(m){
+  const item = document.createElement("div");
+  item.className = "suggestion-item";
+  item.setAttribute("role","option");
+  item.innerHTML = `
+    <span class="suggestion-ref">${m.ref}</span>
+    <span class="suggestion-name">${m.name}</span>
+    ${m.communityName ? `<span class="suggestion-community">&ldquo;${m.communityName}&rdquo;</span>` : ""}
+    <span class="suggestion-category">${m.category || ""}</span>
+  `;
+  item.addEventListener("mousedown", e=>{
+    // Use mousedown so it fires before blur hides the dropdown
+    e.preventDefault();
+    const input = document.getElementById("refInput");
+    input.value = m.ref;
+    document.getElementById("inputRow").classList.remove("is-empty");
+    document.getElementById("clearBtn").classList.add("show");
+    document.getElementById("searchSuggestions").hidden = true;
+    updateAll(m.ref);
+    input.focus();
+  });
+  return item;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
    BIND IT ALL
    ───────────────────────────────────────────────────────────────────── */
 window.addEventListener("DOMContentLoaded", ()=>{
@@ -2655,14 +2868,30 @@ window.addEventListener("DOMContentLoaded", ()=>{
     row.classList.toggle("is-empty", !v);
     clear.classList.toggle("show", !!v);
     updateAll(v);
+    buildSuggestions(v);
   });
   input.addEventListener("focus", ()=>row.classList.add("is-focused"));
-  input.addEventListener("blur", ()=>row.classList.remove("is-focused"));
+  input.addEventListener("blur", ()=>{
+    row.classList.remove("is-focused");
+    // Delay so mousedown on a suggestion fires first
+    setTimeout(()=>{
+      const sug = document.getElementById("searchSuggestions");
+      if(sug) sug.hidden = true;
+    }, 200);
+  });
+  input.addEventListener("keydown", e=>{
+    if(e.key === "Escape"){
+      const sug = document.getElementById("searchSuggestions");
+      if(sug) sug.hidden = true;
+    }
+  });
 
   clear.addEventListener("click", ()=>{
     input.value = "";
     row.classList.add("is-empty");
     clear.classList.remove("show");
+    const sug = document.getElementById("searchSuggestions");
+    if(sug) sug.hidden = true;
     updateAll("");
     input.focus();
   });
