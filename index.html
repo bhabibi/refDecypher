@@ -33,6 +33,7 @@
   --gold-soft:rgba(201,168,76,0.6);
   --gold-veil:rgba(201,168,76,0.05);
   --veil-cool:rgba(74,144,217,0.04);
+  --veil-shift:transparent;
   --selection-bg:rgba(201,168,76,0.30);
   --scrim:rgba(0,0,0,0.6);
   --autofill-bg:#0D0D0D;
@@ -142,7 +143,13 @@ input:-webkit-autofill{-webkit-text-fill-color:var(--text);-webkit-box-shadow:0 
   padding:22px 22px 0;
   max-width:var(--maxw);
   margin:0 auto;
+  animation:topbarDrop 500ms cubic-bezier(0.2,0.8,0.2,1) both;
 }
+@keyframes topbarDrop{
+  from{transform:translateY(-40px);opacity:0;}
+  to{transform:none;opacity:1;}
+}
+@media(prefers-reduced-motion:reduce){.topbar{animation:none;}}
 .brand{
   display:flex;align-items:center;gap:10px;
   font-family:var(--serif);
@@ -154,6 +161,23 @@ input:-webkit-autofill{-webkit-text-fill-color:var(--text);-webkit-box-shadow:0 
   width:6px;height:6px;border-radius:50%;
   background:var(--gold);
   box-shadow:0 0 12px var(--gold-soft);
+  animation:dotPulse 2s ease-in-out 600ms 2;
+  cursor:default;
+}
+@keyframes dotPulse{
+  0%,100%{box-shadow:0 0 12px var(--gold-soft);}
+  50%{box-shadow:0 0 22px var(--gold-soft),0 0 40px rgba(201,168,76,0.2);}
+}
+.brand>span:not(.dot){
+  animation:brandReveal 800ms ease 200ms both;
+}
+@keyframes brandReveal{
+  from{letter-spacing:0.08em;opacity:0;}
+  to{letter-spacing:0.01em;opacity:1;}
+}
+@media(prefers-reduced-motion:reduce){
+  .brand .dot{animation:none;}
+  .brand>span:not(.dot){animation:none;}
 }
 .brand em{font-style:italic;color:var(--text-dim);font-weight:400;}
 .topbar .meta{
@@ -214,6 +238,7 @@ input:-webkit-autofill{-webkit-text-fill-color:var(--text);-webkit-box-shadow:0 
   color:var(--text-muted);
   margin:0 0 18px;
   display:flex;align-items:center;gap:10px;
+  animation:heroIn 500ms ease 150ms both;
 }
 .eyebrow::before{
   content:"";
@@ -231,6 +256,7 @@ input:-webkit-autofill{-webkit-text-fill-color:var(--text);-webkit-box-shadow:0 
   margin:0 0 36px;
   color:var(--text);
   max-width:18ch;
+  animation:heroIn 600ms ease 300ms both;
 }
 .prompt em{
   font-style:italic;
@@ -240,6 +266,7 @@ input:-webkit-autofill{-webkit-text-fill-color:var(--text);-webkit-box-shadow:0 
 /* The input itself */
 .input-stage{
   position:relative;
+  animation:heroFade 500ms ease 480ms both;
 }
 .input-row{
   display:flex;
@@ -290,6 +317,7 @@ input:-webkit-autofill{-webkit-text-fill-color:var(--text);-webkit-box-shadow:0 
   margin:14px 0 0;
   font-size:13px;
   color:var(--text-muted);
+  animation:heroFade 400ms ease 620ms both;
 }
 .hint .ref-chip{
   font-family:var(--mono);
@@ -304,14 +332,40 @@ input:-webkit-autofill{-webkit-text-fill-color:var(--text);-webkit-box-shadow:0 
 }
 .hint .ref-chip:hover{color:var(--gold);background:var(--partial-bg);}
 
+.parse-feedback{
+  font-family:var(--mono);
+  font-size:11px;
+  color:var(--text-muted);
+  text-align:right;
+  min-height:18px;
+  margin:6px 0 0;
+  opacity:0;
+  transition:opacity 200ms ease;
+  letter-spacing:0.06em;
+}
+.parse-feedback.show{opacity:1;}
+@media(max-width:560px){.parse-feedback{display:none;}}
+
 /* ─────────────────────────────────────────────────────────────────────
    SEGMENT PILLS — light up as digits are typed
    ───────────────────────────────────────────────────────────────────── */
+@keyframes heroIn{
+  from{opacity:0;transform:translateY(14px);}
+  to{opacity:1;transform:none;}
+}
+@keyframes heroFade{
+  from{opacity:0;}
+  to{opacity:1;}
+}
+@media(prefers-reduced-motion:reduce){
+  .eyebrow,.prompt,.input-stage,.hint,.pills{animation:none;}
+}
 .pills{
   margin-top:40px;
   display:grid;
   grid-template-columns:repeat(5, minmax(0,1fr));
   gap:8px;
+  animation:heroIn 500ms ease 750ms both;
 }
 .pill{
   --c:var(--text-muted);
@@ -387,13 +441,63 @@ input:-webkit-autofill{-webkit-text-fill-color:var(--text);-webkit-box-shadow:0 
   content:"";
   position:absolute;
   left:0;right:0;bottom:0;
-  height:1px;
+  height:2px;
   background:var(--c);
   transform:scaleX(0);
   transform-origin:left center;
   transition:transform 350ms cubic-bezier(.2,.7,.2,1);
+  filter:blur(0.5px);
 }
 .pill.is-active::after{transform:scaleX(1);}
+/* Soft glow behind accent stripe */
+.pill::before{
+  content:"";
+  position:absolute;left:0;right:0;bottom:0;
+  height:6px;
+  background:var(--c);
+  opacity:0;
+  filter:blur(4px);
+  transform:scaleX(0);
+  transform-origin:left center;
+  transition:transform 350ms cubic-bezier(0.2,0.7,0.2,1),opacity 350ms ease;
+  pointer-events:none;
+}
+.pill.is-active::before{transform:scaleX(1);opacity:0.15;}
+/* Shimmer on activation */
+.pill.is-active{
+  background-image:linear-gradient(105deg,transparent 35%,rgba(255,255,255,0.05) 50%,transparent 65%);
+  background-size:300% 100%;
+  animation:pillShimmer 700ms ease 1;
+}
+@keyframes pillShimmer{
+  from{background-position:150% center;}
+  to{background-position:-50% center;}
+}
+/* First-time bounce */
+@keyframes pillBounce{
+  0%{transform:scale(0.94);}
+  60%{transform:scale(1.04);}
+  100%{transform:scale(1.0);}
+}
+.pill-bounce{animation:pillBounce 320ms cubic-bezier(0.34,1.56,0.64,1);}
+/* Unknown pulse */
+@keyframes unknownPulse{
+  0%,100%{border-color:rgba(204,102,102,0.3);}
+  50%{border-color:rgba(204,102,102,0.7);}
+}
+.pill.is-unknown{animation:unknownPulse 2s ease-in-out infinite;}
+/* Decoded text reveal */
+@keyframes textReveal{
+  from{clip-path:inset(0 100% 0 0);}
+  to{clip-path:inset(0 0% 0 0);}
+}
+.pill.is-active .pill-decoded{animation:textReveal 350ms ease 100ms both;}
+@media(prefers-reduced-motion:reduce){
+  .pill-bounce{animation:none;}
+  .pill.is-active{animation:none;background-image:none;}
+  .pill.is-unknown{animation:none;}
+  .pill.is-active .pill-decoded{animation:none;}
+}
 
 #pill-era{--c:var(--era);}
 #pill-model{--c:var(--model);}
@@ -472,9 +576,20 @@ input:-webkit-autofill{-webkit-text-fill-color:var(--text);-webkit-box-shadow:0 
 }
 .result-card.show{
   opacity:1;
-  transform:translateY(0);
+  transform:translateY(0) scale(1.0);
   pointer-events:auto;
 }
+.result-card::after{
+  content:"";
+  position:absolute;top:0;bottom:0;left:0;
+  width:2px;
+  background:rgba(201,168,76,0.3);
+  transform:scaleY(0);
+  transform-origin:top center;
+  transition:transform 400ms ease 200ms;
+  pointer-events:none;
+}
+.result-card.show::after{transform:scaleY(1);}
 .result-card::before{
   content:"";
   position:absolute;
@@ -582,13 +697,16 @@ input:-webkit-autofill{-webkit-text-fill-color:var(--text);-webkit-box-shadow:0 
 }
 
 .rc-why{
-  margin-top:20px;
-  padding:16px 18px;
-  background:var(--elevated);
-  border:1px solid var(--hairline);
-  border-radius:var(--r-md);
-  position:relative;
+  background:transparent;
+  border:none;
+  border-left:3px solid rgba(201,168,76,0.35);
+  border-radius:0;
+  padding:0 0 0 16px;
+  margin-top:24px;
+  animation:fadeInWhy 500ms ease 600ms both;
 }
+@keyframes fadeInWhy{from{opacity:0;}to{opacity:1;}}
+@media(prefers-reduced-motion:reduce){.rc-why{animation:none;}}
 .rc-why .lbl{
   font-family:var(--mono);
   font-size:10px;
@@ -598,7 +716,15 @@ input:-webkit-autofill{-webkit-text-fill-color:var(--text);-webkit-box-shadow:0 
   display:block;
   margin-bottom:6px;
 }
-.rc-why p{margin:0;font-size:14px;line-height:1.55;color:var(--text-dim);}
+.rc-why .lbl::before{
+  content:"";
+  display:inline-block;
+  width:5px;height:5px;border-radius:50%;
+  background:var(--gold);
+  margin-right:8px;
+  vertical-align:middle;
+}
+.rc-why p{margin:0;font-size:15px;line-height:1.55;color:var(--text-dim);}
 
 .rc-actions{
   margin-top:18px;
@@ -998,7 +1124,18 @@ footer .inner{
   .anatomy .seg.b{--c:var(--bezel);}
   .anatomy .seg.r{--c:var(--bracelet);}
   .anatomy .seg.s{--c:var(--suffix);}
-
+  .anatomy .seg:nth-child(1){animation:segIn 400ms ease 200ms both;}
+  .anatomy .seg:nth-child(2){animation:segIn 400ms ease 280ms both;}
+  .anatomy .seg:nth-child(3){animation:segIn 400ms ease 360ms both;}
+  .anatomy .seg:nth-child(4){animation:segIn 400ms ease 440ms both;}
+  .anatomy .seg:nth-child(5){animation:segIn 400ms ease 520ms both;}
+  @keyframes segIn{
+    from{transform:translateX(-12px);opacity:0;}
+    to{transform:none;opacity:1;}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .anatomy .seg{animation:none;}
+  }
   .scroll-cue{display:none;}
 }
 @media (max-width:899px){
@@ -1014,14 +1151,29 @@ footer .inner{
 /* ─────────────────────────────────────────────────────────────────────
    SUBTLE BACKGROUND VEIN (very faint vertical light)
    ───────────────────────────────────────────────────────────────────── */
-.veil{
-  position:fixed;
-  inset:0;
+.veil{position:fixed;inset:0;pointer-events:none;z-index:0;background:none;}
+.veil::before{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 40% at 85% 10%, var(--gold-veil), transparent 55%);
+  animation:veilBreath 8s ease-in-out infinite alternate;
+}
+.veil::after{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(ellipse 50% 60% at 10% 90%, var(--veil-cool), transparent 55%);
+  animation:veilBreath 10s ease-in-out infinite alternate-reverse;
+}
+@keyframes veilBreath{
+  from{opacity:0.6;transform:scale(1);}
+  to{opacity:1;transform:scale(1.08);}
+}
+.veil-shift{
+  position:absolute;inset:0;
+  background:var(--veil-shift,transparent);
+  transition:background 800ms ease;
   pointer-events:none;
-  z-index:0;
-  background:
-    radial-gradient(60% 40% at 100% 0%, var(--gold-veil), transparent 50%),
-    radial-gradient(60% 50% at 0% 100%, var(--veil-cool), transparent 50%);
+}
+@media(prefers-reduced-motion:reduce){
+  .veil::before,.veil::after{animation:none;}
 }
 .shell, .stage, .topbar, footer{position:relative;z-index:1;}
 
@@ -1042,17 +1194,25 @@ footer .inner{
 
 /* Community / enthusiast name */
 .rc-community{
-  font-family:var(--sans);
-  font-size:15px;
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:18px;
   color:var(--gold);
-  margin:0 0 6px;
-  letter-spacing:0.01em;
+  margin:0 0 8px;
+  letter-spacing:0.005em;
 }
 .rc-community em{
   font-style:italic;
   font-family:var(--serif);
-  font-size:17px;
 }
+.rc-copy-btn{
+  font-size:11px;font-family:var(--mono);letter-spacing:0.1em;
+  padding:6px 12px;height:30px;border-radius:99px;
+  display:inline-flex;align-items:center;gap:6px;
+  border:1px solid var(--hairline);color:var(--text-dim);
+  transition:color 200ms,border-color 200ms,background 200ms;
+}
+.rc-copy-btn:hover{color:var(--text);border-color:var(--hairline-strong);}
 
 /* Reduced motion */
 @media (prefers-reduced-motion:reduce){
@@ -1063,7 +1223,7 @@ footer .inner{
 </head>
 <body>
 
-<div class="veil" aria-hidden="true"></div>
+<div class="veil" aria-hidden="true"><span class="veil-shift"></span></div>
 
 <div class="topbar">
   <div class="brand"><span class="dot"></span><span>RolliDex</span><em>&nbsp;— the reference decoder</em></div>
@@ -1114,11 +1274,15 @@ footer .inner{
           />
           <button class="clear-btn" id="clearBtn" type="button" aria-label="Clear input">Clear</button>
         </div>
+        <div class="parse-feedback" id="parseFeedback" aria-live="polite"></div>
         <p class="hint">
           Try
-          <button class="ref-chip" data-chip="116613" type="button">116613</button>
-          or
-          <button class="ref-chip" data-chip="126710BLNR" type="button">126710BLNR</button>
+          <button class="ref-chip" data-chip="116613" data-tooltip="Submariner Date · Two-Tone" type="button">116613</button>
+          <button class="ref-chip" data-chip="126710BLNR" data-tooltip="GMT-Master II · Batman" type="button">126710BLNR</button>
+          <button class="ref-chip" data-chip="226627" data-tooltip="Yacht-Master 42 · Titanium" type="button">226627</button>
+          <button class="ref-chip" data-chip="116500LN" data-tooltip="Daytona · Steel Ceramic" type="button">116500LN</button>
+          <button class="ref-chip" data-chip="228206" data-tooltip="Day-Date 40 · Platinum" type="button">228206</button>
+          <button class="ref-chip" data-chip="126719BLRO" data-tooltip="GMT · Meteorite Pepsi" type="button">126719BLRO</button>
         </p>
 
         <div class="pills" id="pills" role="list">
@@ -1708,7 +1872,7 @@ const REF = {
     "126713":{name:"GMT-Master II",material:"Stainless Steel & Yellow Gold (Rolesor)",era:"See specifications",category:"GMT-Master II",significance:"Reference identified from catalogue data. Full specifications being researched."},
     "126715":{name:"GMT-Master II",material:null,era:null,category:"GMT-Master II",significance:"Identified reference. Specifications being compiled."},
     "126718":{name:"GMT-Master II",material:"18k Yellow Gold",era:"See specifications",category:"GMT-Master II",significance:"Reference identified from catalogue data. Full specifications being researched."},
-    "126719":{name:"GMT-Master II",material:"18k White Gold",era:"See specifications",category:"GMT-Master II",significance:"Reference identified from catalogue data. Full specifications being researched."},
+    "126719":{name:"GMT-Master II",material:"18k White Gold",era:"2019–present",category:"GMT / Traveler",bracelet:"Oyster",significance:"White gold GMT with a meteorite dial — each dial is a 4.5 billion year old slice of the Gibeon iron-nickel asteroid. The BLRO suffix adds the iconic Pepsi bezel colour combination.",communityName:"Meteorite Pepsi",communityNames:{"BLRO":"Meteorite Pepsi"}},
     "126720":{name:"GMT-Master II",material:"Stainless Steel",era:"See specifications",category:"GMT-Master II",significance:"Reference identified from catalogue data. Full specifications being researched."},
     "126729":{name:"GMT-Master II",material:"18k White Gold",era:"See specifications",category:"GMT-Master II",significance:"Reference identified from catalogue data. Full specifications being researched."},
     "127234":{name:"Rolex Reference",material:null,era:null,category:"Rolex",significance:"Identified reference. Specifications being compiled."},
@@ -1826,7 +1990,7 @@ const REF = {
     "114060":{name:"Submariner (No Date)",material:"Stainless Steel",era:"2012–2020",category:"Dive Watch",bracelet:"Oyster",significance:"The purist's Submariner — no date window means a cleaner, symmetrical dial. Beloved by collectors for its understated elegance.",communityName:"No-Date Sub"},
     "124060":{name:"Submariner (No Date)",material:"Stainless Steel",era:"2020–present",category:"Dive Watch",bracelet:"Oyster",significance:"Current-generation No-Date Submariner with Cal. 3230 and 41mm case. The purist choice in the modern lineup.",communityName:"No-Date Sub"},
     "116610":{name:"Submariner Date",material:"Stainless Steel",era:"pre-2020",category:"Dive Watch",bracelet:"Oyster",significance:"The definitive modern Submariner before the 2020 refresh. Highly liquid market with strong collector demand.",communityNames:{"LV":"Hulk"}},
-    "116613":{name:"Submariner Date",material:"Steel + Yellow Gold (Two-Tone)",era:"pre-2020",category:"Dive Watch",bracelet:"Oyster",significance:"The Rolesor two-tone Submariner. Nicknamed 'Bluesy' in blue dial spec; balances sportiness with luxury.",communityNames:{"LB":"Bluesy"}},
+    "116613":{name:"Submariner Date",material:"Steel + Yellow Gold (Two-Tone)",era:"pre-2020",category:"Dive Watch",bracelet:"Oyster",significance:"The Rolesor two-tone Submariner. Nicknamed 'Bluesy' in blue dial spec; balances sportiness with luxury.",communityName:"Bluesy",communityNames:{"LB":"Bluesy"}},
     "116618":{name:"Submariner Date",material:"Full Yellow Gold",era:"pre-2020",category:"Dive Watch",bracelet:"Oyster",significance:"All-gold Submariner — the pinnacle of the line's luxury expression before the 2020 update."},
     "116619":{name:"Submariner Date",material:"18k White Gold",era:"pre-2020",category:"Dive Watch",bracelet:"Oyster",significance:"Full white gold Submariner in blue — one of the rarest Submariner variants."},
     "126610":{name:"Submariner Date",material:"Stainless Steel",era:"2020–present",category:"Dive Watch",bracelet:"Oyster",significance:"The current-generation steel Submariner with a wider bezel and updated Cal. 3235 movement.",communityNames:{"LV":"Starbucks"}},
@@ -1837,12 +2001,12 @@ const REF = {
     "126603":{name:"Sea-Dweller",material:"Steel + Yellow Gold (Two-Tone)",era:"2018–present",category:"Dive Watch",bracelet:"Jubilee",significance:"First-ever two-tone Sea-Dweller, uniquely paired with a Jubilee bracelet."},
     "126660":{name:"Deepsea",material:"Stainless Steel",era:"2018–present",category:"Dive Watch",bracelet:"Oyster",significance:"3,900m water resistance. The most technically extreme watch in the Rolex catalogue."},
     "116520":{name:"Daytona",material:"Stainless Steel",era:"pre-2016",category:"Chronograph",bracelet:"Oyster",significance:"Pre-ceramic-bezel Daytona — the last generation with a steel bezel and a benchmark of collectibility."},
-    "116500":{name:"Daytona",material:"Stainless Steel",era:"pre-2023",category:"Chronograph",bracelet:"Oyster",significance:"The steel Daytona with ceramic bezel — one of the most sought-after references in modern watchmaking. Notorious waitlists.",communityNames:{"LN":"Panda"}},
+    "116500":{name:"Daytona Chronograph",material:"Stainless Steel",era:"pre-2023",category:"Chronograph",bracelet:"Oyster",significance:"The steel chronograph with ceramic bezel — among the most sought-after references in modern watchmaking. Notorious waitlists defined its production era.",communityName:"Panda",communityNames:{"LN":"Panda"}},
     "126500":{name:"Daytona",material:"Stainless Steel",era:"2023–present",category:"Chronograph",bracelet:"Oyster",significance:"The newest Daytona generation, featuring a larger 40mm case and updated in-house movement."},
-    "116710":{name:"GMT-Master II",material:"Stainless Steel",era:"pre-2019",category:"GMT / Traveler",bracelet:"Oyster",significance:"Previous-gen GMT-Master II — origin of the Batman (BLNR) and Pepsi (BLRO) references.",communityNames:{"BLNR":"Batman","BLRO":"Pepsi"}},
+    "116710":{name:"GMT-Master II",material:"Stainless Steel",era:"pre-2019",category:"GMT / Traveler",bracelet:"Oyster",significance:"Previous-gen GMT-Master II — origin of the Batman (BLNR) and Pepsi (BLRO) references.",communityName:"Batman / Pepsi",communityNames:{"BLNR":"Batman","BLRO":"Pepsi"}},
     "116711":{name:"GMT-Master II",material:"Steel + Yellow Gold (Two-Tone)",era:"2005–2018",category:"GMT / Traveler",bracelet:"Oyster",significance:"Two-tone Root Beer predecessor. Brown and black bezel on yellow gold Rolesor.",communityNames:{"CHNR":"Root Beer"}},
-    "126710":{name:"GMT-Master II",material:"Stainless Steel",era:"2019–present",category:"GMT / Traveler",bracelet:"Jubilee",significance:"Current GMT-Master II with Jubilee bracelet option and upgraded Cal. 3285 movement.",communityNames:{"BLNR":"Batgirl","BLRO":"Pepsi"}},
-    "126711":{name:"GMT-Master II",material:"Steel + Everose Gold (Two-Tone)",era:"2018–present",category:"GMT / Traveler",bracelet:"Jubilee",significance:"Root Beer GMT. Brown and black ceramic bezel on Everose Rolesor — one of the most distinctive GMTs made.",communityNames:{"CHNR":"Root Beer"}},
+    "126710":{name:"GMT-Master II",material:"Stainless Steel",era:"2019–present",category:"GMT / Traveler",bracelet:"Jubilee",significance:"Current GMT-Master II with Jubilee bracelet option and upgraded Cal. 3285 movement.",communityName:"Pepsi / Batgirl",communityNames:{"BLNR":"Batgirl","BLRO":"Pepsi"}},
+    "126711":{name:"GMT-Master II",material:"Steel + Everose Gold (Two-Tone)",era:"2018–present",category:"GMT / Traveler",bracelet:"Jubilee",significance:"Root Beer GMT. Brown and black ceramic bezel on Everose Rolesor — one of the most distinctive GMTs made.",communityName:"Rootbeer",communityNames:{"CHNR":"Root Beer"}},
     "116621":{name:"Yacht-Master 40",material:"Steel + Everose Gold (Two-Tone)",era:"2012–present",category:"Luxury Sport",bracelet:"Oyster",significance:"Everose Rolesor Yacht-Master with platinum bezel and signature chocolate dial."},
     "116622":{name:"Yacht-Master 40",material:"Stainless Steel",era:"2012–present",category:"Luxury Sport",bracelet:"Oyster",significance:"Steel Yacht-Master with platinum bezel — the most accessible Yacht-Master 40."},
     "116655":{name:"Yacht-Master 40",material:"Everose Gold",era:"2015–present",category:"Luxury Sport",bracelet:"Oysterflex",significance:"Introduced the Oysterflex rubber bracelet to the lineup. Everose gold on elastomer."},
@@ -1961,13 +2125,47 @@ function resolve(p){
 /* ─────────────────────────────────────────────────────────────────────
    PILL UPDATES
    ───────────────────────────────────────────────────────────────────── */
+const bouncedPills = new Set(JSON.parse(sessionStorage.getItem("pills-bounced")||"[]"));
+
 function setPill(id,{value,decoded,active,unknown}){
   const el = document.getElementById("pill-"+id);
   if(!el) return;
   el.querySelector("[data-value]").textContent = value;
   el.querySelector("[data-decoded]").textContent = decoded || "";
+  const wasActive = el.classList.contains("is-active");
   el.classList.toggle("is-active", !!active);
   el.classList.toggle("is-unknown", !!unknown);
+  if(active && !wasActive && !bouncedPills.has(id)){
+    bouncedPills.add(id);
+    sessionStorage.setItem("pills-bounced", JSON.stringify([...bouncedPills]));
+    el.classList.add("pill-bounce");
+    setTimeout(()=>el.classList.remove("pill-bounce"), 320);
+  }
+}
+
+function updateAnatomyHighlight(p){
+  const segE = document.querySelector(".anatomy .seg.e");
+  const segM = document.querySelector(".anatomy .seg.m");
+  const segB = document.querySelector(".anatomy .seg.b");
+  const segR = document.querySelector(".anatomy .seg.r");
+  const segS = document.querySelector(".anatomy .seg.s");
+  if(!segE) return;
+  const activate = (el,varName)=>{
+    if(!el) return;
+    el.style.background = `color-mix(in oklab, var(${varName}) 15%, transparent)`;
+    el.style.border = `1px solid var(${varName})`;
+    el.style.transition = "background 250ms ease, border 250ms ease";
+  };
+  const deactivate = el=>{
+    if(!el) return;
+    el.style.background = "var(--shade-card)";
+    el.style.border = "1px solid transparent";
+  };
+  p.era.length>=2 ? activate(segE,"--era") : deactivate(segE);
+  p.modelSeg.length>=1 ? activate(segM,"--model") : deactivate(segM);
+  p.bezelDig ? activate(segB,"--bezel") : deactivate(segB);
+  p.bracDig ? activate(segR,"--bracelet") : deactivate(segR);
+  p.suffix ? activate(segS,"--suffix") : deactivate(segS);
 }
 
 function updateAll(raw){
@@ -2019,6 +2217,39 @@ function updateAll(raw){
   // Learn section reveal
   const learn = document.getElementById("learn");
   if(learn && p.digits.length>=6) learn.classList.add("visible");
+
+  // Anatomy diagram live highlight
+  updateAnatomyHighlight(p);
+
+  // Veil shift color by active segment
+  const veil = document.querySelector(".veil");
+  if(veil){
+    let shift = "transparent";
+    if(p.suffix)              shift = "rgba(155,141,212,0.025)";
+    else if(p.bracDig)        shift = "rgba(212,83,126,0.025)";
+    else if(p.bezelDig)       shift = "rgba(76,175,130,0.025)";
+    else if(p.modelSeg)       shift = "rgba(201,168,76,0.025)";
+    else if(p.era.length>=2)  shift = "rgba(74,144,217,0.025)";
+    veil.style.setProperty("--veil-shift", shift);
+  }
+
+  // Parse feedback
+  const fb = document.getElementById("parseFeedback");
+  if(fb){
+    let fbText = "";
+    if(p.digits.length===0){ fb.classList.remove("show"); }
+    else{
+      if(p.digits.length===1) fbText = "era...";
+      else if(p.digits.length===2) fbText = `era: ${d.era ? d.era.label.split(" ")[0] : "unknown"}`;
+      else if(p.digits.length<=4) fbText = "era · model...";
+      else if(p.digits.length===5) fbText = "era · model fragment...";
+      else if(p.digits.length===6) fbText = "era · model · bezel...";
+      else if(p.digits.length===7 && !p.suffix) fbText = "era · model · bezel · bracelet";
+      else if(p.suffix) fbText = `era · model · bezel · bracelet · ${p.suffix}`;
+      fb.textContent = fbText;
+      fb.classList.toggle("show", fbText.length>0);
+    }
+  }
 }
 
 /* ─────────────────────────────────────────────────────────────────────
@@ -2065,10 +2296,24 @@ function renderCard(p,d){
     <div>
       <div class="rc-ref">${p.full}</div>
     </div>
-    ${d.era ? `<div class="rc-era-pill" title="${d.era.years}">${d.era.label.replace(' Generation','').replace(/–/g,'–')}</div>` : ""}
+    <div style="display:flex;align-items:center;gap:10px;">
+      ${d.era ? `<div class="rc-era-pill" title="${d.era.years}">${d.era.label.replace(" Generation","")}</div>` : ""}
+      <button class="btn rc-copy-btn" id="copyBtn" type="button" aria-label="Copy summary">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Copy
+      </button>
+    </div>
   </div>`;
   if(isPartial){
-    html += `<div class="rc-partial">This exact reference isn't in our database — here's what the digits tell us.</div>`;
+    let decodedCount=0, decodedNames=[];
+    if(d.era)   {decodedCount++;decodedNames.push("Era");}
+    if(d.bezel) {decodedCount++;decodedNames.push("Bezel");}
+    if(d.brac)  {decodedCount++;decodedNames.push("Bracelet");}
+    if(d.suffix){decodedCount++;decodedNames.push("Suffix");}
+    const partialMsg = decodedCount>0
+      ? `${decodedCount} of 5 segments decoded — ${decodedNames.join(", ")} identified. Model not yet in our database.`
+      : "Reference digits not yet in our database — try a known reference like 116613LB.";
+    html += `<div class="rc-partial">${partialMsg}</div>`;
   }
   html += `<h2 class="rc-title">${modelName}</h2>`;
   const communityName = (d.model?.communityNames && p.suffix)
@@ -2092,17 +2337,41 @@ function renderCard(p,d){
     </div>`;
   }
 
-  html += `<div class="rc-actions">
-    <button class="btn" id="copyBtn" type="button">Copy summary</button>
-  </div>`;
-
   card.innerHTML = html;
   card.hidden = false;
-  // Force reflow then animate in
-  // eslint-disable-next-line no-unused-expressions
   card.offsetHeight;
   card.classList.add("show");
   empty.style.display = "none";
+
+  // Row stagger reveal
+  const rows = card.querySelectorAll(".rc-row");
+  rows.forEach((row,i)=>{
+    row.style.opacity = "0";
+    row.style.transform = "translateY(8px)";
+    row.style.transition = `opacity 300ms ease ${80+i*80}ms, transform 300ms ease ${80+i*80}ms`;
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{
+      row.style.opacity = "1";
+      row.style.transform = "translateY(0)";
+    }));
+  });
+
+  // Era pill tooltip
+  const eraPill = card.querySelector(".rc-era-pill");
+  if(eraPill && d.era){
+    let eraTip = null;
+    eraPill.addEventListener("mouseenter",()=>{
+      eraTip = document.createElement("div");
+      eraTip.className = "era-tip";
+      eraTip.innerHTML = `<strong style="font-size:12px;">${d.era.label}</strong><br><span style="font-size:12px;color:var(--text-dim);">${d.era.note||d.era.years}</span>`;
+      document.body.appendChild(eraTip);
+      const r = eraPill.getBoundingClientRect();
+      eraTip.style.cssText = `position:fixed;top:${r.bottom+8}px;right:${window.innerWidth-r.right}px;width:260px;background:var(--elevated);border:1px solid var(--gold-soft);border-radius:var(--r-md);padding:10px 14px;font-family:var(--sans);font-size:13px;color:var(--text);z-index:100;opacity:0;transition:opacity 150ms ease;box-shadow:0 4px 20px rgba(0,0,0,0.3);`;
+      requestAnimationFrame(()=>{eraTip.style.opacity="1";});
+    });
+    eraPill.addEventListener("mouseleave",()=>{
+      if(eraTip){eraTip.style.opacity="0";setTimeout(()=>{eraTip?.remove();eraTip=null;},150);}
+    });
+  }
 
   const cb = document.getElementById("copyBtn");
   if(cb) cb.addEventListener("click", copySummary);
@@ -2141,12 +2410,14 @@ function copySummary(){
     d.suffix && `Ceramic insert: ${d.suffix.label}`,
     d.brac && `Bracelet: ${d.brac.label}`,
     d.model?.significance && `Note: ${d.model.significance}`,
-    `Decoded with RolliDex`,
-    `rollidex.com`
-  ].filter(Boolean);
+    "",
+    "─────────────────────────",
+    "Decoded with RolliDex",
+    "rollidex.com"
+  ].filter(l=>l!==undefined&&l!==false);
   navigator.clipboard?.writeText(lines.join("\n")).then(()=>{
     const btn = document.getElementById("copyBtn");
-    if(btn){ btn.textContent = "Copied ✓"; setTimeout(()=>{btn.textContent="Copy summary";},1800); }
+    if(btn){ btn.innerHTML = "✓ Copied"; setTimeout(()=>{btn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy';},2000); }
   }).catch(()=>{});
 }
 
@@ -2269,6 +2540,89 @@ window.addEventListener("DOMContentLoaded", ()=>{
 
   document.querySelectorAll(".pill").forEach(p=>{
     p.addEventListener("click", ()=>openSheet(p.dataset.pill));
+  });
+
+  // Triple-tap dot secret
+  const dot = document.querySelector(".brand .dot");
+  let dotClicks=0, dotTimer=null;
+  dot.addEventListener("click",()=>{
+    if(sessionStorage.getItem("dot-secret-seen")) return;
+    dotClicks++;
+    clearTimeout(dotTimer);
+    dotTimer = setTimeout(()=>{dotClicks=0;},600);
+    if(dotClicks>=3){
+      dotClicks=0;
+      sessionStorage.setItem("dot-secret-seen","1");
+      const card = document.createElement("div");
+      card.className = "dot-secret-card";
+      card.innerHTML = `<span style="font-family:var(--serif);font-size:15px;font-style:italic;color:var(--text);display:block;">About RolliDex</span><p style="font-size:13px;color:var(--text-dim);margin-top:8px;line-height:1.6;margin-bottom:0;">An independent tool for reading watch reference numbers. Built by enthusiasts for enthusiasts. No brand affiliations. No ads. Just the numbers.</p><span style="font-family:var(--mono);font-size:11px;color:var(--text-muted);display:block;margin-top:10px;">v2.1 · rollidex.com</span>`;
+      document.body.appendChild(card);
+      const dotRect = dot.getBoundingClientRect();
+      card.style.cssText = `position:fixed;top:${dotRect.bottom+10}px;left:${dotRect.left}px;width:260px;background:var(--elevated);border:1px solid var(--gold-soft);border-radius:var(--r-md);padding:16px 18px;z-index:200;box-shadow:0 8px 32px rgba(0,0,0,0.4);opacity:0;transform:scale(0.94);transition:opacity 200ms ease,transform 200ms ease;`;
+      requestAnimationFrame(()=>{card.style.opacity="1";card.style.transform="scale(1)";});
+      function dismissDot(e){
+        if(!card.contains(e.target)){
+          card.style.opacity="0";
+          setTimeout(()=>card.remove(),200);
+          document.removeEventListener("click",dismissDot);
+        }
+      }
+      setTimeout(()=>document.addEventListener("click",dismissDot),50);
+      document.addEventListener("keydown",e=>{if(e.key==="Escape"){card.style.opacity="0";setTimeout(()=>card.remove(),200);}});
+    }
+  });
+
+  // Chip tooltips
+  document.querySelectorAll(".ref-chip[data-tooltip]").forEach(chip=>{
+    let tipEl=null, showTimer=null;
+    chip.addEventListener("mouseenter",()=>{
+      showTimer = setTimeout(()=>{
+        tipEl = document.createElement("div");
+        tipEl.className = "chip-tip";
+        tipEl.textContent = chip.dataset.tooltip;
+        document.body.appendChild(tipEl);
+        const r = chip.getBoundingClientRect();
+        tipEl.style.cssText = `position:fixed;bottom:${window.innerHeight-r.top+6}px;left:${r.left}px;font-family:var(--mono);font-size:11px;background:var(--elevated);border:1px solid var(--gold-soft);border-radius:var(--r-sm);padding:5px 10px;color:var(--text-dim);pointer-events:none;opacity:0;transform:translateY(4px);transition:opacity 150ms ease,transform 150ms ease;z-index:100;white-space:nowrap;`;
+        requestAnimationFrame(()=>{tipEl.style.opacity="1";tipEl.style.transform="translateY(0)";});
+      },150);
+    });
+    chip.addEventListener("mouseleave",()=>{
+      clearTimeout(showTimer);
+      if(tipEl){tipEl.style.opacity="0";setTimeout(()=>{tipEl?.remove();tipEl=null;},150);}
+    });
+  });
+
+  // Pill tooltips (inactive only)
+  const PILL_TIPS = {
+    era:"Digits 1–2 · Generation & era of the watch",
+    model:"Digits 3–5 · Watch family & variant",
+    bezel:"Digit 6 · Type of bezel",
+    bracelet:"Digit 7 · Bracelet style & material",
+    suffix:"Letters after digits · Ceramic bezel color"
+  };
+  let activePillTip=null, pillTipTimer=null;
+  function hidePillTip(){
+    if(activePillTip){activePillTip.style.opacity="0";setTimeout(()=>{activePillTip?.remove();activePillTip=null;},150);}
+  }
+  document.querySelectorAll(".pill").forEach(pill=>{
+    const key = pill.dataset.pill;
+    pill.addEventListener("mouseenter",()=>{
+      if(pill.classList.contains("is-active")) return;
+      pillTipTimer = setTimeout(()=>{
+        hidePillTip();
+        activePillTip = document.createElement("div");
+        activePillTip.className = "pill-tip";
+        activePillTip.textContent = PILL_TIPS[key]||"";
+        document.body.appendChild(activePillTip);
+        const r = pill.getBoundingClientRect();
+        activePillTip.style.cssText = `position:fixed;bottom:${window.innerHeight-r.top+8}px;left:${r.left+r.width/2}px;transform:translateX(-50%) translateY(4px);font-family:var(--mono);font-size:11px;background:var(--elevated);border:1px solid var(--hairline-strong);border-radius:var(--r-sm);padding:8px 12px;color:var(--text-dim);pointer-events:none;opacity:0;transition:opacity 150ms ease,transform 150ms ease;z-index:100;white-space:nowrap;max-width:200px;text-align:center;`;
+        requestAnimationFrame(()=>{activePillTip.style.opacity="1";activePillTip.style.transform="translateX(-50%) translateY(0)";});
+      },200);
+    });
+    pill.addEventListener("mouseleave",()=>{
+      clearTimeout(pillTipTimer);
+      hidePillTip();
+    });
   });
 
   document.getElementById("sheetScrim").addEventListener("click", closeSheet);
