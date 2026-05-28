@@ -810,6 +810,9 @@ input:-webkit-autofill{-webkit-text-fill-color:var(--text);-webkit-box-shadow:0 
   border-color:color-mix(in oklab, var(--gold) 40%, transparent);
   color:var(--gold);
 }
+/* Auto-scroll tracks — overflow hidden, transform-controlled */
+.auto-scroll-track{overflow:hidden !important;scroll-snap-type:none !important;}
+.auto-scroll-track .watch-card{flex-shrink:0;white-space:normal;}
 .result-grip{
   display:none;
   width:36px;height:4px;
@@ -2941,6 +2944,103 @@ function bindAccordion(){
 }
 
 /* ─────────────────────────────────────────────────────────────────────
+   AUTO-SCROLL
+   ───────────────────────────────────────────────────────────────────── */
+let _catalogAutoScrollSpeed = 0; // 0 = not yet started; set after first init
+
+function startAutoScroll(trackId, speedPxPerSecond){
+  const track = document.getElementById(trackId);
+  if(!track) return;
+
+  // Stop any existing animation on this track
+  if(track._stopAutoScroll){ track._stopAutoScroll(); track._stopAutoScroll = null; }
+
+  // Snapshot original cards before we add clones
+  const original = Array.from(track.children);
+  if(original.length === 0) return;
+
+  // Clone each card and re-attach click listener (cloneNode drops event listeners)
+  original.forEach(card=>{
+    const clone = card.cloneNode(true);
+    const ref = card.querySelector(".wc-ref")?.textContent?.trim();
+    if(ref){
+      clone.addEventListener("click", ()=>{
+        const inp = document.getElementById("refInput");
+        inp.value = ref;
+        document.getElementById("inputRow").classList.remove("is-empty");
+        document.getElementById("clearBtn").classList.add("show");
+        document.getElementById("searchSuggestions").hidden = true;
+        updateAll(ref);
+        document.querySelector(".hero")?.scrollIntoView({behavior:"smooth",block:"start"});
+      });
+    }
+    track.appendChild(clone);
+  });
+
+  // Switch track to manual transform mode
+  track.classList.add("auto-scroll-track");
+  track.style.transform = "";
+
+  // Measure width of original card set (card widths + 12px gaps)
+  let totalWidth = 0;
+  original.forEach(c=>{ totalWidth += c.offsetWidth + 12; });
+  if(totalWidth === 0){ track.classList.remove("auto-scroll-track"); return; }
+
+  let position = 0;
+  let speed = speedPxPerSecond;
+  let isPaused = false;
+  let animFrame;
+
+  function step(){
+    if(!isPaused){
+      position += speed / 60;
+      if(position >= totalWidth) position -= totalWidth;
+      track.style.transform = `translateX(-${position}px)`;
+    }
+    animFrame = requestAnimationFrame(step);
+  }
+  animFrame = requestAnimationFrame(step);
+  track._stopAutoScroll = ()=>cancelAnimationFrame(animFrame);
+
+  // Pause on hover (desktop)
+  const wrap = track.parentElement;
+  wrap.addEventListener("mouseenter", ()=>{ isPaused = true; });
+  wrap.addEventListener("mouseleave", ()=>{ isPaused = false; });
+
+  // Pause on touch, auto-resume after 3 s
+  let touchTimer;
+  wrap.addEventListener("touchstart", ()=>{ isPaused = true; clearTimeout(touchTimer); }, {passive:true});
+  wrap.addEventListener("touchend", ()=>{ touchTimer = setTimeout(()=>{ isPaused = false; }, 3000); }, {passive:true});
+
+  // Override arrow buttons for auto-scroll behaviour
+  // Replace each button to clear previous click listeners
+  const prevId = trackId.replace("Track","Prev");
+  const nextId = trackId.replace("Track","Next");
+  [prevId, nextId].forEach((btnId, idx)=>{
+    const btn = document.getElementById(btnId);
+    if(!btn) return;
+    const fresh = btn.cloneNode(true);
+    btn.parentNode.replaceChild(fresh, btn);
+    if(idx === 0){
+      // Prev — jump back 3 cards instantly
+      fresh.addEventListener("click", ()=>{
+        const cardW = (original[0]?.offsetWidth || 200) + 12;
+        position -= cardW * 3;
+        if(position < 0) position += totalWidth;
+        track.style.transform = `translateX(-${position}px)`;
+      });
+    } else {
+      // Next — temporarily double speed for 800 ms
+      fresh.addEventListener("click", ()=>{
+        const base = speedPxPerSecond;
+        speed = base * 2;
+        setTimeout(()=>{ speed = base; }, 800);
+      });
+    }
+  });
+}
+
+/* ─────────────────────────────────────────────────────────────────────
    CAROUSEL HELPERS
    ───────────────────────────────────────────────────────────────────── */
 const CAT_COLORS = {
@@ -3056,6 +3156,9 @@ function buildCatalogCarousel(family){
   const countEl = document.getElementById("catalogCount");
   if(!track) return;
 
+  if(track._stopAutoScroll){ track._stopAutoScroll(); track._stopAutoScroll = null; }
+  track.style.transform = "";
+  track.classList.remove("auto-scroll-track");
   track.innerHTML = "";
 
   const refs = Object.entries(REF.model)
@@ -3075,7 +3178,14 @@ function buildCatalogCarousel(family){
 
   refs.forEach(item=>track.appendChild(makeWatchCard(item.ref, item, "catalog-card")));
   if(countEl) countEl.textContent = `${refs.length} references`;
-  bindCarouselNav("catalogTrack","catalogPrev","catalogNext");
+
+  if(_catalogAutoScrollSpeed > 0){
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{
+      startAutoScroll("catalogTrack", _catalogAutoScrollSpeed);
+    }));
+  } else {
+    bindCarouselNav("catalogTrack","catalogPrev","catalogNext");
+  }
 }
 
 function buildCatalogFilters(){
@@ -3308,6 +3418,14 @@ window.addEventListener("DOMContentLoaded", ()=>{
   buildFeaturedCarousel();
   buildCatalogFilters();
   buildCatalogCarousel("All");
+
+  setTimeout(()=>{
+    if(!window.matchMedia?.("(prefers-reduced-motion: reduce)").matches){
+      _catalogAutoScrollSpeed = 55;
+      startAutoScroll("featuredTrack", 40);
+      startAutoScroll("catalogTrack", 55);
+    }
+  }, 500);
 
   // Theme toggle
   const tbtn = document.getElementById("themeToggle");
