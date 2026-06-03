@@ -1,0 +1,2938 @@
+{
+  "table": "market_prices",
+  "rows": [
+    {
+      "ref_number": "80319",
+      "description": "Pearlmaster - 18K White Gold, Diamond Bezel, 29mm",
+      "buy_price_usd": 10750,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "80318",
+      "description": "Pearlmaster - 18K Yellow Gold, 12 Diamond Bezel, 29mm",
+      "buy_price_usd": 12000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "80299",
+      "description": "Pearlmaster - 18k White Gold, 32 Diamond Dial/Bezel, 29mm",
+      "buy_price_usd": 13000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "80298",
+      "description": "Pearlmaster- 18k Yellow Gold, 32 Diamond Dial/Bezel, 29mm",
+      "buy_price_usd": 18000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "79240",
+      "description": "Date - Steel, Engine Turned Bezel, 26mm",
+      "buy_price_usd": 3000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "79190",
+      "description": "Date - Stainless Steel, Engine Turned Bezel, 26mm, Oyster",
+      "buy_price_usd": 2800,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "79179",
+      "description": "Datejust - 18k White Gold, 26mm, Presidential Bracelet",
+      "buy_price_usd": 9500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "79178",
+      "description": "Datejust - 18k Yellow Gold, 26mm, Presidential Bracelet",
+      "buy_price_usd": 9250,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "79174",
+      "description": "Datejust - Steel & White Gold, 26mm, Jubilee or Oyster Bracelet",
+      "buy_price_usd": 3500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "79173",
+      "description": "Datejust - Steel & 18K YG, 26mm, Jubilee or Oyster Bracelet",
+      "buy_price_usd": 4500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "79163",
+      "description": "Datejust - Steel & 18K YG, 26mm, Jubilee or Oyster Bracelet",
+      "buy_price_usd": 4000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "79160",
+      "description": "Date - Stainless Steel, 26mm, Jubilee or Oyster Bracelet",
+      "buy_price_usd": 3800,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "79138",
+      "description": "Datejust - 18K Yellow Gold, Diamond Bezel X",
+      "buy_price_usd": 11000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "79136",
+      "description": "Datejust - Platinum, Diamond Bezel & Dial, 26mm, Presidential X",
+      "buy_price_usd": 12000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "78278",
+      "description": "Datejust - 18K Yellow Gold, 31mm, Presidential Braceklet",
+      "buy_price_usd": 11000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "78274",
+      "description": "Datejust - Steel, 18K White Gold, 31mm, Jubilee or Oyster Bracelet",
+      "buy_price_usd": 3800,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "78273",
+      "description": "Datejust - Steel and 18K YG, 31mm, Jubilee or Oyster Bracelet",
+      "buy_price_usd": 4800,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "78243",
+      "description": "Datejust - Steel & 18K YG, 31mm, Jubilee or Oyster Bracelet",
+      "buy_price_usd": 4000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "78240",
+      "description": "Datejust - Stainless Steel, 31mm, Jubilee or Oyster Bracelet",
+      "buy_price_usd": 3200,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "77080",
+      "description": "Oyster Perpetual - Stainless Steel, 31mm, Oyster Bracelet",
+      "buy_price_usd": 3000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "76243",
+      "description": "Oyster Perpetual - Steel & 18K YG, 24mm, Jubilee or Oyster",
+      "buy_price_usd": 3200,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "76193",
+      "description": "Oyster Perpetual - Steel & 18K YG, 24mm, Jubilee or Oyster",
+      "buy_price_usd": 4000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "76183",
+      "description": "Datejust - Two Tone, 26mm, Smooth Bezel",
+      "buy_price_usd": 3800,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "76163",
+      "description": "Oyster Perpetual - Steel & 18K YG, 24mm, Jubilee or Oyster",
+      "buy_price_usd": 3400,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "76094",
+      "description": "Datejust",
+      "buy_price_usd": 3250,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "76080",
+      "description": "Oyster Perpetual - Stainless Steel, 26mm, Oyster Bracelet",
+      "buy_price_usd": 3000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "76030",
+      "description": "Oyster Perpetual - Stainless Steel, No Date, 26mm,Oyster Bracelet",
+      "buy_price_usd": 2500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "69628",
+      "description": "Yacht-Master - 18K YG, 29mm, Sapphire Crystal, Oyster Bracelet",
+      "buy_price_usd": 8000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "69623",
+      "description": "Yacht-Master - Steel & 18K Yellow Gold, 29mm, Sapphire Crystal, Oyster Bracelet",
+      "buy_price_usd": 5000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "69318",
+      "description": "Pearlmaster - 18k YG, 12 diamond bezel, 29mm, Special Bracelet",
+      "buy_price_usd": 11000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "69299",
+      "description": "Pearlmaster - WG, Diamond Dial & Bezel, 29mm, Special Bracelet",
+      "buy_price_usd": 10500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "69298",
+      "description": "Pearlmaster - Gold, Diamond Dial & Bezel, 29mm, Special Bracelet",
+      "buy_price_usd": 11000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "69278",
+      "description": "Datejust - 18K YG, Bark Finish, 26mm, President Bracelet",
+      "buy_price_usd": 6000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "6927",
+      "description": "Datejust - Two tone - 4K for all gold",
+      "buy_price_usd": 2400,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "69240",
+      "description": "Date - Stainless Steel, 26mm, Jubilee Bracelet or Oyster Bracelet",
+      "buy_price_usd": 2800,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "69190",
+      "description": "Date - Stainless Steel, 26mm, Jubilee Bracelet or Oyster Bracelet",
+      "buy_price_usd": 3000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "6919",
+      "description": "Date - Stainless Steel, 26mm, Jubilee Bracelet",
+      "buy_price_usd": 1800,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "69179",
+      "description": "Datejust - 18k White Gold, 26mm, Presidential Bracelet",
+      "buy_price_usd": 6000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "69178",
+      "description": "Datejust - 18k Yellow Gold, 26mm, Presidential Bracelet X",
+      "buy_price_usd": 7400,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "69174",
+      "description": "Datejust - Steel & 18K White Gold, 26mm, Oyster or Jubilee Bracelet",
+      "buy_price_usd": 3800,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "69173",
+      "description": "Date - Steel & Yellow Gold, 26mm, Jubilee or Oyster Bracelet",
+      "buy_price_usd": 3500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "6917",
+      "description": "Datejust - 18k or 14k YG, 24mm, Oyster or Jubilee Bracelet X",
+      "buy_price_usd": 6000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "69168",
+      "description": "Datejust - 18k Yellow Gold, 26mm, President or Oyster Bracelet",
+      "buy_price_usd": 6000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "69163",
+      "description": "Date - Steel & 18K Yellow Gold, 24mm, Oyster or Jubilee Bracelet",
+      "buy_price_usd": 3000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "69160",
+      "description": "Date - Steel, 26mm, Oyster or Jubilee Bracelet",
+      "buy_price_usd": 2400,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "6916",
+      "description": "Date - Yellow Gold, 24mm, Jubilee Bracelet",
+      "buy_price_usd": 4000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "68628",
+      "description": "Yacht-Master - 18k Yellow Gold, 35mm, Oyster Bracelet",
+      "buy_price_usd": 11000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "68623",
+      "description": "Yacht-Master - Steel & Yellow Gold, 35mm, Oyster Bracelet",
+      "buy_price_usd": 5000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "68278",
+      "description": "Datejust - 18K Yellow Gold, 31mm, Presidential Bracelet",
+      "buy_price_usd": 7500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "68274",
+      "description": "Datejust - Steel & 18K White Gold, 31mm, Jubilee Bracelet",
+      "buy_price_usd": 3200,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "68273",
+      "description": "Datejust - Steel & 18K Yellow Gold, 31mm, Jubilee Bracelet",
+      "buy_price_usd": 4000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "6827",
+      "description": "Datejust - Yellow Gold, 31mm, Jubilee Braclet",
+      "buy_price_usd": 5600,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "68240",
+      "description": "Datejust - Stainless Steel, 31mm, Oyster Bracelet",
+      "buy_price_usd": 3000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "67230",
+      "description": "Datejust - Stainless Steel, 24mm, Oyster Bracelet",
+      "buy_price_usd": 2500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "67198",
+      "description": "Oyster Perpetual - Yellow Gold, 24mm, Oyster or Jubilee Bracelet",
+      "buy_price_usd": 6000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "67193",
+      "description": "Oyster Perpetual - Steel and Yellow Gold, 24mm, Oyster or Jubilee",
+      "buy_price_usd": 3000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "6719",
+      "description": "Oyster Perpetual - Yellow Gold, 24mm, Oyster or Jubilee Bracelet",
+      "buy_price_usd": 5000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "67180",
+      "description": "Datejust - Stainless Steel, 24mm, Oyster Bracelet",
+      "buy_price_usd": 2200,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "6694",
+      "description": "Date - Stainless Steel, 34mm, Oyster or Jubilee Bracelet",
+      "buy_price_usd": 2700,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "6673",
+      "description": "Cellini Cellisimma - 18K YG Quartz, Diamond Lugs & Dial, Damier",
+      "buy_price_usd": 7200,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "6671",
+      "description": "Cellini Cellisimma - 18K White Gold, Diamond Bezel, Quartz, Leather",
+      "buy_price_usd": 4700,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "6623",
+      "description": "Cellini Cellisimma - 18K Yellow Gold, Quartz, Damier Bracelet",
+      "buy_price_usd": 3000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "6621",
+      "description": "Cellini - 18K Yellow Gold, 26mm, Leather Bracelet - add 1k for bracelet",
+      "buy_price_usd": 4000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "6610",
+      "description": "",
+      "buy_price_usd": null,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "6605",
+      "description": "Datejust - Steel or Two Tone, 34mm, Oyster Bracelet",
+      "buy_price_usd": 2370,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "6564",
+      "description": "Oyster Percision - Stainless Steel, 35mm",
+      "buy_price_usd": 2000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "6542",
+      "description": "",
+      "buy_price_usd": null,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "6541",
+      "description": "Milgauss - Vintage - Call for Quote",
+      "buy_price_usd": null,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "6538",
+      "description": "Vintage Rolex Submariner",
+      "buy_price_usd": null,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "6519",
+      "description": "Date, Stainless Steel, 24mm, Oyster Rivet or Jubilee Bracelet",
+      "buy_price_usd": 1800,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "6517",
+      "description": "Oyster Perpetual Date - Gold, 24mm, President Bracelet",
+      "buy_price_usd": 4500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "6516",
+      "description": "Date - Two Tone or Steel, 24mm, Jubilee Bracelet",
+      "buy_price_usd": 1800,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "6466",
+      "description": "OysterDate - Stainless Steel, 34mm, Manual Wind",
+      "buy_price_usd": 2500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "6426",
+      "description": "Oyster Percision - Stainless Steel, 35mm, Oyster Rivet Bracelet",
+      "buy_price_usd": 2650,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "6305",
+      "description": "Vintage Rolex Datejust",
+      "buy_price_usd": null,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "6263",
+      "description": "Vintage Rolex Datejust",
+      "buy_price_usd": null,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "6241",
+      "description": "Vintage Rolex Datejust",
+      "buy_price_usd": null,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "6240",
+      "description": "Chronograph - Vintage - Call for Quote",
+      "buy_price_usd": null,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "6239",
+      "description": "Vintage Rolex Daytona",
+      "buy_price_usd": null,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "6238",
+      "description": "Chronograph - Vintage - Call for Quote",
+      "buy_price_usd": 20000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "6234",
+      "description": "Chronograph - Vintage - Call for Quote",
+      "buy_price_usd": null,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "6205",
+      "description": "Submariner - Vintage - Call for Quote",
+      "buy_price_usd": null,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "6204",
+      "description": "Submariner - Vintage - Call for Quote",
+      "buy_price_usd": null,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "6085",
+      "description": "Oyster Perpetual - 14k Yellow Gold, 34mm, Oyster Bracelet",
+      "buy_price_usd": 4000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "5700",
+      "description": "Air-King - Stainless Steel, 36mm, Oyster Bracelet",
+      "buy_price_usd": 3000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "5501",
+      "description": "Air-King - Stainless Steel, 36mm, Oyster Bracelet",
+      "buy_price_usd": 3000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "5500",
+      "description": "Air-King - Stainless Steel, 36mm, Oyster Bracelet",
+      "buy_price_usd": 3000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "5443",
+      "description": "Cellini Prince - 18K White Gold, Exhibition Caseback, Leather Strap",
+      "buy_price_usd": 8000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "5442",
+      "description": "Cellini Prince - Rose Gold",
+      "buy_price_usd": 9000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "5441",
+      "description": "Cellini Price - White Gold",
+      "buy_price_usd": 8000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "5440",
+      "description": "Cellini Price - Yellow gold",
+      "buy_price_usd": 10500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "5330",
+      "description": "Cellini Cestello - 18k Rose Gold, Leather Strap",
+      "buy_price_usd": 4000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "5320",
+      "description": "Cellini Cestello - 18k Yellow Gold, Leather Strap",
+      "buy_price_usd": 4000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "52508",
+      "description": "39mm Rolex 1908, 18 kt yellow gold",
+      "buy_price_usd": null,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "5241",
+      "description": "Cellini Cellinnium - Platinum, Leather Strap",
+      "buy_price_usd": 8000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "5240",
+      "description": "Cellinnium - Platinum, Leather Strap",
+      "buy_price_usd": 6500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "5115",
+      "description": "Cellini Classic - 18K Yellow Gold, Leather Strap",
+      "buy_price_usd": 3000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "5112",
+      "description": "Cellini",
+      "buy_price_usd": 3000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "50529",
+      "description": "",
+      "buy_price_usd": 11500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "50519",
+      "description": "Cellini",
+      "buy_price_usd": 11000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "50515",
+      "description": "Cellini Classic - 18k Rose Gold, Leather Strap",
+      "buy_price_usd": 11500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "50509",
+      "description": "Cellini",
+      "buy_price_usd": 10000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "50505",
+      "description": "Cellini",
+      "buy_price_usd": 11000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "4537",
+      "description": "Chronograph - Vintage - Call for Quote",
+      "buy_price_usd": 75000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "4500",
+      "description": "Chronograph - Vintage - Call for Quote",
+      "buy_price_usd": 25000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "4243",
+      "description": "Cellini Danaos - 18k Yellow Gold, Extra Large, Leather Strap",
+      "buy_price_usd": 4250,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "4233",
+      "description": "Cellini Danaos - Steel & Yellow Gold, Extra Large, Leather Strap X",
+      "buy_price_usd": 3800,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "4112",
+      "description": "",
+      "buy_price_usd": 3700,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "336933",
+      "description": "SkyDweller",
+      "buy_price_usd": 19500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "336239",
+      "description": "Rolex Sky-Dweller 42mm, white gold",
+      "buy_price_usd": 34000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "336235",
+      "description": "Rolex Sky-Dweller, 42mm Everose gold",
+      "buy_price_usd": 34000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "326939",
+      "description": "Sky-Dweller - 18K White Gold, 42mm, Oyster Bracelet",
+      "buy_price_usd": 28500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "326938",
+      "description": "Sky-Dweller - 18K Yellow Gold, 42mm, Oyster Bracelet",
+      "buy_price_usd": 35000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "326935",
+      "description": "SKy-Dweller - 18K Everose Gold, 42mm, Oyster Bracelet",
+      "buy_price_usd": 33580,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "326934",
+      "description": "Deduct 1k for white dial",
+      "buy_price_usd": 16000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "326933",
+      "description": "Sky-Dweller - Two Tone, Oyster/Jubilee Bracelet",
+      "buy_price_usd": 14020,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "326238",
+      "description": "Sky-Dweller- Oysterflex Strap",
+      "buy_price_usd": 29500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "326235",
+      "description": "SkyDweller w/ Oysterflex",
+      "buy_price_usd": 28800,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "326139",
+      "description": "Sky-Dweller - 18K White Gold, 42mm, Leather Strap",
+      "buy_price_usd": 23500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "326138",
+      "description": "Sky-Dweller -18K Yellow Gold, 42mm, Leather Strap",
+      "buy_price_usd": 24500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "326135",
+      "description": "Sky-Dweller - 18k Everose Gold, 42mm, Leather Strap",
+      "buy_price_usd": 23000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "279381",
+      "description": "Datejust - Steel & 18K Everose Gold, 28mm, Jubilee or Oyster",
+      "buy_price_usd": 14000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "279178",
+      "description": "Datejust - 18K Yellow Gold, 28MM, Jubilee or Oyster",
+      "buy_price_usd": 22000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "279175",
+      "description": "Datejust - 18K Everrose, 28mm, President Bracelet",
+      "buy_price_usd": 21000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "279174",
+      "description": "Datejust - Steel & 18K White Gold, 28mm, Jubilee or Oyster",
+      "buy_price_usd": 7500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "279173",
+      "description": "Datejust - Steel & 18K Yellow Gold, 28mm, Jubilee or Oyster",
+      "buy_price_usd": 10500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "279171",
+      "description": "Datejust - Steel & Everose gold, 28mm, Oyster or Jubilee Bracelet",
+      "buy_price_usd": 10750,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "279160",
+      "description": "Datejust - Steel, Smooth bezel",
+      "buy_price_usd": 5500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "278384",
+      "description": "Rolex Datejust, 28mm, Diamonds",
+      "buy_price_usd": 14500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "278383",
+      "description": "Datejust -Two Tone 28 mm",
+      "buy_price_usd": 16000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "278274",
+      "description": "Datejust - 31mm",
+      "buy_price_usd": 8000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "278273",
+      "description": "Datejust - Steel and 18k Yellow Gold, Mid-size, Jubilee or Oyster",
+      "buy_price_usd": 11400,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "278271",
+      "description": "Datejust - Steel and 18K Everose Gold, Mid-size. Jubilee or Oyster",
+      "buy_price_usd": 12000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "278241",
+      "description": "DATEJUST - Midsize, Everrose & Steel, Smooth Bezel",
+      "buy_price_usd": 11000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "278240",
+      "description": "Datejust - 31mm - All Steel",
+      "buy_price_usd": 7000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "277200",
+      "description": "Oyster Perpetual - Steel, 31mm, Special Colored Dial Pricing",
+      "buy_price_usd": 5500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "276200",
+      "description": "Datejust 31mm",
+      "buy_price_usd": 4750,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "268655",
+      "description": "Yacht-Master - 18K Everose Gold, Ceramic Bezel, 37mm, Oysterflex",
+      "buy_price_usd": 19500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "268622",
+      "description": "Yacht-Master - Steel & Platinum, 37mm, Oyster Bracelet",
+      "buy_price_usd": 9700,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "268621",
+      "description": "Yacht-Master, Steell & Rose Gold, 37mm, Oyster",
+      "buy_price_usd": 11000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "228396",
+      "description": "Rolex Day Date ii",
+      "buy_price_usd": null,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "228349",
+      "description": "",
+      "buy_price_usd": null,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "228345",
+      "description": "Rolex Day Date 40, Everose gold and Diamonds",
+      "buy_price_usd": null,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "228239",
+      "description": "Day-Date - 18k White Gold, 40mm, Presidential Bracelet",
+      "buy_price_usd": 27600,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "228238",
+      "description": "Day-Date - 18K Yellow Gold, 40mm, Presidential Bracelet",
+      "buy_price_usd": 33500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "228236",
+      "description": "Rolex Day-Date 40 Platinum",
+      "buy_price_usd": null,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "228235",
+      "description": "Day-Date - 18K Everose Gold, 40mm, Presidential Bracelet",
+      "buy_price_usd": 36000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "228206",
+      "description": "",
+      "buy_price_usd": null,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "226659",
+      "description": "Yacht-Master - 18K White Gold, 40mm, OysterFlex strap",
+      "buy_price_usd": 25000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "226658",
+      "description": "Yacht-Master - Oysterflex",
+      "buy_price_usd": 30000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "226627",
+      "description": "Rolex Yacht-Master 42 Titanium",
+      "buy_price_usd": 22500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "226570",
+      "description": "Explorer II - Stainless Steel, 42mm, White Dial",
+      "buy_price_usd": 10000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "224270",
+      "description": "Explorer - 40 mm",
+      "buy_price_usd": 7430,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "218239",
+      "description": "Day-Date II - 18k White Gold, 41mm, Presidential Bracelet",
+      "buy_price_usd": 25760,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "218238",
+      "description": "Day-Date II - 18K Yellow Gold, 41mm, Presidential Bracelet",
+      "buy_price_usd": 31350,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "218235",
+      "description": "Day-Date II - 18k Everose Gold, 41mm, Presidential Bracelet",
+      "buy_price_usd": 34000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "218206",
+      "description": "Day-Date II - Platinum, 41mm, Presidential Bracelet.",
+      "buy_price_usd": 45000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "216570",
+      "description": "Explorer II - Stainless Steel, 42mm, White Dial",
+      "buy_price_usd": 9000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "214270",
+      "description": "Explorer - Lume at 3, 6,9",
+      "buy_price_usd": 6500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "19018",
+      "description": "Day-Date, 18K Yellow Gold, Quartz Mvmt, 36mm, Integral Bracelet",
+      "buy_price_usd": 13000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "18248",
+      "description": "Day-Date - 18K Yellow Gold, 36mm, Bark Finish, President Bracelet",
+      "buy_price_usd": 14500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "18239",
+      "description": "Day-Date - 18K White Gold, 36mm, Presidential Bracelet",
+      "buy_price_usd": 12500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "18238",
+      "description": "Day-Date - 18K Yellow Gold, 36mm, Presidential Bracelet",
+      "buy_price_usd": 16000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "18078",
+      "description": "Day-Date - 18K Yellow Gold, 36mm, Bark Finish, President Bracelet",
+      "buy_price_usd": 11500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "1807",
+      "description": "Day-Date - 18K Yellow Gold, Bark Finish, 36mm, President Bracelet",
+      "buy_price_usd": 11000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "1804",
+      "description": "Vintage Rolex Day Date",
+      "buy_price_usd": null,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "18039",
+      "description": "Day Date-white gold 36mm",
+      "buy_price_usd": 12000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "18038",
+      "description": "Day-Date - 18K Yellow Gold, 36mm, Presidential Bracelet",
+      "buy_price_usd": 13800,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "1803",
+      "description": "Day-Date - 18K Yellow Gold, 36mm, Presidential Bracelet",
+      "buy_price_usd": 13500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "179384",
+      "description": "Datejust - 18K & WG, Diamond Bezel, 26mm, Oyster or Jubilee",
+      "buy_price_usd": 9500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "179383",
+      "description": "Datejust - Steel & 18K YG, Diamond Dial & Bezel, 26mm",
+      "buy_price_usd": 11500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "179313",
+      "description": "Datejust - Steel & 18K YG, Diamond Bezel, 26mm, Jubilee Bracelet",
+      "buy_price_usd": 9000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "179179",
+      "description": "Datejust - 18K White Gold, 26mm, Presidential Bracelet",
+      "buy_price_usd": 10000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "179178",
+      "description": "Datejust - 18k Yellow Gold, 26mm, Presidential Bracelet",
+      "buy_price_usd": 12000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "179175",
+      "description": "Datejust - 18K Everose Gold, 26mm, Presidential Bracelet",
+      "buy_price_usd": 12350,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "179174",
+      "description": "Datejust - Steel & 18K White Gold, 26mm, Jubilee Bracelet",
+      "buy_price_usd": 5460,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "179173",
+      "description": "Datejust - Steel & 18K Yellow Gold, 26mm, Jubilee Bracelet",
+      "buy_price_usd": 6000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "179171",
+      "description": "Datejust - Steel & 18K Everose Gold, 26mm, Jubilee Bracelet",
+      "buy_price_usd": 6480,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "179168",
+      "description": "Datejust - 18K Yellow Gold, 26mm, Oyster Bracelet",
+      "buy_price_usd": 11500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "179165",
+      "description": "Datejust - 18k Everose Gold, 26mm, Oyster or President Bracelet",
+      "buy_price_usd": 11500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "179163",
+      "description": "Datejust - Steel & 18k Yellow Gold, 26mm, Oyster or Jubilee",
+      "buy_price_usd": 4500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "179161",
+      "description": "Datejust - Steel & Everose, 26mm, Oyster Bracelet",
+      "buy_price_usd": 6750,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "179160",
+      "description": "Datejust - Stainless Steel, 26mm, Oyster or Jubilee Bracelet",
+      "buy_price_usd": 4800,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "179159",
+      "description": "Datejust - 18K White Gold, Dia bezel, Dial & Lugs, 26mm, President",
+      "buy_price_usd": 15000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "179136",
+      "description": "Datejust - Platinum w/ 42 Brilliant Bezel, Dia Dial, 26mm, President",
+      "buy_price_usd": 18000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "178384",
+      "description": "Datejust - Steel & 46 Diamond Bezel, 31mm, Oyster or Jubilee",
+      "buy_price_usd": 12500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "178383",
+      "description": "Datejust - Steel & YG, Dia Bezel",
+      "buy_price_usd": 12000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "178344",
+      "description": "Datejust - Steel & 18K White Gold, 24 Dia Bezel, 31mm, Oyster",
+      "buy_price_usd": 9000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "178343",
+      "description": "Datejust - Steel & Gold, Scattered Diamond Bezel & Dial, 31mm",
+      "buy_price_usd": 11500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "178341",
+      "description": "Datejust - Steel & Rose Gold, 31mm, Scattered Diamond Bezel",
+      "buy_price_usd": 11000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "178313",
+      "description": "Datejust - Steel & 18K YG, 12 Dia Bezel, 31mm, Jubilee Bracelet",
+      "buy_price_usd": 11000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "178278",
+      "description": "Datejust - 18K Yellow Gold, 31mm, Presidential Bracelet",
+      "buy_price_usd": 17000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "178274",
+      "description": "Datejust - Steel & White Gold, 31mm, Jubilee Bracelet",
+      "buy_price_usd": 7000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "178273",
+      "description": "Datejust - Steel & Yellow Gold, 31mm, Jubilee or Oyster Bracelet",
+      "buy_price_usd": 10000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "178271",
+      "description": "Datejust - Steel and Everose Gold, 31mm, Jubilee or Oyster Bracelet",
+      "buy_price_usd": 9000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "178248",
+      "description": "Datejust - 18k Yellow Gold, 31mm, Presidential or Oyster Bracelet",
+      "buy_price_usd": 16500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "178243",
+      "description": "Datejust - Steel & Yellow Gold, 31mm, Oyster or Jubilee Bracelet",
+      "buy_price_usd": 8500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "178241",
+      "description": "Datejust - Steel and Everose, 31mm, Oyster or Jubilee Bracelet",
+      "buy_price_usd": 8500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "178240",
+      "description": "Datejust - Steel, 31mm, Oyster or Jubilee Bracelet",
+      "buy_price_usd": 5200,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "177234",
+      "description": "Oyster Perpetual - Steel & White Gold, 31mm, Oyster Bracelet",
+      "buy_price_usd": 4400,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "177200",
+      "description": "Oyster Perpetual - Steel, 31 mm, Oyster Bracelet x",
+      "buy_price_usd": 4500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "176234",
+      "description": "Oyster Perpetual - Steel & White Gold, 361mm, Oyster Bracelet",
+      "buy_price_usd": 4200,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "176210",
+      "description": "Oyster Perpetual - Steel, 31mm, Oyster Bracelet",
+      "buy_price_usd": 3800,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "176200",
+      "description": "Oyster Perpetual - Steel, 31mm, Oyster Bracelet",
+      "buy_price_usd": 3800,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "17014",
+      "description": "Datejust - Steel & White Gold, Quartz, 36mm, Integral Bracelet",
+      "buy_price_usd": 4100,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "17013",
+      "description": "Datejust - Steel & Yellow Gold, Quartz, 36mm",
+      "buy_price_usd": 3500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "17000",
+      "description": "Datejust - Stainless Steel, Oyster Quartz, 36mm, Integral Bracelet",
+      "buy_price_usd": 3800,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "169628",
+      "description": "Yacht-Master - 18k Yellow Gold, 29mm, Oyster Bracelet",
+      "buy_price_usd": 11500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "169623",
+      "description": "Yacht-Master - Steel & Yellow Gold, 29mm, Oyster Bracelet",
+      "buy_price_usd": 4780,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "169622",
+      "description": "Yacht-Master - Steel & Platinum, 29mm, Oyster Bracelet",
+      "buy_price_usd": 4700,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "168628",
+      "description": "Yacht-Master - 18k Yellow Gold, 35mm, Oyster Bracelet",
+      "buy_price_usd": 12500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "168623",
+      "description": "Yacht-Master - Steel & Yellow Gold, 35mm, Oyster Bracelet",
+      "buy_price_usd": 7000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "168622",
+      "description": "Yacht-Master - Steel & Platinum, 35mm, Oyster Bracelet x",
+      "buy_price_usd": 5400,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "16808",
+      "description": "Submariner - 18K Yellow Gold, 40mm, Oyster Bracelet",
+      "buy_price_usd": 21000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "16803",
+      "description": "Submariner - Stainless Steel & Yellow Gold, 40mm, Oyster Bracelet",
+      "buy_price_usd": 8400,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "16800",
+      "description": "Submariner - Stainless Steel, 40mm, 500 for papers",
+      "buy_price_usd": 7500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "1680",
+      "description": "Vintage Rolex Submariner",
+      "buy_price_usd": null,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "16760",
+      "description": "GMT Master II - Stainless Steel, 40mm, Oyster Bracelet",
+      "buy_price_usd": 8740,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "16758",
+      "description": "GMT Master 18K Yellow Gold, 40mm, Jubilee Bracelet",
+      "buy_price_usd": 18000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "16753",
+      "description": "GMT Master II - Steel & 18K Yellow Gold, 40mm, Oyster Bracelet",
+      "buy_price_usd": 8000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "16750",
+      "description": "GMT Master II - Steel, 40mm, Oyster - Call Matte Dial",
+      "buy_price_usd": 8500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "1675",
+      "description": "Vintage Rolex GMT-Master",
+      "buy_price_usd": null,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "16718",
+      "description": "GMT Master II - 18k Yellow Gold, 40mm, Oyster or Jubilee Bracelet",
+      "buy_price_usd": 25000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "16713",
+      "description": "GMT-Master II - Steel & 18K Yg, 40mm, Oyster or Jubilee Bracelet",
+      "buy_price_usd": 7820,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "16710",
+      "description": "GMT Master II",
+      "buy_price_usd": 9600,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "16700",
+      "description": "GMT Master - Stainless Steel, 40mm, Oyster Bracelet",
+      "buy_price_usd": 9500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "16660",
+      "description": "Sea-Dweller, Stainless Steel, 40mm, Oyster Bracelet",
+      "buy_price_usd": 7200,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "1665",
+      "description": "Vintage Rolex Sea-Dweller",
+      "buy_price_usd": null,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "16628",
+      "description": "Yacht-Master - 18K Yellow Gold, 40mm, Oyster Bracelet",
+      "buy_price_usd": 18000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "16623",
+      "description": "Yacht-Master - Steel & 18K Yellow Gold, 40mm, Oyster Bracelet",
+      "buy_price_usd": 8800,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "16622",
+      "description": "Yacht-Master - Steel & Platinum, 40mm, Oyster Bracelet",
+      "buy_price_usd": 6550,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "16618",
+      "description": "Submariner - 18k YG, 40mm, Oyster Bracelet",
+      "buy_price_usd": 21000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "16613",
+      "description": "Submariner - Two Tone",
+      "buy_price_usd": 9000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "16610V",
+      "description": "Submariner - Kermit, Green Bezel, 40mm, Oyster Bracelet",
+      "buy_price_usd": 10500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "16610",
+      "description": "Submariner - Add $500 engraved rehaut",
+      "buy_price_usd": 7840,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "16600",
+      "description": "Sea-Dweller - Stainless Steel, 40mm, Oyster Bracelet",
+      "buy_price_usd": 6820,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "16570",
+      "description": "Explorer II - Stainless Steel, 40mm, White Dial, Oyster Bracelet",
+      "buy_price_usd": 6500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "16550",
+      "description": "Explorer II - Stainless Steel, 40mm Add for Papers",
+      "buy_price_usd": 7000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "1655",
+      "description": "Vintage Rolex Explorer",
+      "buy_price_usd": null,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "16528",
+      "description": "Daytona - Zenith Mvmt, 18K Yellow Gold, 40mm, Oyster Bracelet",
+      "buy_price_usd": 30000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "16523",
+      "description": "Daytona - Zenith Mvmt, Steel & 18K YG, 40mm, Oyster Bracelet",
+      "buy_price_usd": 14500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "16520",
+      "description": "Daytona - Zenith Mvmt, Stainless Steel, 40mm, Add 1k for papers",
+      "buy_price_usd": 22000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "16519",
+      "description": "Daytona - Zenith Mvmt, 18K White Gold, 40mm, Leather Strap",
+      "buy_price_usd": 19500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "16518",
+      "description": "Daytona - Zenith Mvmt, 18k Yellow Gold, 40mm, Leather Strap",
+      "buy_price_usd": 19500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "16264",
+      "description": "Datejust - Turn-O-Graph - Steel and WG, 36mm, Jubilee or Oyster",
+      "buy_price_usd": 4460,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "16263",
+      "description": "Datejust - Turn-O-Graph - Steel and Yellow Gold, 36mm, Jubilee",
+      "buy_price_usd": 5200,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "16253",
+      "description": "Datejust - Turn-O-Graph - Steel and Yellow Gold, 36mm, Jubilee",
+      "buy_price_usd": 4300,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "1625",
+      "description": "Datejust - Turn-O-Graph - Steel and Yellow Gold, 36mm, Jubilee",
+      "buy_price_usd": 3150,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "16248",
+      "description": "Datejust - 18K Yellow gold, Bark Finish, 36mm, Jubilee Bracelet",
+      "buy_price_usd": 12000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "16238",
+      "description": "Datejust - 18k Yellow Gold, 36mm, Jubilee Bracelet",
+      "buy_price_usd": 12000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "16234",
+      "description": "Datejust - Steel & YG, 36mm, Oyster or Jubilee Bracelet",
+      "buy_price_usd": 4400,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "16233",
+      "description": "Datejust - Steel & 18k YG, 36mm, Oyster or Jubilee Bracelet",
+      "buy_price_usd": 4610,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "16220",
+      "description": "Datejust - Stainless Steel, 36mm, Oyster or Jubilee Braclet",
+      "buy_price_usd": 4200,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "16203",
+      "description": "Datejust",
+      "buy_price_usd": 4600,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "16200",
+      "description": "Datejust - Stainless Steel, 36mm, Oyster or Jubilee Bracelet",
+      "buy_price_usd": 4200,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "16078",
+      "description": "Datejust - 18k Yellow Gold, Bark Finish, 36mm, Jubilee Bracelet",
+      "buy_price_usd": 9000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "16030",
+      "description": "Datejust, Stainless Steel, 36mm, Jubilee Bracelet",
+      "buy_price_usd": 3500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "1603",
+      "description": "Datejust - Stainless Steel, 36mm, Jubilee Bracelet",
+      "buy_price_usd": 3200,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "16018",
+      "description": "DATEJUST -18k Yellow Gold, 36mm, Jubilee Bracelet",
+      "buy_price_usd": 10000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "16014",
+      "description": "Datejust - Steel & White Gold, 36mm, Oyster or Jubilee Bracelet X",
+      "buy_price_usd": 4000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "16013",
+      "description": "Datejust - Steel & Gold, 36mm, Oyster or Jubilee Bracelet",
+      "buy_price_usd": 4000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "1601",
+      "description": "Datejust - 14k or 18k Gold, 36mm, Jubilee Bracelet",
+      "buy_price_usd": 9500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "15505",
+      "description": "Date -14k Yellow Gold Shell, 34mm, Electroplated Bracelet",
+      "buy_price_usd": 3200,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "1550",
+      "description": "Date - 14k Yellow Gold, Shell Case, 34mm, Electroplated Bracelet",
+      "buy_price_usd": 3000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "15238",
+      "description": "Date - 18K Yellow Gold, 34mm, Oyster/ Rivet Bracelet",
+      "buy_price_usd": 11000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "15223",
+      "description": "Date - Steel & 18K Yellow Gold, 34mm, Oyster or Jubilee Bracelet",
+      "buy_price_usd": 4000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "15210",
+      "description": "Date - Steel, Engine Turned, Sapphire Crystal, 34mm, Oyster Bracelet",
+      "buy_price_usd": 3800,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "15203",
+      "description": "Date - Steel & Yellow Gold, 34mm",
+      "buy_price_usd": 4000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "15200",
+      "description": "Date - Stainless Steel, 34mm, Oyster Bracelet",
+      "buy_price_usd": 3500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "15053",
+      "description": "Date - Steel & 18k YG, Oyster or Jubilee Bracelet",
+      "buy_price_usd": 3600,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "1505",
+      "description": "Date - Yellow Gold, 34mm, Jubilee Bracelet",
+      "buy_price_usd": 6500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "15038",
+      "description": "Date - 18K Yellow Gold, 34mm, Jubilee Bracelet",
+      "buy_price_usd": 9500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "15037",
+      "description": "Date - Yellow Gold, 34mm, Oyster or Jubilee Bracelet",
+      "buy_price_usd": 9000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "1503",
+      "description": "",
+      "buy_price_usd": null,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "15010",
+      "description": "Date - Stainless Steel, 34mm, Oyster Bracelet",
+      "buy_price_usd": 3200,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "1501",
+      "description": "Date- Yellow Gold, 34mm, Jubilee Bracelet",
+      "buy_price_usd": 8500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "15003",
+      "description": "Date - Steel & Yellog Gold, 34mm, Oyster or Jubilee Bracelet",
+      "buy_price_usd": 3500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "15000",
+      "description": "Date - Stainless Steel, 34mm, Oyster or Jubilee Bracelet",
+      "buy_price_usd": 3200,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "1500",
+      "description": "Date - Stainless Steel or Two Tone, 24mm, Oyster Bracelet",
+      "buy_price_usd": 2910,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "14270",
+      "description": "Explorer - Stainless Steel, 34mm, Oyster Bracelet",
+      "buy_price_usd": 4700,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "14238",
+      "description": "Oyster Perpetual - 18K YG, 34mm, Oyster Bracelet",
+      "buy_price_usd": 8800,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "14233",
+      "description": "Oyster Perpetual - Two Tone, 34mm, Oyster Bracelet",
+      "buy_price_usd": 4200,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "14208",
+      "description": "Oyster Perpetual - 18K YG, Smooth Bezel, 34mm, Oyster Bracelet",
+      "buy_price_usd": 8500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "14203",
+      "description": "Oyster Perpetual - Steel & 18K Yellow Gold, Smooth Bezel, 34mm",
+      "buy_price_usd": 4200,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "14060",
+      "description": "Submariner - Stainless Steel, 40mm, Oyster",
+      "buy_price_usd": 7200,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "14010",
+      "description": "Air-King - Stainless Steel, 34mm, Oyster Bracelet",
+      "buy_price_usd": 3000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "14000",
+      "description": "Air-King - Stainless Steel, 34mm, Oyster Bracelet",
+      "buy_price_usd": 2940,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "136660B",
+      "description": "",
+      "buy_price_usd": 12350,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "136660",
+      "description": "",
+      "buy_price_usd": 10800,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "134300",
+      "description": "Base price for black dial.",
+      "buy_price_usd": 7800,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "128239",
+      "description": "Day Date - 18k White Gold, 36mm - Inquire for Diamond Dail",
+      "buy_price_usd": 31000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "128238",
+      "description": "Day Date - 18k Yellow Gold, 36mm",
+      "buy_price_usd": 28000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "128235",
+      "description": "Day Date - Everrose Gold, 36mm",
+      "buy_price_usd": 27060,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "126900",
+      "description": "Air King, 2022 Model",
+      "buy_price_usd": 6620,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "126719",
+      "description": "GMT-Master II - 18K White Gold, Ceramic - add 10k for Meteorite",
+      "buy_price_usd": 31820,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "126718",
+      "description": "18k GMT Ceramic Bezel",
+      "buy_price_usd": 37000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "126715",
+      "description": "GMT-Master II - 18K Everose, Ceramic Bezel, 40mm, Oyster",
+      "buy_price_usd": 33750,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "126713",
+      "description": "GMT Master II - 41mm",
+      "buy_price_usd": 18050,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "126711",
+      "description": "GMT-Master II - Steel & Everose, Ceramic Bezel, 40mm, Oyster",
+      "buy_price_usd": 17000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "126710GRNR",
+      "description": "ad 1k for jubilee",
+      "buy_price_usd": 17700,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "126710BLRO",
+      "description": "GMT-Master II - Steel, Ceramic Bezel, Red/Blue Bezel, 40mm",
+      "buy_price_usd": 19120,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "126710BLNR",
+      "description": "GMT-Master II - Steel, Ceramic Blue/Black Bezel, 40mm",
+      "buy_price_usd": 13190,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "126660B",
+      "description": "Sea-Dweller Deep Sea - Steel, Ceramic Bezel, 40mm, Oyster",
+      "buy_price_usd": 10920,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "126660",
+      "description": "Sea-Dweller Deep Sea - Steel, Ceramic Bezel, 44mm, Oyster",
+      "buy_price_usd": 8550,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "126655",
+      "description": "Yacht-Master - Rose Gold, 40mm, OysterFlex Bracelet",
+      "buy_price_usd": 26250,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "126622",
+      "description": "Yacht-Master - Steel & Platinum, Deduct 500 for blue dial",
+      "buy_price_usd": 11040,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "126621",
+      "description": "Yacht-Master - Steel & Rose Gold, 40mm, Oyster Bracelet",
+      "buy_price_usd": 12700,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "126619",
+      "description": "Submariner - 18k White Gold, 41mm",
+      "buy_price_usd": 30400,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "126618",
+      "description": "Submariner - 18k Gold, Ceramic Bezel, 41mm, Oyster Bracelet",
+      "buy_price_usd": 34200,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "126613",
+      "description": "Submariner - Steel & 18K YG, Blue Ceramic Bezel, Oyster Bracelet",
+      "buy_price_usd": 15680,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "126610LV",
+      "description": "Submariner - Steel, Green Ceramic Bezel, 41MM, Oyster Bracelet",
+      "buy_price_usd": 12690,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "126610",
+      "description": "Submariner - Steel, Ceramic Bezel, 41mm, Oyster Bracelet",
+      "buy_price_usd": 11100,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "126603",
+      "description": "Sea-Dweller - Steel and Gold, Ceramic Bezel, 43mm, Oyster Bracelet",
+      "buy_price_usd": 14500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "126600",
+      "description": "Sea-Dweller - Steel, Ceramic Bezel, 43mm, Oyster Bracelet",
+      "buy_price_usd": 9100,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "126529",
+      "description": "Rolex Daytona 40mm, white gold",
+      "buy_price_usd": null,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "126519",
+      "description": "",
+      "buy_price_usd": 37500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "126515",
+      "description": "Check for dial variation increase",
+      "buy_price_usd": 41000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "126500",
+      "description": "Rolex Daytona Oystersteel",
+      "buy_price_usd": 35000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "126334",
+      "description": "Datejust - Steel and White Gold, 41mm",
+      "buy_price_usd": 10000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "126333",
+      "description": "Datejust - Steel and Yellow Gold, 41mm, Oyster or Jubilee Bracelet",
+      "buy_price_usd": 12500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "126331",
+      "description": "Datejust - Steel & Everose, 41mm, Oyster or Jubilee Bracelet",
+      "buy_price_usd": 12450,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "126303",
+      "description": "Datejust - Steel & 18K YG, 41mm, Oyster or Jubilee Bracelet",
+      "buy_price_usd": 10500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "126301",
+      "description": "Datejust 41mm, Steel & Rose Gold",
+      "buy_price_usd": 11970,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "126300",
+      "description": "Datejust 41smooth bezel",
+      "buy_price_usd": 7200,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "126283",
+      "description": "Datejust - 36mm Two Tone, diamond dial & bezel",
+      "buy_price_usd": 16000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "126281",
+      "description": "Two Tone Datejust, Damond bezel & dial",
+      "buy_price_usd": 18000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "126234",
+      "description": "Datejust - Steel & 18K white Gold, 36mm, Oyster Or Jubilee",
+      "buy_price_usd": 8360,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "126233",
+      "description": "Datejust - Steel & Yellow Gold, 36mm, Oyster Bracelet X",
+      "buy_price_usd": 12000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "126231",
+      "description": "Datejust - Stainless Steel & Rose Gold, 36mm",
+      "buy_price_usd": 12000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "126203",
+      "description": "Rolex Datejust",
+      "buy_price_usd": 9200,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "126201",
+      "description": "Rolex Datejust",
+      "buy_price_usd": 9000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "126200",
+      "description": "Datejust - Stainless Steel, 36mm, Oyster Bracelet",
+      "buy_price_usd": 7000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "126000",
+      "description": "Oyster Perpetual - Steel, 36mm, Special pricing on Colored Dials",
+      "buy_price_usd": 6400,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "124300",
+      "description": "Oyster Perpetual - Steel, 41mm, Special pricing on Colored Dials",
+      "buy_price_usd": 6800,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "124273",
+      "description": "Explorer - 2021 Model - Stainless Steel & Yellow Gold",
+      "buy_price_usd": 9500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "124270",
+      "description": "Explorer - 2021 Model - Stainless Steel",
+      "buy_price_usd": 6990,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "124200",
+      "description": "Datejust - Color variaion pricing.",
+      "buy_price_usd": 5000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "124060",
+      "description": "Submariner - No Date, Steel, Ceramic Bezel, 41mm, Oyster Bracelet",
+      "buy_price_usd": 10700,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "118348",
+      "description": "Day-Date - 18k YG, Diamond Bezel & Dial, President Bracelet",
+      "buy_price_usd": 27000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "118346",
+      "description": "Day-Date - Platinum, Diamond Bezel & Dial, 36mm",
+      "buy_price_usd": 32000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "118239",
+      "description": "Day-Date, 18k White Gold, 36mm, President or Oyster Brarcelet",
+      "buy_price_usd": 17500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "118238",
+      "description": "Day-Date - 18K Yellow Gold, 36mm, President or Oyster Bracelet",
+      "buy_price_usd": 21000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "118235",
+      "description": "Day-Date - 18K Everose Gold, 36mm, President or Oyster Bracelet",
+      "buy_price_usd": 20500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "118209",
+      "description": "Day-Date - 18k White Gold, 36mm, President or Oyster Bracelet",
+      "buy_price_usd": 14200,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "118208",
+      "description": "Day-Date - 18K Yellow Gold, 36mm, President or Oyster Bracelet",
+      "buy_price_usd": 18000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "118206",
+      "description": "Day-Date - Platinum, 36mm, President Bracelet",
+      "buy_price_usd": 24000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "118205",
+      "description": "Day-Date - 18k Rose Gold, 36mm, President or Oyster Bracelet",
+      "buy_price_usd": 18000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "118139",
+      "description": "Day Date - 18K White Gold, 36mm, Leather Strap w/ Deployant",
+      "buy_price_usd": 16750,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "118138",
+      "description": "Day-Date - 18k Yellow Gold, 36mm, Leather Strap w/ Deployant",
+      "buy_price_usd": 18250,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "118135",
+      "description": "",
+      "buy_price_usd": 18000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116900",
+      "description": "Air-King - Steel, Black Arabic Dial, Oyster Bracelet X",
+      "buy_price_usd": 6000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116719",
+      "description": "GMT-Master II - 18K WG, Red/Blue Ceramic Bezel, 40mm, Oyster",
+      "buy_price_usd": 30000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116718",
+      "description": "GMT-Master II - 18K YG, Ceramic Bezel, 40mm,Add for green dial",
+      "buy_price_usd": 30000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116713",
+      "description": "GMT-Master II - Steel & YG, Ceramic Bezel, 40mm, Oyster Bracelet",
+      "buy_price_usd": 11400,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116710BLNR",
+      "description": "GMT-Master II - Steel, Blue/Black Ceramic Bezel, 40mm, Oyster",
+      "buy_price_usd": 12500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116710",
+      "description": "GMT-Master II - Steel, Ceramic Bezel, 40mm",
+      "buy_price_usd": 9800,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116689",
+      "description": "Yacht-Master II - 18k White Gold, Ceramic Bezel, 44mm, Oyster",
+      "buy_price_usd": 25000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116688",
+      "description": "Yacht-Master II - 18k Yellow Gold, Ceramic Bezel, 44mm, Oyster",
+      "buy_price_usd": 34000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116681",
+      "description": "Yacht-Master II - Steel and Everose, Ceramic Bezel, 44mm, Oyster X",
+      "buy_price_usd": 17100,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116680",
+      "description": "Yacht-Master II - Steel, Ceramic Bezel, 44mm, Oyster Bracelet",
+      "buy_price_usd": 13300,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116660B",
+      "description": "Sea-Dweller, DeepSea - Steel, Black/Blue Dial 44mm, Oyster",
+      "buy_price_usd": 9700,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116660",
+      "description": "Sea-Dweller DeepSea - Steel, 44mm, Oyster Bracelet",
+      "buy_price_usd": 8500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116655",
+      "description": "Yacht-Master - Everose Gold, Ceramic Bezel, 40mm, Oysterflex",
+      "buy_price_usd": 21850,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116622",
+      "description": "Yacht-Master - Steel & Platinum,. 40mm",
+      "buy_price_usd": 9200,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116621",
+      "description": "Yacht-Master - Steel & Everose, 40mm, Oyster Bracelet",
+      "buy_price_usd": 11500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116619",
+      "description": "Submariner - 18k WG, Ceramic Bezel, 40mm, Oyster Bracelet",
+      "buy_price_usd": 36000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116618",
+      "description": "Submariner - 18k YG, Ceramic Bezel, 40mm, Oyster Bracelet",
+      "buy_price_usd": 29000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116613",
+      "description": "Submariner - Steel, Blue Ceramic Bezel, 40mm, Oyster Bracelet",
+      "buy_price_usd": 11760,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116610LV",
+      "description": "Submariner - Steel, Green Ceramic Bezel, 40mm,1k deduct no papers",
+      "buy_price_usd": 17000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116610",
+      "description": "Submariner - Steel, Ceramic Bezel, 40mm, Oyster Bracelet",
+      "buy_price_usd": 9000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116600",
+      "description": "SeaDweller - Steel, Ceramic Bezel, 40mm, Oyster Bracelet",
+      "buy_price_usd": 11000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116528",
+      "description": "Daytona - 18k Yellow Gold, 40mm, Oyster Bracelet",
+      "buy_price_usd": 32000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116523",
+      "description": "Daytona - Steel & Yellow Gold, 40mm, Oyster Bracelet",
+      "buy_price_usd": 15500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116520",
+      "description": "Daytona White Dial",
+      "buy_price_usd": 19000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116519",
+      "description": "Daytona - 18K WG, Ceramic Bezel, 40mm, Oysterflex Strap",
+      "buy_price_usd": 34000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116518",
+      "description": "Daytona - 18K YG, Ceramic Bezel, 40mm, Oysterflex Strap",
+      "buy_price_usd": 35000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116515",
+      "description": "Daytona - Everose gold, Ceramic Bezel, 40mm, Oysterflex Strap",
+      "buy_price_usd": 32000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116509",
+      "description": "Daytona - 18k White Gold, 40mm, Oyster Bracelet - ask for blue dial",
+      "buy_price_usd": 31000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116508",
+      "description": "Daytona - 18K YG, 40mm, Oyster Bracelet - Call /Green Dial",
+      "buy_price_usd": 42500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116506",
+      "description": "Daytona - Platinum, Anniversary Model, 40mm, Oyster Bracelet",
+      "buy_price_usd": 75000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116505",
+      "description": "Daytona - 18k Everose Gold, 40mm, Oyster Bracelet",
+      "buy_price_usd": 37000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116503",
+      "description": "Daytona - Steel & Gold, 40mm, Oyster Bracelet",
+      "buy_price_usd": 17500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116500",
+      "description": "Daytona - Steel, Ceramic Bezel, 40mm, Oyster Bracelet, White Dial",
+      "buy_price_usd": 28000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116400V",
+      "description": "Milgauss - Steel, Black Dial, Green Crystal, 40mm, Oyster Bracelet",
+      "buy_price_usd": 9300,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116400GV",
+      "description": "Milgauss - Steel, Blue Dial, Green Crystal, 40mm, Oyster Bracelet",
+      "buy_price_usd": 11000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116400",
+      "description": "Milgauss - Stainless Steel, 40mm, Oyster Bracelet",
+      "buy_price_usd": 7500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116334",
+      "description": "Datejust - Steel & White Gold, 41mm, Oyster Bracelet",
+      "buy_price_usd": 7500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116333",
+      "description": "Datejust - Steel & Gold, 41mm, Oyster Bracelet",
+      "buy_price_usd": 8640,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116300",
+      "description": "Datejust - Steel, 41mm, Oyster Bracelet",
+      "buy_price_usd": 6500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116264",
+      "description": "Datejust Turn-O-Graph - Steel & WG, 36mm, Oyster or Jubilee",
+      "buy_price_usd": 6500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116263",
+      "description": "Datejust Turn-O-Graph - Steel & YG, 36mm, Oyster or Jubilee",
+      "buy_price_usd": 7600,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116261",
+      "description": "Datejust Turn-O-Graph - Steel & Everose, 36mm, Oyster Or Jubilee",
+      "buy_price_usd": 7800,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116244",
+      "description": "Datejust - Steel & WG, Diamond Bezel, 36mm, Oyster or Jubilee",
+      "buy_price_usd": 10200,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116243",
+      "description": "Datejust - Steel & YG, Diamond Bezel, 36mm, Oyster/Jubilee",
+      "buy_price_usd": 10500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116238",
+      "description": "Datejust - Yellow Gold, 36mm, Jubilee Bracelet X",
+      "buy_price_usd": 21000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116234",
+      "description": "Datejust - Steel & White Gold, 36mm, Oyster or Jubilee Bracelet",
+      "buy_price_usd": 6500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116233",
+      "description": "Datejust - Steel & Yellow Gold, 36mm, Oyster or Jubilee Bracelet",
+      "buy_price_usd": 8250,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116231",
+      "description": "Datejust - Steel & Everose Gold, 36mm, Oyster or Jubilee Bracelet",
+      "buy_price_usd": 8500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116201",
+      "description": "Datejust - Steel & Everose Gold, 36mn, Oyster or Jubilee Bracelet",
+      "buy_price_usd": 7800,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116200",
+      "description": "Datejust - Steel, 36mm, Oyster or Jubilee Bracelet",
+      "buy_price_usd": 5500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116139",
+      "description": "Datejust - White Gold, Leather Strap, 40mm, Deployant Clasp",
+      "buy_price_usd": 11200,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116138",
+      "description": "Datejust - Yellow Gold, Leather Strap, 40mm, Deployant Clasp",
+      "buy_price_usd": 11760,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116034",
+      "description": "Oyster Perpetual - Steel & White Gold, 36mm, Oyster Bracelet",
+      "buy_price_usd": 5200,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "116000",
+      "description": "Oyster Perpetual - Steel, Colored Dials, 36mm, Oyster Bracelet",
+      "buy_price_usd": 5000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "115234",
+      "description": "Date - Steel & White Gold 34, Oyster Bracelet",
+      "buy_price_usd": 5200,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "115210",
+      "description": "Date - Steel, Engine Turned Bezel, 34mm, Oyster Bracelet",
+      "buy_price_usd": 4500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "115200",
+      "description": "Date - Steel, 34mm, Oyster Bracelet",
+      "buy_price_usd": 5000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "114300",
+      "description": "Oyster Perpetual - Steel, 39mm, Oyster Bracelet",
+      "buy_price_usd": 6260,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "114270",
+      "description": "Explorer - Steel, 34mm, Oyster Bracelet",
+      "buy_price_usd": 4800,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "114234",
+      "description": "Air-King - Oyster Perpetual, Steel & White Gold, 34mm, Oyster",
+      "buy_price_usd": 4200,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "114210",
+      "description": "Air-King - Oyster Perpetual, Steel, 34mm, Oyster Bracelet",
+      "buy_price_usd": 4500,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "114200",
+      "description": "Air-King - Oyster Perpetual, Steel, 34mm, Oyster Bracelet",
+      "buy_price_usd": 4200,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "114060",
+      "description": "Rolex Submariner - Non Metal, 40mm 1k deduct no papers",
+      "buy_price_usd": 9200,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "1018",
+      "description": "Date - Stainless Steel, 34mm, Oyster Bracelet",
+      "buy_price_usd": 2800,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "1016",
+      "description": "Vintage Rolex Explorer",
+      "buy_price_usd": null,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "1007",
+      "description": "Oyster Perpetual - Steel, 34mm, Oyster Bracelet",
+      "buy_price_usd": 2800,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "1005",
+      "description": "Oyster Perpetual - 18k YG, 34mm, Oyster Bracelet",
+      "buy_price_usd": 8000,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "1003",
+      "description": "Oyster Perpetual - Stainless Steel, 34mm, Oyster Bracelet",
+      "buy_price_usd": 2800,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    },
+    {
+      "ref_number": "1002",
+      "description": "Oyster Perpetual - Steel, 34mm, Oyster Bracelet",
+      "buy_price_usd": 2910,
+      "source": "market_data",
+      "scraped_at": "2026-05-27"
+    }
+  ]
+}
