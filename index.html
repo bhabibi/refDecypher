@@ -61,8 +61,8 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      /* generous horizontal padding, moderate vertical padding */
-      padding: clamp(40px, 8vh, 80px) clamp(20px, 6vw, 48px);
+      /* generous horizontal padding, extra bottom padding to clear fixed footer */
+      padding: clamp(40px, 8vh, 80px) clamp(20px, 6vw, 48px) clamp(80px, 12vh, 110px);
     }
 
     /* ── Fade-in animations ── */
@@ -309,6 +309,26 @@
         max-width: 520px;
       }
     }
+
+    /* ── Footer disclaimer ── */
+    .footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 14px 24px 18px;
+      text-align: center;
+      z-index: 2;
+    }
+
+    .footer p {
+      font-family: var(--sans);
+      font-size: 11px;
+      line-height: 1.6;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+    }
   </style>
 </head>
 <body>
@@ -351,6 +371,11 @@
     </div>
 
   </main>
+
+  <!-- Footer disclaimer -->
+  <footer class="footer">
+    <p>RolliDex is an independent enthusiast resource and is not affiliated with, endorsed by, or connected to Rolex SA or any of its subsidiaries. All reference information is sourced from publicly available enthusiast communities and is provided for educational purposes only.</p>
+  </footer>
 
   <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzuUazCdFPzCO2oBmnnH6W6SEFJnHz77QxGHFlxvRTwa5MUE4AjGriB-cvIvgXhn-U/exec";
