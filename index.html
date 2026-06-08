@@ -12,28 +12,31 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --gold:        #C9A84C;
-      --gold-soft:   rgba(201, 168, 76, 0.18);
-      --gold-glow:   rgba(201, 168, 76, 0.35);
-      --bg:          #0D0D0D;
-      --surface:     #141414;
-      --text:        #F0EDE8;
-      --text-dim:    #A89E92;
-      --text-muted:  #6C6862;
-      --hairline:    rgba(255,255,255,0.08);
-      --serif:       'Playfair Display', Georgia, serif;
-      --mono:        'DM Mono', 'Courier New', monospace;
-      --sans:        'DM Sans', system-ui, sans-serif;
-      --r-sm:        6px;
-      --r-md:        12px;
+      --gold:       #C9A84C;
+      --gold-glow:  rgba(201, 168, 76, 0.35);
+      --bg:         #0D0D0D;
+      --surface:    #141414;
+      --text:       #F0EDE8;
+      --text-muted: #6C6862;
+      --hairline:   rgba(255,255,255,0.09);
+      --serif:      'Playfair Display', Georgia, serif;
+      --mono:       'DM Mono', 'Courier New', monospace;
+      --sans:       'DM Sans', system-ui, sans-serif;
+      --r-md:       14px;
     }
 
-    html, body {
+    html {
       height: 100%;
+    }
+
+    body {
+      min-height: 100%;
       background: var(--bg);
       color: var(--text);
       font-family: var(--sans);
-      overflow: hidden;
+      /* allow scroll on tiny screens, prevent sideways scroll */
+      overflow-x: hidden;
+      overflow-y: auto;
     }
 
     /* ── Background gradient veil ── */
@@ -42,13 +45,13 @@
       position: fixed;
       inset: 0;
       background:
-        radial-gradient(ellipse 60% 50% at 100% 0%, rgba(201,168,76,0.055) 0%, transparent 65%),
-        radial-gradient(ellipse 50% 40% at 0% 100%, rgba(30,80,160,0.07) 0%, transparent 60%);
+        radial-gradient(ellipse 70% 55% at 100% 0%,   rgba(201,168,76,0.07)  0%, transparent 65%),
+        radial-gradient(ellipse 55% 45% at 0%   100%, rgba(30,80,160,0.08)   0%, transparent 60%);
       pointer-events: none;
       z-index: 0;
     }
 
-    /* ── Main layout ── */
+    /* ── Main layout — true vertical center ── */
     .page {
       position: relative;
       z-index: 1;
@@ -57,82 +60,86 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 40px 24px 100px;
       text-align: center;
+      /* generous horizontal padding, moderate vertical padding */
+      padding: clamp(40px, 8vh, 80px) clamp(20px, 6vw, 48px);
     }
 
-    /* ── Fade-in animation ── */
+    /* ── Fade-in animations ── */
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(12px); }
+      from { opacity: 0; transform: translateY(14px); }
       to   { opacity: 1; transform: translateY(0);    }
     }
 
     .anim {
       opacity: 0;
-      animation: fadeUp 600ms ease forwards;
+      animation: fadeUp 650ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
     }
     .anim-1 { animation-delay:   0ms; }
-    .anim-2 { animation-delay: 150ms; }
-    .anim-3 { animation-delay: 300ms; }
-    .anim-4 { animation-delay: 500ms; }
+    .anim-2 { animation-delay: 160ms; }
+    .anim-3 { animation-delay: 320ms; }
+    .anim-4 { animation-delay: 520ms; }
 
-    /* ── Brand ── */
+    /* ── Brand block ── */
+    .brand-block {
+      margin-bottom: clamp(24px, 4vh, 40px);
+    }
+
     .brand {
       font-family: var(--serif);
-      font-size: 28px;
+      font-size: clamp(32px, 5vw, 48px);
       font-weight: 400;
       letter-spacing: 0.04em;
       color: var(--gold);
-      margin-bottom: 10px;
+      margin-bottom: 14px;
+      line-height: 1;
     }
 
     /* ── Gold dot ── */
     @keyframes dotPulse {
-      0%, 100% { box-shadow: 0 0 0 0 var(--gold-glow); opacity: 1; }
-      50%       { box-shadow: 0 0 10px 4px var(--gold-glow); opacity: 0.75; }
+      0%, 100% { box-shadow: 0 0 0   0   var(--gold-glow); opacity: 1;    }
+      50%       { box-shadow: 0 0 12px 5px var(--gold-glow); opacity: 0.7; }
     }
 
     .dot {
-      width: 6px;
-      height: 6px;
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
       background: var(--gold);
       display: inline-block;
-      margin: 0 auto 12px;
-      animation: dotPulse 2.8s ease-in-out infinite;
+      margin: 0 auto 14px;
+      animation: dotPulse 3s ease-in-out infinite;
     }
 
     /* ── Tagline ── */
     .tagline {
       font-family: var(--mono);
-      font-size: 10px;
+      font-size: clamp(9px, 1.4vw, 11px);
       font-weight: 300;
-      letter-spacing: 0.22em;
+      letter-spacing: 0.24em;
       text-transform: uppercase;
       color: var(--text-muted);
-      margin-bottom: 28px;
     }
 
     /* ── Context line ── */
     .context-line {
       font-family: var(--mono);
-      font-size: 12px;
+      font-size: clamp(12px, 1.8vw, 14px);
       font-weight: 300;
       letter-spacing: 0.14em;
       color: var(--text-muted);
-      margin-bottom: 0;
+      margin-bottom: clamp(24px, 4vh, 36px);
     }
 
     /* ── Email form ── */
     .form-wrap {
       width: 100%;
-      max-width: 420px;
-      margin: 32px auto 0;
+      max-width: 480px;
     }
 
     .email-row {
       display: flex;
-      gap: 8px;
+      gap: 10px;
       align-items: stretch;
     }
 
@@ -140,16 +147,18 @@
       flex: 1;
       min-width: 0;
       font-family: var(--mono);
-      font-size: 13px;
+      font-size: clamp(13px, 2vw, 16px);
       font-weight: 300;
       letter-spacing: 0.04em;
       background: var(--surface);
       border: 1px solid var(--hairline);
       border-radius: var(--r-md);
       color: var(--text);
-      padding: 13px 16px;
+      padding: clamp(14px, 2vh, 17px) 20px;
       outline: none;
       transition: border-color 250ms, box-shadow 250ms;
+      /* prevents zoom-in on iOS (font-size must be >= 16px or we handle it another way) */
+      font-size: max(16px, clamp(13px, 2vw, 16px));
     }
 
     .email-input::placeholder {
@@ -158,20 +167,20 @@
     }
 
     .email-input:focus {
-      border-color: color-mix(in oklab, var(--gold) 50%, transparent);
-      box-shadow: 0 0 0 3px rgba(201,168,76,0.1);
+      border-color: rgba(201,168,76,0.55);
+      box-shadow: 0 0 0 3px rgba(201,168,76,0.11);
     }
 
     .submit-btn {
       font-family: var(--sans);
-      font-size: 13px;
+      font-size: clamp(13px, 1.8vw, 15px);
       font-weight: 500;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.03em;
       background: var(--gold);
       color: #0D0D0D;
       border: none;
       border-radius: var(--r-md);
-      padding: 13px 22px;
+      padding: clamp(14px, 2vh, 17px) clamp(22px, 3vw, 30px);
       cursor: pointer;
       white-space: nowrap;
       transition: background 200ms, opacity 200ms, transform 150ms;
@@ -187,23 +196,23 @@
     }
 
     .submit-btn:disabled {
-      opacity: 0.6;
+      opacity: 0.55;
       cursor: default;
     }
 
     .form-hint {
       font-family: var(--sans);
-      font-size: 11px;
+      font-size: 12px;
       color: var(--text-muted);
-      margin-top: 10px;
+      margin-top: 13px;
       letter-spacing: 0.02em;
     }
 
     .form-error {
       font-family: var(--sans);
       font-size: 12px;
-      color: rgba(220, 80, 60, 0.85);
-      margin-top: 8px;
+      color: rgba(220, 80, 60, 0.9);
+      margin-top: 9px;
       display: none;
     }
 
@@ -211,7 +220,7 @@
       display: block;
     }
 
-    /* ── Shake animation for invalid input ── */
+    /* ── Shake animation ── */
     @keyframes inputShake {
       0%,  100% { transform: translateX(0);   }
       20%        { transform: translateX(-8px); }
@@ -221,7 +230,7 @@
     }
 
     .shake {
-      animation: inputShake 400ms ease;
+      animation: inputShake 420ms ease;
     }
 
     /* ── Success state ── */
@@ -229,7 +238,7 @@
       display: none;
       flex-direction: column;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
 
     .success-state.show {
@@ -237,47 +246,68 @@
     }
 
     .success-check {
-      font-size: 24px;
+      font-size: 28px;
       color: var(--gold);
     }
 
     .success-text {
       font-family: var(--serif);
       font-style: italic;
-      font-size: 18px;
+      font-size: clamp(18px, 3vw, 22px);
       color: var(--gold);
       line-height: 1.4;
     }
 
-    /* ── Mobile: stack input + button ── */
-    @media (max-width: 420px) {
+    /* ── Mobile: stack input + button under ~500px ── */
+    @media (max-width: 500px) {
       .email-row {
         flex-direction: column;
+        gap: 10px;
       }
 
       .submit-btn {
-        padding: 13px 16px;
+        width: 100%;
+        padding: 16px 20px;
+        font-size: 15px;
+      }
+
+      .email-input {
+        width: 100%;
+        padding: 16px 18px;
       }
     }
 
-    /* ── Footer disclaimer ── */
-    .footer {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 16px 24px 20px;
-      text-align: center;
-      z-index: 2;
+    /* ── Very small screens (iPhone SE, old Androids) ── */
+    @media (max-height: 600px) {
+      .brand {
+        font-size: 26px;
+        margin-bottom: 10px;
+      }
+
+      .dot {
+        width: 6px;
+        height: 6px;
+        margin-bottom: 10px;
+      }
+
+      .tagline {
+        font-size: 9px;
+      }
+
+      .context-line {
+        margin-bottom: 18px;
+      }
+
+      .page {
+        padding: 24px 20px;
+      }
     }
 
-    .footer p {
-      font-family: var(--sans);
-      font-size: 11px;
-      line-height: 1.6;
-      color: var(--text-muted);
-      max-width: 600px;
-      margin: 0 auto;
+    /* ── Large screens — give the form a touch more room ── */
+    @media (min-width: 900px) {
+      .form-wrap {
+        max-width: 520px;
+      }
     }
   </style>
 </head>
@@ -286,7 +316,7 @@
   <main class="page">
 
     <!-- Brand -->
-    <div class="anim anim-1">
+    <div class="brand-block anim anim-1">
       <div class="brand">RolliDex</div>
       <div class="dot"></div>
       <div class="tagline">The Independent Watch Reference Decoder</div>
@@ -306,6 +336,7 @@
             placeholder="your@email.com"
             autocomplete="email"
             spellcheck="false"
+            inputmode="email"
           >
           <button class="submit-btn" id="submitBtn" type="button">Notify me</button>
         </div>
@@ -321,17 +352,12 @@
 
   </main>
 
-  <!-- Footer disclaimer -->
-  <footer class="footer">
-    <p>RolliDex is an independent enthusiast resource and is not affiliated with, endorsed by, or connected to Rolex SA or any of its subsidiaries. All reference information is sourced from publicly available enthusiast communities and is provided for educational purposes only.</p>
-  </footer>
-
   <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzuUazCdFPzCO2oBmnnH6W6SEFJnHz77QxGHFlxvRTwa5MUE4AjGriB-cvIvgXhn-U/exec";
 
-    const emailInput  = document.getElementById("emailInput");
-    const submitBtn   = document.getElementById("submitBtn");
-    const formError   = document.getElementById("formError");
+    const emailInput    = document.getElementById("emailInput");
+    const submitBtn     = document.getElementById("submitBtn");
+    const formError     = document.getElementById("formError");
     const formContainer = document.getElementById("formContainer");
     const successState  = document.getElementById("successState");
 
@@ -364,7 +390,7 @@
 
       if (!validateEmail(val)) {
         emailInput.classList.remove("shake");
-        void emailInput.offsetWidth; // reflow to re-trigger animation
+        void emailInput.offsetWidth;
         emailInput.classList.add("shake");
         emailInput.addEventListener("animationend", () => emailInput.classList.remove("shake"), { once: true });
         showError("Please enter a valid email address.");
@@ -384,9 +410,7 @@
           timestamp: new Date().toISOString()
         })
       })
-      .then(() => {
-        showSuccess();
-      })
+      .then(() => showSuccess())
       .catch(() => {
         submitBtn.disabled = false;
         submitBtn.textContent = "Notify me";
@@ -394,7 +418,6 @@
       });
     });
 
-    // Allow Enter key to submit
     emailInput.addEventListener("keydown", e => {
       if (e.key === "Enter") submitBtn.click();
     });
