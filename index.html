@@ -3,432 +3,367 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RolliDex — Coming Soon</title>
-  <meta name="description" content="RolliDex — The independent Rolex reference decoder. Every digit tells you something. Coming soon.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=DM+Mono:wght@300;400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <title>RolliDex — Watch Encyclopedia &amp; Reference Decoder</title>
+  <meta name="description" content="RolliDex is a free watch encyclopedia and reference decoder. Every digit tells you something. Coming soon.">
+  <link rel="canonical" href="https://rollidex.com/">
+  <meta name="theme-color" content="#22211F">
+  <meta name="color-scheme" content="light">
+
+  <link rel="icon" href="/brand/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/brand/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="/brand/favicon-16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/favicon.ico" sizes="16x16 32x32">
+  <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png" sizes="180x180">
+  <link rel="manifest" href="/site.webmanifest">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="RolliDex">
+  <meta property="og:title" content="RolliDex — Watch Encyclopedia &amp; Reference Decoder">
+  <meta property="og:description" content="RolliDex is a free watch encyclopedia and reference decoder. Every digit tells you something. Coming soon.">
+  <meta property="og:url" content="https://rollidex.com/">
+  <meta property="og:image" content="https://rollidex.com/brand/og-image.png">
+  <meta property="og:image:secure_url" content="https://rollidex.com/brand/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="RolliDex logo: Encyclopedia &amp; Decoder">
+  <meta property="og:image" content="https://rollidex.com/brand/og-image-square.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="1200">
+  <meta property="og:image:alt" content="RolliDex logo: Encyclopedia &amp; Decoder">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="RolliDex — Watch Encyclopedia &amp; Reference Decoder">
+  <meta name="twitter:description" content="RolliDex is a free watch encyclopedia and reference decoder. Every digit tells you something. Coming soon.">
+  <meta name="twitter:image" content="https://rollidex.com/brand/og-image.png">
+  <meta name="twitter:image:alt" content="RolliDex logo: Encyclopedia &amp; Decoder">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "name": "RolliDex",
+        "url": "https://rollidex.com/",
+        "logo": "https://rollidex.com/brand/icon-512.png"
+      },
+      {
+        "@type": "WebSite",
+        "name": "RolliDex",
+        "url": "https://rollidex.com/",
+        "logo": "https://rollidex.com/brand/icon-512.png"
+      }
+    ]
+  }
+  </script>
+
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after { box-sizing: border-box; }
 
     :root {
-      --gold:       #C9A84C;
-      --gold-glow:  rgba(201, 168, 76, 0.35);
-      --bg:         #0D0D0D;
-      --surface:    #141414;
-      --text:       #F0EDE8;
-      --text-muted: #6C6862;
-      --hairline:   rgba(255,255,255,0.09);
-      --serif:      'Playfair Display', Georgia, serif;
-      --mono:       'DM Mono', 'Courier New', monospace;
-      --sans:       'DM Sans', system-ui, sans-serif;
-      --r-md:       14px;
+      color-scheme: light;
+      --paper: #F6F4EF;
+      --ink: #22211F;
+      --ink-soft: #3A3632;
+      --placeholder: #4A463F;
+      --danger: #7A1F1F;
+      --field: #FFFFFF;
+      --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     }
 
-    html {
-      height: 100%;
-    }
+    html { background: var(--paper); }
 
     body {
-      min-height: 100%;
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--sans);
-      /* allow scroll on tiny screens, prevent sideways scroll */
-      overflow-x: hidden;
-      overflow-y: auto;
-    }
-
-    /* ── Background gradient veil ── */
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 70% 55% at 100% 0%,   rgba(201,168,76,0.07)  0%, transparent 65%),
-        radial-gradient(ellipse 55% 45% at 0%   100%, rgba(30,80,160,0.08)   0%, transparent 60%);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* ── Main layout — true vertical center ── */
-    .page {
-      position: relative;
-      z-index: 1;
+      margin: 0;
+      min-height: 100vh;
       min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    .page {
+      flex: 1 0 auto;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      text-align: center;
-      /* generous horizontal padding, extra bottom padding to clear fixed footer */
-      padding: clamp(40px, 8vh, 80px) clamp(20px, 6vw, 48px) clamp(80px, 12vh, 110px);
-    }
-
-    /* ── Fade-in animations ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(14px); }
-      to   { opacity: 1; transform: translateY(0);    }
-    }
-
-    .anim {
-      opacity: 0;
-      animation: fadeUp 650ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
-    }
-    .anim-1 { animation-delay:   0ms; }
-    .anim-2 { animation-delay: 160ms; }
-    .anim-3 { animation-delay: 320ms; }
-    .anim-4 { animation-delay: 520ms; }
-
-    /* ── Brand block ── */
-    .brand-block {
-      margin-bottom: clamp(24px, 4vh, 40px);
-    }
-
-    .brand {
-      font-family: var(--serif);
-      font-size: clamp(32px, 5vw, 48px);
-      font-weight: 400;
-      letter-spacing: 0.04em;
-      color: var(--gold);
-      margin-bottom: 14px;
-      line-height: 1;
-    }
-
-    /* ── Gold dot ── */
-    @keyframes dotPulse {
-      0%, 100% { box-shadow: 0 0 0   0   var(--gold-glow); opacity: 1;    }
-      50%       { box-shadow: 0 0 12px 5px var(--gold-glow); opacity: 0.7; }
-    }
-
-    .dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--gold);
-      display: inline-block;
-      margin: 0 auto 14px;
-      animation: dotPulse 3s ease-in-out infinite;
-    }
-
-    /* ── Tagline ── */
-    .tagline {
-      font-family: var(--mono);
-      font-size: clamp(9px, 1.4vw, 11px);
-      font-weight: 300;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-    }
-
-    /* ── Context line ── */
-    .context-line {
-      font-family: var(--mono);
-      font-size: clamp(12px, 1.8vw, 14px);
-      font-weight: 300;
-      letter-spacing: 0.14em;
-      color: var(--text-muted);
-      margin-bottom: clamp(24px, 4vh, 36px);
-    }
-
-    /* ── Email form ── */
-    .form-wrap {
       width: 100%;
-      max-width: 480px;
+      padding: 2.5rem 1.25rem 2rem;
+      text-align: center;
+    }
+
+    h1 {
+      width: min(42rem, 100%);
+      margin: 0 0 1.75rem;
+      font-family: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, serif;
+      font-size: clamp(2rem, 8vw, 3rem);
+      font-weight: 500;
+      line-height: 1.1;
+      letter-spacing: 0.01em;
+      color: var(--ink);
+    }
+
+    .logo {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .context {
+      width: min(36rem, 100%);
+      margin: 0 0 1.75rem;
+      font-size: 1.125rem;
+      line-height: 1.5;
+      text-wrap: balance;
+    }
+
+    .form-wrap {
+      width: min(32rem, 100%);
+      text-align: left;
+    }
+
+    .email-label {
+      display: block;
+      margin: 0 0 0.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      line-height: 1.5;
     }
 
     .email-row {
       display: flex;
-      gap: 10px;
+      gap: 0.625rem;
       align-items: stretch;
     }
 
     .email-input {
-      flex: 1;
+      flex: 1 1 auto;
+      width: 100%;
       min-width: 0;
-      font-family: var(--mono);
-      font-size: clamp(13px, 2vw, 16px);
-      font-weight: 300;
-      letter-spacing: 0.04em;
-      background: var(--surface);
-      border: 1px solid var(--hairline);
-      border-radius: var(--r-md);
-      color: var(--text);
-      padding: clamp(14px, 2vh, 17px) 20px;
-      outline: none;
-      transition: border-color 250ms, box-shadow 250ms;
-      /* prevents zoom-in on iOS (font-size must be >= 16px or we handle it another way) */
-      font-size: max(16px, clamp(13px, 2vw, 16px));
+      min-height: 3rem;
+      padding: 0.75rem 0.875rem;
+      font: inherit;
+      color: var(--ink);
+      background: var(--field);
+      border: 2px solid var(--ink);
+      border-radius: 0.625rem;
     }
 
     .email-input::placeholder {
-      color: var(--text-muted);
-      font-weight: 300;
+      color: var(--placeholder);
+      opacity: 1;
     }
 
-    .email-input:focus {
-      border-color: rgba(201,168,76,0.55);
-      box-shadow: 0 0 0 3px rgba(201,168,76,0.11);
+    .email-input:-webkit-autofill {
+      -webkit-text-fill-color: var(--ink);
+      box-shadow: 0 0 0 1000px var(--field) inset;
     }
 
     .submit-btn {
-      font-family: var(--sans);
-      font-size: clamp(13px, 1.8vw, 15px);
-      font-weight: 500;
-      letter-spacing: 0.03em;
-      background: var(--gold);
-      color: #0D0D0D;
-      border: none;
-      border-radius: var(--r-md);
-      padding: clamp(14px, 2vh, 17px) clamp(22px, 3vw, 30px);
+      flex: 0 0 auto;
+      min-height: 3rem;
+      min-width: 7.5rem;
+      padding: 0.75rem 1.25rem;
+      font: inherit;
+      font-weight: 600;
+      color: var(--paper);
+      background: var(--ink);
+      border: 2px solid var(--ink);
+      border-radius: 0.625rem;
       cursor: pointer;
-      white-space: nowrap;
-      transition: background 200ms, opacity 200ms, transform 150ms;
-      flex-shrink: 0;
     }
 
     .submit-btn:hover:not(:disabled) {
-      background: #d9b85c;
-    }
-
-    .submit-btn:active:not(:disabled) {
-      transform: scale(0.97);
+      background: #3A3834;
+      border-color: #3A3834;
     }
 
     .submit-btn:disabled {
-      opacity: 0.55;
+      background: var(--placeholder);
+      border-color: var(--placeholder);
+      color: var(--paper);
       cursor: default;
     }
 
+    :focus-visible {
+      outline: 3px solid var(--ink);
+      outline-offset: 3px;
+    }
+
     .form-hint {
-      font-family: var(--sans);
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-top: 13px;
-      letter-spacing: 0.02em;
+      margin: 0.75rem 0 0;
+      font-size: 1rem;
+      line-height: 1.5;
+      color: var(--ink-soft);
     }
 
     .form-error {
-      font-family: var(--sans);
-      font-size: 12px;
-      color: rgba(220, 80, 60, 0.9);
-      margin-top: 9px;
-      display: none;
+      margin: 0.5rem 0 0;
+      font-size: 1rem;
+      line-height: 1.5;
+      color: var(--danger);
     }
 
-    .form-error.show {
-      display: block;
-    }
+    .form-error:empty { display: none; }
 
-    /* ── Shake animation ── */
-    @keyframes inputShake {
-      0%,  100% { transform: translateX(0);   }
-      20%        { transform: translateX(-8px); }
-      40%        { transform: translateX(8px);  }
-      60%        { transform: translateX(-6px); }
-      80%        { transform: translateX(6px);  }
-    }
-
-    .shake {
-      animation: inputShake 420ms ease;
-    }
-
-    /* ── Success state ── */
     .success-state {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .success-state.show {
-      display: flex;
-    }
-
-    .success-check {
-      font-size: 28px;
-      color: var(--gold);
-    }
-
-    .success-text {
-      font-family: var(--serif);
-      font-style: italic;
-      font-size: clamp(18px, 3vw, 22px);
-      color: var(--gold);
-      line-height: 1.4;
-    }
-
-    /* ── Mobile: stack input + button under ~500px ── */
-    @media (max-width: 500px) {
-      .email-row {
-        flex-direction: column;
-        gap: 10px;
-      }
-
-      .submit-btn {
-        width: 100%;
-        padding: 16px 20px;
-        font-size: 15px;
-      }
-
-      .email-input {
-        width: 100%;
-        padding: 16px 18px;
-      }
-    }
-
-    /* ── Very small screens (iPhone SE, old Androids) ── */
-    @media (max-height: 600px) {
-      .brand {
-        font-size: 26px;
-        margin-bottom: 10px;
-      }
-
-      .dot {
-        width: 6px;
-        height: 6px;
-        margin-bottom: 10px;
-      }
-
-      .tagline {
-        font-size: 9px;
-      }
-
-      .context-line {
-        margin-bottom: 18px;
-      }
-
-      .page {
-        padding: 24px 20px;
-      }
-    }
-
-    /* ── Large screens — give the form a touch more room ── */
-    @media (min-width: 900px) {
-      .form-wrap {
-        max-width: 520px;
-      }
-    }
-
-    /* ── Footer disclaimer ── */
-    .footer {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 14px 24px 18px;
+      margin: 0;
       text-align: center;
-      z-index: 2;
+      font-size: 1.125rem;
+      line-height: 1.5;
+      color: var(--ink);
+    }
+
+    .footer {
+      flex: 0 0 auto;
+      padding: 1rem 1.25rem 1.25rem;
+      text-align: center;
     }
 
     .footer p {
-      font-family: var(--sans);
-      font-size: 11px;
-      line-height: 1.6;
-      color: var(--text-muted);
-      max-width: 600px;
+      max-width: 40rem;
       margin: 0 auto;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      color: var(--ink-soft);
+      text-wrap: balance;
+    }
+
+    @keyframes inputShake {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-6px); }
+      40% { transform: translateX(6px); }
+      60% { transform: translateX(-4px); }
+      80% { transform: translateX(4px); }
+    }
+
+    .shake { animation: inputShake 420ms ease; }
+
+    @media (max-width: 36rem) {
+      .email-row { flex-direction: column; }
+      .submit-btn { width: 100%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .shake { animation: none; }
+    }
+
+    @media (forced-colors: active) {
+      .email-input,
+      .submit-btn {
+        border: 2px solid CanvasText;
+      }
     }
   </style>
 </head>
 <body>
 
   <main class="page">
+    <h1><img class="logo" src="/brand/lockup-horizontal.svg" width="1870" height="512" alt="RolliDex"></h1>
 
-    <!-- Brand -->
-    <div class="brand-block anim anim-1">
-      <div class="brand">RolliDex</div>
-      <div class="dot"></div>
-      <div class="tagline">The Independent Watch Reference Decoder</div>
-    </div>
+    <p class="context">Coming soon. Be the first to know when we launch.</p>
 
-    <!-- Context line -->
-    <p class="context-line anim anim-3">Be the first to know when we launch.</p>
-
-    <!-- Email capture -->
-    <div class="form-wrap anim anim-4">
+    <form id="notifyForm" class="form-wrap" novalidate>
       <div id="formContainer">
+        <label class="email-label" for="emailInput">Email address</label>
         <div class="email-row">
           <input
             class="email-input"
             id="emailInput"
+            name="email"
             type="email"
-            placeholder="your@email.com"
+            placeholder="you@example.com"
             autocomplete="email"
+            autocapitalize="none"
             spellcheck="false"
             inputmode="email"
+            aria-describedby="formHint"
+            aria-invalid="false"
+            required
           >
-          <button class="submit-btn" id="submitBtn" type="button">Notify me</button>
+          <button class="submit-btn" id="submitBtn" type="submit">Notify me</button>
         </div>
-        <p class="form-hint">No spam. Just a heads up when we launch.</p>
-        <p class="form-error" id="formError"></p>
+        <p class="form-hint" id="formHint">No spam. Just a heads up when we launch.</p>
+        <p class="form-error" id="formError" role="alert"></p>
       </div>
 
-      <div class="success-state" id="successState">
-        <div class="success-check">✓</div>
-        <div class="success-text">You're on the list. We'll be in touch.</div>
-      </div>
-    </div>
+      <p class="success-state" id="successState" role="status" tabindex="-1" hidden>You're on the list. We'll be in touch.</p>
 
+      <noscript>
+        <p class="form-hint">JavaScript is turned off, so this form cannot send your email address.</p>
+      </noscript>
+    </form>
   </main>
 
-  <!-- Footer disclaimer -->
   <footer class="footer">
-    <p>RolliDex is an independent enthusiast resource and is not affiliated with, endorsed by, or connected to Rolex SA or any of its subsidiaries. All reference information is sourced from publicly available enthusiast communities and is provided for educational purposes only.</p>
+    <p>RolliDex is an independent educational reference tool and is not affiliated with, endorsed by, or sponsored by Rolex SA. Rolex is a registered trademark of Rolex SA.</p>
   </footer>
-
-  <!-- Analytics config -->
-  <script>
-    window.SITE_ID    = 'rollidex';
-    window.SITE_NAME  = 'RolliDex';
-    window.SITE_EMOJI = '⌚';
-    window.SITE_COLOR = 0xC9A84C;
-    window.PROXY_URL  = 'https://rollidex-proxy.bball9001.workers.dev/';
-  </script>
-  <script src="analytics.js" defer></script>
 
   <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzuUazCdFPzCO2oBmnnH6W6SEFJnHz77QxGHFlxvRTwa5MUE4AjGriB-cvIvgXhn-U/exec";
 
-    const emailInput    = document.getElementById("emailInput");
-    const submitBtn     = document.getElementById("submitBtn");
-    const formError     = document.getElementById("formError");
+    const form = document.getElementById("notifyForm");
+    const emailInput = document.getElementById("emailInput");
+    const submitBtn = document.getElementById("submitBtn");
+    const formError = document.getElementById("formError");
     const formContainer = document.getElementById("formContainer");
-    const successState  = document.getElementById("successState");
+    const successState = document.getElementById("successState");
 
     function showError(msg) {
       formError.textContent = msg;
-      formError.classList.add("show");
+      emailInput.setAttribute("aria-invalid", "true");
+      emailInput.setAttribute("aria-describedby", "formHint formError");
     }
 
     function clearError() {
       formError.textContent = "";
-      formError.classList.remove("show");
+      emailInput.setAttribute("aria-invalid", "false");
+      emailInput.setAttribute("aria-describedby", "formHint");
     }
 
     function showSuccess() {
-      formContainer.style.transition = "opacity 350ms ease";
-      formContainer.style.opacity = "0";
-      setTimeout(() => {
-        formContainer.style.display = "none";
-        successState.classList.add("show");
-      }, 350);
+      formContainer.hidden = true;
+      successState.hidden = false;
+      successState.focus();
     }
 
     function validateEmail(val) {
       return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val.trim());
     }
 
-    submitBtn.addEventListener("click", () => {
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
       const val = emailInput.value.trim();
       clearError();
+
+      if (!val) {
+        emailInput.classList.remove("shake");
+        void emailInput.offsetWidth;
+        emailInput.classList.add("shake");
+        emailInput.addEventListener("animationend", () => {
+          emailInput.classList.remove("shake");
+        }, { once: true });
+        showError("Please enter your email address.");
+        emailInput.focus();
+        return;
+      }
 
       if (!validateEmail(val)) {
         emailInput.classList.remove("shake");
         void emailInput.offsetWidth;
         emailInput.classList.add("shake");
-        emailInput.addEventListener("animationend", () => emailInput.classList.remove("shake"), { once: true });
+        emailInput.addEventListener("animationend", () => {
+          emailInput.classList.remove("shake");
+        }, { once: true });
         showError("Please enter a valid email address.");
+        emailInput.focus();
         return;
       }
 
@@ -451,10 +386,6 @@
         submitBtn.textContent = "Notify me";
         showError("Something went wrong — try again in a moment.");
       });
-    });
-
-    emailInput.addEventListener("keydown", e => {
-      if (e.key === "Enter") submitBtn.click();
     });
   </script>
 
