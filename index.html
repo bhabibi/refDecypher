@@ -60,6 +60,51 @@
   </script>
 
   <style>
+    @font-face {
+      font-family: "Cormorant Garamond";
+      font-style: normal;
+      font-weight: 600;
+      font-display: swap;
+      src: url("/fonts/cormorant-garamond-latin-600-normal.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
+    @font-face {
+      font-family: "Cormorant Garamond";
+      font-style: normal;
+      font-weight: 700;
+      font-display: swap;
+      src: url("/fonts/cormorant-garamond-latin-700-normal.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
+    @font-face {
+      font-family: "Hanken Grotesk";
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: url("/fonts/hanken-grotesk-latin-400-normal.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
+    @font-face {
+      font-family: "Hanken Grotesk";
+      font-style: normal;
+      font-weight: 500;
+      font-display: swap;
+      src: url("/fonts/hanken-grotesk-latin-500-normal.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
+    @font-face {
+      font-family: "Hanken Grotesk";
+      font-style: normal;
+      font-weight: 600;
+      font-display: swap;
+      src: url("/fonts/hanken-grotesk-latin-600-normal.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
     *, *::before, *::after { box-sizing: border-box; }
 
     :root {
@@ -70,7 +115,8 @@
       --placeholder: #4A463F;
       --danger: #7A1F1F;
       --field: #FFFFFF;
-      --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --serif: "Cormorant Garamond", Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, serif;
+      --sans: "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     }
 
     html { background: var(--paper); }
@@ -88,23 +134,43 @@
       line-height: 1.5;
     }
 
+    .skip-link {
+      position: absolute;
+      left: 1.25rem;
+      top: 0.5rem;
+      z-index: 100;
+      padding: 0.625rem 0.875rem;
+      min-height: 2.75rem;
+      background: var(--field);
+      color: var(--ink);
+      border: 2px solid var(--ink);
+      border-radius: 0.625rem;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      transform: translateY(-200%);
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
     .page {
       flex: 1 0 auto;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
       width: 100%;
-      padding: 2.5rem 1.25rem 2rem;
+      padding: 3rem 1.25rem 2.5rem;
       text-align: center;
     }
 
     h1 {
-      width: min(42rem, 100%);
-      margin: 0 0 1.75rem;
-      font-family: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, serif;
+      width: min(32rem, 100%);
+      margin: 0 0 2.25rem;
+      font-family: var(--serif);
       font-size: clamp(2rem, 8vw, 3rem);
-      font-weight: 500;
+      font-weight: 600;
       line-height: 1.1;
       letter-spacing: 0.01em;
       color: var(--ink);
@@ -116,16 +182,44 @@
       height: auto;
     }
 
-    .context {
+    .about {
       width: min(36rem, 100%);
-      margin: 0 0 1.75rem;
+      margin: 0 0 2.25rem;
+      text-align: left;
+    }
+
+    .about h2 {
+      margin: 0 0 0.75rem;
+      font-family: var(--serif);
+      font-size: clamp(1.75rem, 5vw, 2.25rem);
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: 0.01em;
+      color: var(--ink);
+    }
+
+    .lede {
+      margin: 0 0 1.25rem;
       font-size: 1.125rem;
+      font-weight: 500;
       line-height: 1.5;
-      text-wrap: balance;
+    }
+
+    .about p {
+      margin: 0 0 1rem;
+      font-size: 1.0625rem;
+      line-height: 1.65;
+      color: var(--ink);
+    }
+
+    .about p:last-child { margin-bottom: 0; }
+
+    .about p strong {
+      font-weight: 600;
     }
 
     .form-wrap {
-      width: min(32rem, 100%);
+      width: min(36rem, 100%);
       text-align: left;
     }
 
@@ -253,11 +347,13 @@
 
     @media (prefers-reduced-motion: reduce) {
       .shake { animation: none; }
+      .skip-link { transition: none; }
     }
 
     @media (forced-colors: active) {
       .email-input,
-      .submit-btn {
+      .submit-btn,
+      .skip-link {
         border: 2px solid CanvasText;
       }
     }
@@ -265,10 +361,19 @@
 </head>
 <body>
 
-  <main class="page">
+  <a class="skip-link" href="#notifyForm">Skip to email signup</a>
+
+  <main class="page" id="main">
     <h1><img class="logo" src="/brand/lockup-horizontal.svg" width="1870" height="512" alt="RolliDex"></h1>
 
-    <p class="context">Coming soon. Be the first to know when we launch.</p>
+    <article class="about" aria-labelledby="aboutHeading">
+      <h2 id="aboutHeading">About us</h2>
+      <p class="lede">RolliDex is a free watch reference built with collectors.</p>
+      <p><strong>Why we built it.</strong> Checking whether a watch's dial, bezel and bracelet belong together should take two minutes, but it often doesn't. Many have spent a decade in the watch trade asking it. RolliDex answers it for free.</p>
+      <p><strong>Built by the community.</strong> Watch knowledge is scattered across collectors, sellers and enthusiasts, often behind paywalls and sometimes wrong. RolliDex brings it together in one open place. It's for learning, not buying, selling or appraisals, so have a professional inspect any watch before a big purchase.</p>
+      <p><strong>How it works.</strong> Enter the reference number from the case, box or listing. The decoder reads it, and the catalog shows every documented configuration. Each fact is labeled Catalog, Decoder, Both, or Not documented yet, so you always know where it came from. The catalog covers 20 families, 452 references and about 4,000 configurations, and it grows with your help.</p>
+      <p><strong>Contribute.</strong> Soon you'll be able to suggest corrections and additions from any page; join the list below to hear when it opens.</p>
+    </article>
 
     <form id="notifyForm" class="form-wrap" novalidate>
       <div id="formContainer">
