@@ -1,6 +1,18 @@
+# Secrets and local environment files
 .env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+credentials.json
+secrets.json
+service-account*.json
+
+# Local and editor files
 .DS_Store
 node_modules/
 .html-cache/
 .expansion-meta.json
 *.local.json
+.claude/
