@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(mkdir -p /Users/bryanhabibi/Downloads/refDecypher/.claude)",
-      "mcp__Claude_Preview__preview_start",
-      "Bash(node setup-db.js)"
-    ]
-  }
-}
